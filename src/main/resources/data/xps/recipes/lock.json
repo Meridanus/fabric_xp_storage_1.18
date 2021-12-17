@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " B ",
+        "BIB",
+        "I/I"
+    ],
+    "key": {
+        "B": {
+            "item": "xps:xp_dust"
+        },
+        "/": {
+            "item": "xps:xp_rod"
+        },
+        "I": {
+            "item": "xps:soul_copper_ingot"
+        }
+    },
+    "result": {
+        "item": "xps:lock",
+        "count": 1
+    }
+}

@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=north,charged=false": { "model": "xps:block/block_xp_obelisk" },
+    "facing=north,charged=true": { "model": "xps:block/block_xp_obelisk_with_xp"},
+    "facing=east,charged=false": { "model": "xps:block/block_xp_obelisk", "y":  90},
+    "facing=east,charged=true": { "model": "xps:block/block_xp_obelisk_with_xp", "y":  90},
+    "facing=south,charged=false": { "model": "xps:block/block_xp_obelisk", "y":  180},
+    "facing=south,charged=true": { "model": "xps:block/block_xp_obelisk_with_xp", "y":  180},
+    "facing=west,charged=false": { "model": "xps:block/block_xp_obelisk", "y":  270},
+    "facing=west,charged=true": { "model": "xps:block/block_xp_obelisk_with_xp", "y":  270}
+  }
+}

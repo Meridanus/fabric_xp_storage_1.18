@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "xps",
+  "version": "${version}",
+
+  "name": "Xp Obelisk",
+  "description": "Store your experience points.",
+  "authors": [
+    "Meridanus"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/xp-obelisk",
+    "sources": ""
+  },
+
+  "license": "MIT",
+  "icon": "assets/xps/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.notker.xp_storage.XpStorage"
+    ],
+    "client": [
+      "com.notker.xp_storage.XpStorageClient"
+    ]
+  },
+  "mixins": [],
+
+  "depends": {
+    "fabricloader": ">=0.12.8",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "  #",
+        " / ",
+        "N  "
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:experience_bottle"
+        },
+        "/": {
+            "item": "minecraft:blaze_rod"
+        },
+        "N": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "xps:xp_rod",
+        "count": 1
+    }
+}

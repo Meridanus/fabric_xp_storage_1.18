@@ -1,0 +1,10 @@
+{
+    "type": "minecraft:smelting",
+    "ingredient": {
+        "item": "xps:soul_copper_blend"
+    },
+    "result": "xps:soul_copper_ingot",
+    "experience": 0.5,
+    "cookingtime": 400,
+    "group": "soul_copper"
+}

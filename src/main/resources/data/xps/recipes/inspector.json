@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " x ",
+        "xLx",
+        "/x "
+    ],
+    "key": {
+        "x": {
+            "item": "xps:soul_copper_ingot"
+        },
+        "L": {
+            "item": "minecraft:light_blue_stained_glass_pane"
+        },
+        "/": {
+            "item": "xps:xp_rod"
+        }
+    },
+    "result": {
+        "item": "xps:inspector",
+        "count": 1
+    }
+}
