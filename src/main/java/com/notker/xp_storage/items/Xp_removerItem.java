@@ -73,7 +73,7 @@ public static String tagId = "Mode";
             nbt = new NbtCompound();
         }
 
-        if (!nbt.contains(tagId)) {
+        if (nbt != null && !nbt.contains(tagId)) {
             nbt.putBoolean(tagId, false);
         }
 

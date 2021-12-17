@@ -5,7 +5,6 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
@@ -16,10 +15,9 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3f;
 
-public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBlockEntity> {
+import java.util.Objects;
 
-    public StorageBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
-    }
+public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBlockEntity> {
 
     private static final ItemStack displayItem = new ItemStack(Items.ENCHANTED_BOOK, 1);
 
@@ -52,10 +50,10 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
 
         try {
             //if (entity.containerExperience != 0) {
-            if (entity.getCachedState().get(StorageBlock.CHARGED)) {
+            if (entity != null && entity.getCachedState().get(StorageBlock.CHARGED)) {
                 matrices.push();
 
-                long time = entity.getWorld().getTime();
+                long time = Objects.requireNonNull(entity.getWorld()).getTime();
 
                 double offset = Math.sin((time + tickDelta) / 20.0) / 8.0;
                 matrices.translate(0.5, 0.37 + offset, 0.5);

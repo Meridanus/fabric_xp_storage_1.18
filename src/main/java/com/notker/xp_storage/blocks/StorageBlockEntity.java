@@ -1,7 +1,6 @@
 package com.notker.xp_storage.blocks;
 
 import com.notker.xp_storage.regestry.ModBlocks;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
