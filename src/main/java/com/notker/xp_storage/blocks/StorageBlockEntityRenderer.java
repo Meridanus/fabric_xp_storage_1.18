@@ -35,7 +35,7 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
         //System.out.println(entity);
         if(entity != null && entity.getPos() != null && rtr != null && rtr.getType() == HitResult.Type.BLOCK && ((BlockHitResult)rtr).getBlockPos() != null && ((BlockHitResult)rtr).getBlockPos().equals(entity.getPos()))
         {
-            TranslatableText levelsString = XpFunctions.xp_to_text(entity);
+            TranslatableText levelsString = XpFunctions.xp_to_text(entity.getContainerExperience());
             float opacity = MinecraftClient.getInstance().options.getTextBackgroundOpacity(0.25f);
             int j = (int)(opacity * 255.0F) << 24;
             float halfWidth = -mc.textRenderer.getWidth(levelsString) >> 1;
@@ -45,10 +45,9 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
             matrices.translate(0.5D, 1.2D, 0.5D);
             matrices.multiply(MinecraftClient.getInstance().getEntityRenderDispatcher().camera.getRotation());
             matrices.scale(-0.0125F, -0.0125F, 0.0125F);
-            //positionMatrix = matrices.peek().getModel();
             positionMatrix = matrices.peek().getPositionMatrix();
-            mc.textRenderer.draw(levelsString, halfWidth, 0, 553648127, false, positionMatrix, vertexConsumers, true, j, light); //renderString
-            mc.textRenderer.draw(levelsString, halfWidth, 0, -1, false, positionMatrix, vertexConsumers, false, 0, light);
+            mc.textRenderer.draw(levelsString, halfWidth, 0, 553648127, false, positionMatrix, vertexConsumers, true, j, light); //Shadow
+            mc.textRenderer.draw(levelsString, halfWidth, 0, -1, false, positionMatrix, vertexConsumers, false, 0, light); //String
             matrices.pop();
         }
 

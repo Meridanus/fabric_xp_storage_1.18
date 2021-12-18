@@ -61,10 +61,18 @@ public class StorageBlockEntity extends BlockEntity {
         return stackTag;
     }
 
+    public int getContainerExperience() {
+        return containerExperience;
+    }
+
     @Nullable
     @Override
     public Packet<ClientPlayPacketListener> toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this, BlockEntity::createNbt);
-        //return super.toUpdatePacket();
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt() {
+        return this.createNbt();
     }
 }
