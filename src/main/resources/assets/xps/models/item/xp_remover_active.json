@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "xps:items/xp_remover_activated"
+  }
+}

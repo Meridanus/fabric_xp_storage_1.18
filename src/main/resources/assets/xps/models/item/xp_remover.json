@@ -1,6 +1,18 @@
 {
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "xps:items/xp_remover"
-  }
+  "overrides": [
+    {
+      "predicate": {
+        "active": 0.0
+      },
+      "model": "xps:item/xp_remover_deactivate"
+    },
+    {
+      "predicate": {
+        "active": 1.0
+      },
+      "model": "xps:item/xp_remover_active"
+    }
+  ]
+
+
 }
