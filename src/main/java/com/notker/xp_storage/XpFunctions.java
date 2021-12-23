@@ -1,7 +1,8 @@
-package com.notker.xp_storage.blocks;
+package com.notker.xp_storage;
 
 import com.google.common.math.BigIntegerMath;
 import com.google.common.math.LongMath;
+import com.notker.xp_storage.blocks.StorageBlockEntity;
 import net.minecraft.text.TranslatableText;
 
 import java.math.BigInteger;
