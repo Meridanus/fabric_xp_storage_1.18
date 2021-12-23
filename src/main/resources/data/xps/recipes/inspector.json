@@ -1,16 +1,16 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        " x ",
-        "xLx",
-        "/x "
+        " i ",
+        "iGi",
+        "/i "
     ],
     "key": {
-        "x": {
+        "i": {
             "item": "xps:soul_copper_ingot"
         },
-        "L": {
-            "item": "minecraft:light_blue_stained_glass_pane"
+        "G": {
+            "tag": "minecraft:glass_panes"
         },
         "/": {
             "item": "xps:xp_rod"

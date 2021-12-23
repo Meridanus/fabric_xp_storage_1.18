@@ -1,14 +1,11 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "  #",
-        " /I",
-        "I  "
+        "  /",
+        "I/I",
+        "II "
     ],
     "key": {
-        "#": {
-            "item": "xps:xp_dust"
-        },
         "/": {
             "item": "xps:xp_rod"
         },

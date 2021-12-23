@@ -1,16 +1,13 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        " II",
-        "I/I",
-        "BI "
+        " I ",
+        "IBI",
+        " I "
     ],
     "key": {
         "B": {
             "item": "xps:xp_dust"
-        },
-        "/": {
-            "item": "xps:xp_rod"
         },
         "I": {
             "item": "xps:soul_copper_ingot"
