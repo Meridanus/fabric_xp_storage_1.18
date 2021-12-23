@@ -1,5 +1,6 @@
 package com.notker.xp_storage.blocks;
 
+import com.notker.xp_storage.XpFunctions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;

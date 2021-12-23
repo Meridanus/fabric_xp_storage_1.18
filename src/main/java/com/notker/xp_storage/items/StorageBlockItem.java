@@ -1,6 +1,6 @@
 package com.notker.xp_storage.items;
 
-import com.notker.xp_storage.blocks.XpFunctions;
+import com.notker.xp_storage.XpFunctions;
 import com.notker.xp_storage.regestry.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.client.item.TooltipContext;
