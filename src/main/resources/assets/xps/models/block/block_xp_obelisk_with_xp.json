@@ -5,7 +5,7 @@
 		"0": "xps:blocks/grid",
 		"2": "xps:blocks/block_xp_obelisk_side",
 		"3": "xps:blocks/block_xp_obelisk_plate_animation",
-		"4": "xps:blocks/block_xp_obelisk_top_empty",
+		"4": "xps:blocks/block_xp_obelisk_skull",
 		"particle": "xps:blocks/block_xp_obelisk_side"
 	},
 	"elements": [
@@ -206,14 +206,14 @@
 			}
 		},
 		{
-			"name": "loch",
-			"from": [6, 2, 1.5],
-			"to": [10, 6, 2.5],
+			"name": "skull",
+			"from": [6, 6, 2.48],
+			"to": [10, 10, 2.48],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 3, 2]},
 			"faces": {
-				"north": {"uv": [4, 4, 12, 12], "texture": "#4"},
+				"north": {"uv": [6, 6, 10, 10], "texture": "#4"},
 				"east": {"uv": [1, 6, 2, 10], "texture": "#2"},
-				"south": {"uv": [4, 4, 12, 12], "texture": "#4"},
+				"south": {"uv": [6, 6, 10, 10], "texture": "#4"},
 				"west": {"uv": [1.5, 8, 2.5, 12], "texture": "#2"},
 				"up": {"uv": [1, 6, 2, 10], "rotation": 270, "texture": "#2"},
 				"down": {"uv": [0, 0, 4, 1], "rotation": 180, "texture": "#missing"}
