@@ -1,5 +1,6 @@
 package com.notker.xp_storage.blocks;
 
+import com.notker.xp_storage.XpFunctions;
 import com.notker.xp_storage.items.Xp_removerItem;
 import com.notker.xp_storage.regestry.ModBlocks;
 import com.notker.xp_storage.regestry.ModItems;
@@ -15,7 +16,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
