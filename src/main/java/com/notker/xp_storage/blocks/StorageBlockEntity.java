@@ -27,7 +27,39 @@ public class StorageBlockEntity extends BlockEntity {
         super(ModBlocks.STORAGE_BLOCK_ENTITY, pos, state);
     }
 
+    public void setUuidAndNameTo() {
+        setUuidAndNameTo(Util.NIL_UUID, Text.of(""));
+    }
 
+    public void setUuidAndNameTo(UUID id, Text name) {
+        this.player_uuid = id;
+        this.playerName = name;
+        this.markDirty();
+        this.toUpdatePacket();
+    }
+
+    public int getAvailableContainerSpace() {
+        return Integer.MAX_VALUE - this.containerExperience;
+    }
+
+    public String getContainerFillPercentage() {
+        float container_progress = (100.0f / Integer.MAX_VALUE) * this.containerExperience;
+        return String.format(java.util.Locale.US,"%.7f", container_progress) + "%";
+    }
+
+    /**
+     * Prevents Integer overflow on XP insert
+     */
+    public void addXpToContainer(int xpToAdd) {
+        if (this.getAvailableContainerSpace() > xpToAdd) {
+            this.containerExperience += xpToAdd;
+        } else {
+            this.containerExperience = Integer.MAX_VALUE;
+        }
+
+        this.markDirty();
+        this.toUpdatePacket();
+    }
 
     @Override
     public void writeNbt(NbtCompound tag) {

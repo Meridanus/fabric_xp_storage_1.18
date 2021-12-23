@@ -33,6 +33,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Locale;
 import java.util.Objects;
 
 
@@ -223,20 +224,21 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
         return ActionResult.CONSUME;
     }
 
+
+
     private void insertBottleXP(int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
         ItemStack emptyBottles = new ItemStack(Items.GLASS_BOTTLE);
         emptyBottles.setCount(itemCount);
-        int xp = 0;
+
+        int xpToInsert = 0;
 
         for (int i = 0; i < itemCount; i++) {
             // Minecraft EP Calculation
-            xp += 3 + world.random.nextInt(5) + world.random.nextInt(5);
+            xpToInsert += 3 + world.random.nextInt(5) + world.random.nextInt(5);
         }
 
-        tile.containerExperience += xp;
-        tile.markDirty();
-        //tile.sync();
-        tile.toUpdatePacket();
+        tile.addXpToContainer(xpToInsert);
+
         world.setBlockState(pos, state.with(CHARGED, (tile.containerExperience != 0)));
         world.playSound(null, pos, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 1f, 1f);
 
@@ -246,26 +248,80 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
         //player.getInventory().offerOrDrop(emptyBottle);
     }
 
+    private void container_xp_to_player (int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, StorageBlockEntity tile) {
+        if (tile.containerExperience > 0) {
+
+            for (int i = 0; i < itemCount; i++) {
+                int xpToNextLevel = XpFunctions.exp_to_reach_next_lvl(player.getNextLevelExperience(), player.experienceProgress);
+                int storageXP = tile.containerExperience;
+
+                if (storageXP == 0) {
+                    break;
+                }
+
+                if (storageXP >= xpToNextLevel) {
+                    tile.containerExperience -= xpToNextLevel;
+                    player.addExperience(xpToNextLevel);
+                } else {
+                    player.addExperience(storageXP);
+                    tile.containerExperience = 0;
+                }
+                tile.markDirty();
+                tile.toUpdatePacket();
+            }
+
+            world.playSound(null, pos, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, 0.125f, 1f);
+            world.setBlockState(pos, state.with(CHARGED, (tile.containerExperience != 0)));
+        }
+    }
+
+    private void player_xp_to_container (int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, StorageBlockEntity tile) {
+        if (XpFunctions.get_total_xp(player.experienceLevel, player.getNextLevelExperience(), player.experienceProgress) > 0) {
+
+            int xpToInsert = 0;
+
+            for (int i = 0; i < itemCount; i++) {
+                int totalPlayerXp = XpFunctions.get_total_xp(player.experienceLevel, player.getNextLevelExperience(), player.experienceProgress);
+                int xpExchange = XpFunctions.xp_value_from_bar(player.getNextLevelExperience(), player.experienceProgress);
+                if (xpExchange == 0) {
+                    xpExchange = XpFunctions.getToNextLowerExperienceLevel(player.experienceLevel);
+                    player.experienceProgress = 0f;
+                }
+
+                if (totalPlayerXp >= xpExchange) {
+                    player.addExperience(-xpExchange);
+                    xpToInsert += xpExchange;
+                } else {
+                    player.addExperience(-totalPlayerXp);
+                    xpToInsert += totalPlayerXp;
+                }
+            }
+
+            tile.addXpToContainer(xpToInsert);
+
+            world.playSound(null, pos, SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 0.125f, 1f);
+            world.setBlockState(pos, state.with(CHARGED, (tile.containerExperience != 0)));
+        }
+    }
+
+
     private void unlock_container(World world, BlockPos pos, PlayerEntity player, Hand hand, boolean isSurvival, int itemCountInHand, StorageBlockEntity tile) {
-        tile.player_uuid = Util.NIL_UUID;
-        tile.playerName = Text.of("");
-        tile.markDirty();
-        //tile.sync();
-        tile.toUpdatePacket();
+        tile.setUuidAndNameTo();
+
         player.sendMessage(new TranslatableText("text.storageBlock.isOpen"), true);
         world.playSound(null, pos, SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.BLOCKS, 1f, 1f);
+
         if (isSurvival) {
             player.getStackInHand(hand).setCount(itemCountInHand > 1 ? itemCountInHand - 1 : 0);
         }
     }
 
     private void lockContainer(World world, BlockPos pos, PlayerEntity player, Hand hand, boolean isSurvival, int itemCountInHand, StorageBlockEntity tile) {
-        tile.player_uuid = player.getUuid();
-        tile.playerName = player.getName();
-        tile.markDirty();
-        tile.toUpdatePacket();
-        world.playSound(null, pos, SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.BLOCKS, 1f, 1f);
+        tile.setUuidAndNameTo(player.getUuid(), player.getName());
+
         player.sendMessage(new TranslatableText("text.storageBlock.locked"), true);
+        world.playSound(null, pos, SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.BLOCKS, 1f, 1f);
+
         if (isSurvival) {
             player.getStackInHand(hand).setCount(itemCountInHand > 1 ? itemCountInHand - 1 : 0);
         }
@@ -274,65 +330,19 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
     private void display_container_info (PlayerEntity player, StorageBlockEntity tile) {
         int totalXp = XpFunctions.get_total_xp(player.experienceLevel, player.getNextLevelExperience(), player.experienceProgress);
 
-        player.sendSystemMessage(new TranslatableText("item.tooltip.owner", tile.playerName.asString()), Util.NIL_UUID);
-        player.sendSystemMessage(new LiteralText("UUid: " + tile.player_uuid), Util.NIL_UUID);
-        player.sendSystemMessage(new TranslatableText("item.tooltip.xp.container_info", tile.containerExperience), Util.NIL_UUID);
-        player.sendSystemMessage(new TranslatableText("item.tooltip.xp.player_info", totalXp), Util.NIL_UUID);
-    }
-
-
-
-    private void container_xp_to_player (int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, StorageBlockEntity tile) {
-        if (tile.containerExperience > 0) {
-            world.playSound(null, pos, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, 0.125f, 1f);
+        if (!tile.player_uuid.equals(Util.NIL_UUID)) {
+            player.sendSystemMessage(new TranslatableText("item.tooltip.owner", tile.playerName.asString()), Util.NIL_UUID);
+            player.sendSystemMessage(new LiteralText("UUid: " + tile.player_uuid), Util.NIL_UUID);
+        } else {
+            player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_no_owner"), Util.NIL_UUID);
         }
+        String xp = String.format(Locale.GERMAN, "%,d", tile.containerExperience);
+        String max = String.format(Locale.GERMAN, "%,d", Integer.MAX_VALUE);
+        String playerXp = String.format(Locale.GERMAN,"%,d", totalXp);
 
-        for (int i = 0; i < itemCount; i++) {
-            int xpToNextLevel = XpFunctions.exp_to_reach_next_lvl(player.getNextLevelExperience(), player.experienceProgress);
-            int storageXP = tile.containerExperience;
-
-            if (storageXP == 0) { break; }
-
-            if (storageXP >= xpToNextLevel) {
-                tile.containerExperience -= xpToNextLevel;
-                player.addExperience(xpToNextLevel);
-            } else {
-                player.addExperience(storageXP);
-                tile.containerExperience = 0;
-            }
-            tile.markDirty();
-            //tile.sync();
-            tile.toUpdatePacket();
-        }
-        world.setBlockState(pos, state.with(CHARGED, (tile.containerExperience != 0)));
-
-    }
-
-    private void player_xp_to_container (int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, StorageBlockEntity tile) {
-        if (XpFunctions.get_total_xp(player.experienceLevel, player.getNextLevelExperience(), player.experienceProgress) > 0) {
-            world.playSound(null, pos, SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 0.125f, 1f);
-        }
-
-        for (int i = 0; i < itemCount; i++) {
-            int totalPlayerXp = XpFunctions.get_total_xp(player.experienceLevel, player.getNextLevelExperience(), player.experienceProgress);
-            int xpExchange = XpFunctions.xp_value_from_bar(player.getNextLevelExperience(), player.experienceProgress);
-            if (xpExchange == 0) {
-                xpExchange = XpFunctions.getToNextLowerExperienceLevel(player.experienceLevel);
-                player.experienceProgress = 0f;
-            }
-
-            if (totalPlayerXp >= xpExchange) {
-                player.addExperience(-xpExchange);
-                tile.containerExperience += xpExchange;
-            } else {
-                player.addExperience(-totalPlayerXp);
-                tile.containerExperience += totalPlayerXp;
-            }
-            tile.markDirty();
-            //tile.sync();
-            tile.toUpdatePacket();
-        }
-        world.setBlockState(pos, state.with(CHARGED, (tile.containerExperience != 0)));
+        player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_info", xp, max), Util.NIL_UUID);
+        player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_fill", tile.getContainerFillPercentage()), Util.NIL_UUID);
+        player.sendSystemMessage(new TranslatableText("item.debug_info.xp.player_info", playerXp), Util.NIL_UUID);
     }
 
 
