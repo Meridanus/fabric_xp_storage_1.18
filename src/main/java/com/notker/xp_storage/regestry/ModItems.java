@@ -3,6 +3,7 @@ package com.notker.xp_storage.regestry;
 import com.notker.xp_storage.XpStorage;
 import com.notker.xp_storage.items.StorageBlockItem;
 import com.notker.xp_storage.items.StorageItem;
+import com.notker.xp_storage.items.Xp_dust;
 import com.notker.xp_storage.items.Xp_removerItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -19,7 +20,7 @@ public class ModItems {
     public static final Xp_removerItem XP_REMOVER = new Xp_removerItem(new Item.Settings().group(XpStorage.ITEM_GROUP));
     public static final StorageItem INSPECTOR = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(1).rarity(Rarity.EPIC));
     public static final StorageItem LOCK = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(16).rarity(Rarity.UNCOMMON));
-    public static final StorageItem XP_DUST = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP));
+    public static final Xp_dust XP_DUST = new Xp_dust(new Item.Settings().group(XpStorage.ITEM_GROUP));
     public static final StorageItem KEY = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(16).rarity(Rarity.UNCOMMON));
 
     //Block Items
