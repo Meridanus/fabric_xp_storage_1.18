@@ -59,11 +59,11 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
 
                 long time = Objects.requireNonNull(entity.getWorld()).getTime();
 
-                double offset = Math.sin((time + tickDelta) / 20.0) / 8.0;
-                matrices.translate(0.5, 0.37 + offset, 0.5);
+                double offset = Math.sin((time + tickDelta) / 20.0) / 10.0;
+                matrices.translate(0.5, 0.40 + offset, 0.5);
 
 
-                matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((time + tickDelta) * 4));
+                matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((time + tickDelta) * 3));
 
                 int lightAbove = WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up());
                 MinecraftClient.getInstance().getItemRenderer().renderItem(displayItem, ModelTransformation.Mode.GROUND, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
