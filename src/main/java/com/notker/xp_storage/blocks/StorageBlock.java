@@ -1,8 +1,10 @@
 package com.notker.xp_storage.blocks;
 
 import com.notker.xp_storage.XpFunctions;
+import com.notker.xp_storage.fluids.Xp_fluid;
 import com.notker.xp_storage.items.Xp_removerItem;
 import com.notker.xp_storage.regestry.ModBlocks;
+import com.notker.xp_storage.regestry.ModFluids;
 import com.notker.xp_storage.regestry.ModItems;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -196,27 +198,40 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
                 return ActionResult.SUCCESS;
             }
             // Ab hier nur für TileOwner
+            if (isSurvival) {
+                // XP Tool
+                if (player.isHolding(ModItems.XP_REMOVER)) {
+                    ItemStack stack = player.getStackInHand(hand);
 
-            // XP Tool
-            if (player.isHolding(ModItems.XP_REMOVER) && isSurvival) {
-                ItemStack stack = player.getStackInHand(hand);
-
-                if (stack.hasNbt() && Objects.requireNonNull(stack.getNbt()).getBoolean(Xp_removerItem.tagId)) {
-                    container_xp_to_player(itemCountInHand, state, world, pos, player, tile);
-                } else {
-                    player_xp_to_container(itemCountInHand, state, world, pos, player, tile);
+                    if (stack.hasNbt() && Objects.requireNonNull(stack.getNbt()).getBoolean(Xp_removerItem.tagId)) {
+                        container_xp_to_player(itemCountInHand, state, world, pos, player, tile);
+                    } else {
+                        player_xp_to_container(itemCountInHand, state, world, pos, player, tile);
+                    }
+                    tile.markDirty();
+                    tile.toUpdatePacket();
+                    return ActionResult.SUCCESS;
                 }
-                tile.markDirty();
-                tile.toUpdatePacket();
-                return ActionResult.SUCCESS;
-            }
 
-            // EP Flasche
-            if (player.isHolding(Items.EXPERIENCE_BOTTLE) && isSurvival) {
-                insertBottleXP(itemCountInHand, state, world, pos, player, hand, tile);
-                return ActionResult.SUCCESS;
-            }
+                // EP Flasche
+                if (player.isHolding(Items.EXPERIENCE_BOTTLE)) {
+                    insertBottleXP(itemCountInHand, state, world, pos, player, hand, tile);
+                    return ActionResult.SUCCESS;
+                }
 
+                // Empty Bucket
+                if (player.isHolding(Items.BUCKET) && tile.containerExperience >= Xp_fluid.XpPerBucket) {
+                    fillBucketOnContainer(world, pos, player, hand, tile);
+                    return ActionResult.SUCCESS;
+                }
+
+                // Experience Bucket
+                if (player.isHolding(ModFluids.XP_BUCKET)) {
+                    emptyBucketOnContainer(world, pos, player, hand, tile);
+                    return ActionResult.SUCCESS;
+                }
+
+            }
 
 
         }
@@ -224,6 +239,25 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
         return ActionResult.CONSUME;
     }
 
+    private void emptyBucketOnContainer(World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
+        tile.addXpToContainer(Xp_fluid.XpPerBucket);
+
+        player.getStackInHand(hand).setCount(0);
+        player.getInventory().offerOrDrop(new ItemStack(Items.BUCKET));
+
+        world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1f, 1f);
+    }
+
+    private void fillBucketOnContainer(World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
+        tile.containerExperience -= Xp_fluid.XpPerBucket;
+        tile.markDirty();
+        tile.toUpdatePacket();
+
+        player.getStackInHand(hand).decrement(1);
+        player.getInventory().offerOrDrop(new ItemStack(ModFluids.XP_BUCKET));
+
+        world.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1f, 1f);
+    }
 
 
     private void insertBottleXP(int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {

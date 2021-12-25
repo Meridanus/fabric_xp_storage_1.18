@@ -9,6 +9,8 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
 
 public class Xp_fluid extends Xp_fluid_abstract{
+    public static int XpPerBucket = 100;
+
     @Override
     public Fluid getStill() {
         return ModFluids.STILL_XP;
