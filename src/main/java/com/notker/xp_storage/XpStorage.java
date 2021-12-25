@@ -2,6 +2,7 @@ package com.notker.xp_storage;
 
 import com.notker.xp_storage.blocks.StorageBlockEntityRenderer;
 import com.notker.xp_storage.regestry.ModBlocks;
+import com.notker.xp_storage.regestry.ModFluids;
 import com.notker.xp_storage.regestry.ModItems;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -25,7 +26,7 @@ public class XpStorage implements ModInitializer {
     public void onInitialize() {
         ModItems.registerItems();
         ModBlocks.registerBlocks();
-
+        ModFluids.registerFluids();
     }
 
 
