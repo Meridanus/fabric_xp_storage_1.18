@@ -20,7 +20,6 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -113,7 +112,6 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
             NbtCompound stackTag = new NbtCompound();
             //stackTag.put(ModBlocks.TAG_ID, tile.writeNbt(new NbtCompound()));
 
-
             stackTag.put(ModBlocks.TAG_ID, tile.getNbtData());
             drop.setNbt(stackTag);
             //data get entity @s SelectedItem
@@ -149,86 +147,64 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
-            boolean isSurvival = !player.isCreative() && !player.isSpectator();
 
-            int itemCountInHand = player.getStackInHand(hand).getCount();
             final StorageBlockEntity tile = (StorageBlockEntity) world.getBlockEntity(pos);
 
-            if (tile == null) {
-                return ActionResult.FAIL;
-            }
+            if (tile == null) { return ActionResult.FAIL; }
 
+            int itemCountInHand = player.getStackInHand(hand).getCount();
             boolean tileIsLocked = !tile.player_uuid.equals(Util.NIL_UUID);
             boolean isTileOwner = tile.player_uuid.equals(player.getUuid());
-
-
-
+            boolean isSurvival = !player.isCreative() && !player.isSpectator();
 
             // Inspector
             if (player.isHolding(ModItems.INSPECTOR)) {
-                world.playSound(null, pos, SoundEvents.ITEM_BOOK_PUT, SoundCategory.BLOCKS, 0.5f, 1f);
-                display_container_info(player, tile);
-                return ActionResult.SUCCESS;
-
+                return displayContainerInfo(world, pos, player, tile);
             }
 
-            // Lock
-            if (player.isHolding(ModItems.LOCK)) {
-                if (!tileIsLocked) {
-                    lockContainer(world, pos, player, hand, isSurvival, itemCountInHand, tile);
-                } else if (isTileOwner) {
-                    player.sendMessage(new TranslatableText("text.storageBlock.isLocked"), true);
-                    world.playSound(null, pos, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1f, 1f);
-                }
-                return ActionResult.SUCCESS;
+            // Check if Player is Authorized
+            if (tileIsLocked && !isTileOwner && !isSurvival) {
+                return containerAccessDenied(world, pos, player);
             }
 
             // Key
-            if (player.isHolding(ModItems.KEY)) {
-                if (isTileOwner || player.isCreative()) {
-                    unlock_container(world, pos, player, hand, isSurvival, itemCountInHand, tile);
-                }
-                return ActionResult.SUCCESS;
+            if (player.isHolding(ModItems.KEY) && isTileOwner || player.isCreative()) {
+                return unlockContainer(world, pos, player, hand, isSurvival, itemCountInHand, tile);
             }
 
-
-            if (tileIsLocked && !isTileOwner) {
-                world.playSound(null, pos, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1f, 1f);
-                player.sendMessage(new TranslatableText("text.storageBlock.denied"), true);
-                return ActionResult.SUCCESS;
-            }
-            // Ab hier nur für TileOwner
+            // Only Survival Actions
             if (isSurvival) {
+
+                // Lock
+                if (player.isHolding(ModItems.LOCK)) {
+                    if (!tileIsLocked) { return lockContainer(world, pos, player, hand, itemCountInHand, tile); }
+                    return containerIsAlreadyLocked(world, pos, player);
+                }
+
                 // XP Tool
                 if (player.isHolding(ModItems.XP_REMOVER)) {
                     ItemStack stack = player.getStackInHand(hand);
 
                     if (stack.hasNbt() && Objects.requireNonNull(stack.getNbt()).getBoolean(Xp_removerItem.tagId)) {
-                        container_xp_to_player(itemCountInHand, state, world, pos, player, tile);
-                    } else {
-                        player_xp_to_container(itemCountInHand, state, world, pos, player, tile);
+                        return containerXpToPlayer(itemCountInHand, state, world, pos, player, tile);
                     }
-                    tile.markDirty();
-                    tile.toUpdatePacket();
-                    return ActionResult.SUCCESS;
+
+                    return playerXpToContainer(itemCountInHand, state, world, pos, player, tile);
                 }
 
-                // EP Flasche
+                // EP Flask
                 if (player.isHolding(Items.EXPERIENCE_BOTTLE)) {
-                    insertBottleXP(itemCountInHand, state, world, pos, player, hand, tile);
-                    return ActionResult.SUCCESS;
+                    return insertBottleXP(itemCountInHand, state, world, pos, player, hand, tile);
                 }
 
                 // Empty Bucket
                 if (player.isHolding(Items.BUCKET) && tile.containerExperience >= Xp_fluid.XpPerBucket) {
-                    fillBucketOnContainer(world, pos, player, hand, tile);
-                    return ActionResult.SUCCESS;
+                    return fillBucketOnContainer(state, world, pos, player, hand, tile);
                 }
 
                 // Experience Bucket
                 if (player.isHolding(ModFluids.XP_BUCKET)) {
-                    emptyBucketOnContainer(world, pos, player, hand, tile);
-                    return ActionResult.SUCCESS;
+                    return emptyBucketOnContainer(state, world, pos, player, hand, tile);
                 }
 
             }
@@ -239,16 +215,35 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
         return ActionResult.CONSUME;
     }
 
-    private void emptyBucketOnContainer(World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
+    private ActionResult containerIsAlreadyLocked(World world, BlockPos pos, PlayerEntity player) {
+        player.sendMessage(new TranslatableText("text.storageBlock.isLocked"), true);
+
+        world.playSound(null, pos, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1f, 1f);
+
+        return ActionResult.SUCCESS;
+    }
+
+    private ActionResult containerAccessDenied(World world, BlockPos pos, PlayerEntity player) {
+        player.sendMessage(new TranslatableText("text.storageBlock.denied"), true);
+
+        world.playSound(null, pos, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1f, 1f);
+
+        return ActionResult.SUCCESS;
+    }
+
+    private ActionResult emptyBucketOnContainer(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
         tile.addXpToContainer(Xp_fluid.XpPerBucket);
 
         player.getStackInHand(hand).setCount(0);
         player.getInventory().offerOrDrop(new ItemStack(Items.BUCKET));
 
+        world.setBlockState(pos, state.with(CHARGED, (tile.containerExperience != 0)));
         world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1f, 1f);
+
+        return ActionResult.SUCCESS;
     }
 
-    private void fillBucketOnContainer(World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
+    private ActionResult fillBucketOnContainer(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
         tile.containerExperience -= Xp_fluid.XpPerBucket;
         tile.markDirty();
         tile.toUpdatePacket();
@@ -256,11 +251,14 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
         player.getStackInHand(hand).decrement(1);
         player.getInventory().offerOrDrop(new ItemStack(ModFluids.XP_BUCKET));
 
+        world.setBlockState(pos, state.with(CHARGED, (tile.containerExperience != 0)));
         world.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1f, 1f);
+
+        return ActionResult.SUCCESS;
     }
 
 
-    private void insertBottleXP(int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
+    private ActionResult insertBottleXP(int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
         ItemStack emptyBottles = new ItemStack(Items.GLASS_BOTTLE);
         emptyBottles.setCount(itemCount);
 
@@ -280,9 +278,11 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
 
         dropStack(world, pos, player.getHorizontalFacing().getOpposite(), emptyBottles);
         //player.getInventory().offerOrDrop(emptyBottle);
+
+        return ActionResult.SUCCESS;
     }
 
-    private void container_xp_to_player (int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, StorageBlockEntity tile) {
+    private ActionResult containerXpToPlayer(int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, StorageBlockEntity tile) {
         if (tile.containerExperience > 0) {
 
             for (int i = 0; i < itemCount; i++) {
@@ -307,9 +307,10 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
             world.playSound(null, pos, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, 0.125f, 1f);
             world.setBlockState(pos, state.with(CHARGED, (tile.containerExperience != 0)));
         }
+        return ActionResult.SUCCESS;
     }
 
-    private void player_xp_to_container (int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, StorageBlockEntity tile) {
+    private ActionResult playerXpToContainer(int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, StorageBlockEntity tile) {
         if (XpFunctions.get_total_xp(player.experienceLevel, player.getNextLevelExperience(), player.experienceProgress) > 0) {
 
             int xpToInsert = 0;
@@ -336,10 +337,11 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
             world.playSound(null, pos, SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 0.125f, 1f);
             world.setBlockState(pos, state.with(CHARGED, (tile.containerExperience != 0)));
         }
+        return ActionResult.SUCCESS;
     }
 
 
-    private void unlock_container(World world, BlockPos pos, PlayerEntity player, Hand hand, boolean isSurvival, int itemCountInHand, StorageBlockEntity tile) {
+    private ActionResult unlockContainer(World world, BlockPos pos, PlayerEntity player, Hand hand, boolean isSurvival, int itemCountInHand, StorageBlockEntity tile) {
         tile.setUuidAndNameTo();
 
         player.sendMessage(new TranslatableText("text.storageBlock.isOpen"), true);
@@ -348,20 +350,21 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
         if (isSurvival) {
             player.getStackInHand(hand).setCount(itemCountInHand > 1 ? itemCountInHand - 1 : 0);
         }
+        return ActionResult.SUCCESS;
     }
 
-    private void lockContainer(World world, BlockPos pos, PlayerEntity player, Hand hand, boolean isSurvival, int itemCountInHand, StorageBlockEntity tile) {
+    private ActionResult lockContainer(World world, BlockPos pos, PlayerEntity player, Hand hand, int itemCountInHand, StorageBlockEntity tile) {
         tile.setUuidAndNameTo(player.getUuid(), player.getName());
 
         player.sendMessage(new TranslatableText("text.storageBlock.locked"), true);
         world.playSound(null, pos, SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.BLOCKS, 1f, 1f);
 
-        if (isSurvival) {
-            player.getStackInHand(hand).setCount(itemCountInHand > 1 ? itemCountInHand - 1 : 0);
-        }
+        player.getStackInHand(hand).setCount(itemCountInHand > 1 ? itemCountInHand - 1 : 0);
+
+        return ActionResult.SUCCESS;
     }
 
-    private void display_container_info (PlayerEntity player, StorageBlockEntity tile) {
+    private ActionResult displayContainerInfo(World world, BlockPos pos, PlayerEntity player, StorageBlockEntity tile) {
         int totalXp = XpFunctions.get_total_xp(player.experienceLevel, player.getNextLevelExperience(), player.experienceProgress);
 
         if (!tile.player_uuid.equals(Util.NIL_UUID)) {
@@ -377,6 +380,10 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
         player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_info", xp, max), Util.NIL_UUID);
         player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_fill", tile.getContainerFillPercentage()), Util.NIL_UUID);
         player.sendSystemMessage(new TranslatableText("item.debug_info.xp.player_info", playerXp), Util.NIL_UUID);
+
+        world.playSound(null, pos, SoundEvents.ITEM_BOOK_PUT, SoundCategory.BLOCKS, 0.5f, 1f);
+
+        return ActionResult.SUCCESS;
     }
 
 
