@@ -177,8 +177,8 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
 
                 // Lock
                 if (player.isHolding(ModItems.LOCK)) {
-                    if (!tileIsLocked) { return lockContainer(world, pos, player, hand, itemCountInHand, tile); }
-                    return containerIsAlreadyLocked(world, pos, player);
+                    if (tileIsLocked) { return containerIsAlreadyLocked(world, pos, player); }
+                    return lockContainer(world, pos, player, hand, itemCountInHand, tile);
                 }
 
                 // XP Tool
