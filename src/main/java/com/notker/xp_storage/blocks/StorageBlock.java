@@ -163,12 +163,12 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
             }
 
             // Check if Player is Authorized
-            if (tileIsLocked && !isTileOwner && !isSurvival) {
+            if (tileIsLocked && !isTileOwner && !player.isCreative()) {
                 return containerAccessDenied(world, pos, player);
             }
 
             // Key
-            if (player.isHolding(ModItems.KEY) && isTileOwner || player.isCreative()) {
+            if (player.isHolding(ModItems.KEY) && (isTileOwner || player.isCreative())) {
                 return unlockContainer(world, pos, player, hand, isSurvival, itemCountInHand, tile);
             }
 
