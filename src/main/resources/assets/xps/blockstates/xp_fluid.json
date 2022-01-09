@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "xps:block/xp"
+      "model": "xps:block/xp_fluid"
     }
   }
 }

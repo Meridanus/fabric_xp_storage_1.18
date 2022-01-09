@@ -4,8 +4,8 @@ import com.notker.xp_storage.XpStorage;
 import com.notker.xp_storage.fluids.Xp_fluid;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.FluidBlock;
+import net.minecraft.block.Material;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
@@ -18,13 +18,17 @@ public class ModFluids {
     public static FlowableFluid STILL_XP;
     public static FlowableFluid FLOWING_XP;
     public static Item XP_BUCKET;
-    public static Block XP;
+    public static Block XP_FLUID;
 
     public static void registerFluids() {
-        STILL_XP = Registry.register(Registry.FLUID, new Identifier(XpStorage.MOD_ID, "xp"), new Xp_fluid.Still());
+        STILL_XP = Registry.register(Registry.FLUID, new Identifier(XpStorage.MOD_ID, "xp_fluid"), new Xp_fluid.Still());
         FLOWING_XP = Registry.register(Registry.FLUID, new Identifier(XpStorage.MOD_ID, "flowing_xp"), new Xp_fluid.Flowing());
         XP_BUCKET = Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID, "xp_bucket"),
                 new BucketItem(STILL_XP, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1)));
-        XP = Registry.register(Registry.BLOCK, new Identifier(XpStorage.MOD_ID, "xp"), new FluidBlock(STILL_XP, FabricBlockSettings.copy(Blocks.LAVA)){});
+        XP_FLUID = Registry.register(Registry.BLOCK, new Identifier(XpStorage.MOD_ID, "xp_fluid"), new FluidBlock(STILL_XP, FabricBlockSettings
+                .of(Material.LAVA)
+                .noCollision()
+                .luminance(10)
+        ){});
     }
 }

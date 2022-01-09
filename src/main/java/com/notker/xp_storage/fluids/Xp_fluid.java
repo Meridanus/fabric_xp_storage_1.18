@@ -33,7 +33,7 @@ public class Xp_fluid extends Xp_fluid_abstract{
 
     @Override
     protected BlockState toBlockState(FluidState fluidState) {
-        return ModFluids.XP.getDefaultState().with(Properties.LEVEL_15, getBlockStateLevel(fluidState));
+        return ModFluids.XP_FLUID.getDefaultState().with(Properties.LEVEL_15, getBlockStateLevel(fluidState));
     }
 
     @Override
