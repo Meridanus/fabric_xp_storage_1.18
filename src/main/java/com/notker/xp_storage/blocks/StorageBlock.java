@@ -49,6 +49,7 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
                 .with(Properties.WATERLOGGED, false));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
@@ -62,6 +63,7 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
         return this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getPlayerFacing().getOpposite()).with(Properties.WATERLOGGED, bl);
     }
 
+    @SuppressWarnings("deprecation")
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (state.get(Properties.WATERLOGGED)) {
             //world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
@@ -71,6 +73,7 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
+    @SuppressWarnings("deprecation")
     public FluidState getFluidState(BlockState state) {
         return state.get(Properties.WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
@@ -90,6 +93,7 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext ctx) {
 
@@ -145,6 +149,7 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
 
 
     @Override
+    @SuppressWarnings("deprecation")
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
 
