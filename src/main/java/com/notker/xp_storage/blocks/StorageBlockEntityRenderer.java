@@ -6,6 +6,7 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
@@ -19,6 +20,9 @@ import net.minecraft.util.math.Vec3f;
 import java.util.Objects;
 
 public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBlockEntity> {
+
+    public StorageBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
+    }
 
     private static final ItemStack displayItem = new ItemStack(Items.ENCHANTED_BOOK, 1);
 
