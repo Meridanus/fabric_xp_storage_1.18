@@ -192,6 +192,11 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
                     return playerXpToContainer(itemCountInHand, state, world, pos, player, tile);
                 }
 
+                // GlassBottle
+                if (player.isHolding(Items.GLASS_BOTTLE)) {
+                    return fillGlassBottle(state, world, pos, player, hand, tile);
+                }
+
                 // EP Flask
                 if (player.isHolding(Items.EXPERIENCE_BOTTLE)) {
                     return insertBottleXP(itemCountInHand, state, world, pos, player, hand, tile);
@@ -254,6 +259,26 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
         world.setBlockState(pos, state.with(CHARGED, (tile.containerExperience != 0)));
         world.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1f, 1f);
 
+        return ActionResult.SUCCESS;
+    }
+
+    private ActionResult fillGlassBottle(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
+        if (tile.containerExperience >= 11) {
+
+            ItemStack fullBottle = new ItemStack(Items.EXPERIENCE_BOTTLE);
+            fullBottle.setCount(1);
+
+            tile.containerExperience -= 11;
+            tile.markDirty();
+            tile.toUpdatePacket();
+
+            world.playSound(null, pos, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 0.125f, 1f);
+            world.setBlockState(pos, state.with(CHARGED, (tile.containerExperience != 0)));
+
+            player.getStackInHand(hand).decrement(1);
+
+            player.getInventory().offerOrDrop(fullBottle);
+        }
         return ActionResult.SUCCESS;
     }
 
