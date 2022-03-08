@@ -23,7 +23,7 @@
   "item.tooltip.xp_remover": "Use on XP Storage to store level.",
   "item.tooltip.xp_remover_sneak": "Sneak right click to change Mode.",
   "item.debug_info.xp.container_info": "Stored Xp: %s/%s",
-  "item.debug_info.xp.container_fill": "Used: %d%",
+  "item.debug_info.xp.container_fill": "Used: %s",
   "item.debug_info.xp.container_no_owner": "No Owner",
   "item.debug_info.xp.player_info": "Your Xp: %s",
   "item.tooltip.stack_size": "Stack size equal's level transfer.",
