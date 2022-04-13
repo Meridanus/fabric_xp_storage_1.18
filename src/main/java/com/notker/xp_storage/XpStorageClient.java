@@ -39,12 +39,12 @@ public class XpStorageClient implements ClientModInitializer {
             registry.register(new Identifier("xps:blocks/xp_flow"));
         });
 
-        FluidRenderHandlerRegistry.INSTANCE.register(ModFluids.STILL_XP, ModFluids.FLOWING_XP, new SimpleFluidRenderHandler(
+        FluidRenderHandlerRegistry.INSTANCE.register(ModFluids.LIQUID_XP, ModFluids.LIQUID_XP_FLOWING, new SimpleFluidRenderHandler(
                 new Identifier("xps:blocks/xp_still"),
                 new Identifier("xps:blocks/xp_flow"),
                 0xCCFF00
         ));
 
-        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.STILL_XP, ModFluids.FLOWING_XP);
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.LIQUID_XP, ModFluids.LIQUID_XP_FLOWING);
     }
 }

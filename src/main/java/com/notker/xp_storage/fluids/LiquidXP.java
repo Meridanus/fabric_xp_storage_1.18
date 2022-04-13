@@ -8,12 +8,12 @@ import net.minecraft.item.Item;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
 
-public class Xp_fluid extends Xp_fluid_abstract{
+public class LiquidXP extends LiquidXPAbstract {
     public static int XpPerBucket = 100;
 
     @Override
     public Fluid getStill() {
-        return ModFluids.STILL_XP;
+        return ModFluids.LIQUID_XP;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class Xp_fluid extends Xp_fluid_abstract{
 
     @Override
     public Fluid getFlowing() {
-        return ModFluids.FLOWING_XP;
+        return ModFluids.LIQUID_XP_FLOWING;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Xp_fluid extends Xp_fluid_abstract{
         return false;
     }
 
-    public static class Flowing extends Xp_fluid {
+    public static class Flowing extends LiquidXP {
         @Override
         protected void appendProperties(StateManager.Builder<Fluid, FluidState> builder) {
             super.appendProperties(builder);
@@ -59,7 +59,7 @@ public class Xp_fluid extends Xp_fluid_abstract{
         }
     }
 
-    public static class Still extends Xp_fluid {
+    public static class Still extends LiquidXP {
         @Override
         public int getLevel(FluidState fluidState) {
             return 8;
