@@ -74,7 +74,7 @@ public final class XpFunctions {
     }
 
     public static TranslatableText xp_to_text(StorageBlockEntity tile) {
-        return xp_to_text(tile.containerExperience);
+        return xp_to_text((int)tile.liquidXp.amount / 810);
     }
 
     public static TranslatableText xp_to_text(int value) {
