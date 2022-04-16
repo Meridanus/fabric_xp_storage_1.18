@@ -465,6 +465,6 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlocks.STORAGE_BLOCK_ENTITY, (world1, pos, state1, be) -> StorageBlockEntity.tick(world1, pos, state1, be));
+        return checkType(type, ModBlocks.STORAGE_BLOCK_ENTITY, (world1, pos, state1, be) -> StorageBlockEntity.tick(world1, pos, be));
     }
 }

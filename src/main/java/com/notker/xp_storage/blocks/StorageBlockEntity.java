@@ -178,7 +178,7 @@ public class StorageBlockEntity extends BlockEntity {
 
 
 
-        public static void tick(World world, BlockPos pos, BlockState state, StorageBlockEntity be) {
+        public static void tick(World world, BlockPos pos, StorageBlockEntity be) {
             if (world != null && be.vacuum) {
 
                 Vec3d center = new Vec3d(pos.getX(), pos.getY(), pos.getZ());
