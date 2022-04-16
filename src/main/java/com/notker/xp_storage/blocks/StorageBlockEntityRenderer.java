@@ -24,7 +24,7 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
     public StorageBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
     }
 
-    private static final ItemStack displayItem = new ItemStack(Items.ENCHANTED_BOOK, 1);
+    private static ItemStack displayItem = new ItemStack(Items.ENCHANTED_BOOK, 1);
 
 
     @Override
@@ -54,7 +54,15 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
 
         try {
             //if (entity.containerExperience != 0) {
-            if (entity != null && entity.getCachedState().get(StorageBlock.CHARGED)) {
+            if (entity != null && entity.vacuum) {
+
+                displayItem = new ItemStack(Items.HOPPER, 1);
+            } else {
+                displayItem = new ItemStack(Items.ENCHANTED_BOOK, 1);
+            }
+
+
+            if (entity != null && (entity.getCachedState().get(StorageBlock.CHARGED) || entity.vacuum)) {
                 matrices.push();
 
                 long time = Objects.requireNonNull(entity.getWorld()).getTime();

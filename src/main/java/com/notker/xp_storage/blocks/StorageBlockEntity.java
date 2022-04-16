@@ -26,6 +26,7 @@ public class StorageBlockEntity extends BlockEntity {
 
     public UUID player_uuid = Util.NIL_UUID;
     public Text playerName = Text.of("");
+    public boolean vacuum = false;
 
     public StorageBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlocks.STORAGE_BLOCK_ENTITY, pos, state);
@@ -107,6 +108,7 @@ public class StorageBlockEntity extends BlockEntity {
         tag.putLong("amount", liquidXp.amount);
         tag.putUuid("player_uuid", this.player_uuid);
         tag.putString("playerName", this.playerName.asString());
+        tag.putBoolean("vacuum", this.vacuum);
         writeIdToNbt(tag, ModBlocks.STORAGE_BLOCK_ENTITY);
 
         if (world != null) {
@@ -128,6 +130,7 @@ public class StorageBlockEntity extends BlockEntity {
 
         this.player_uuid = tag.getUuid("player_uuid");
         this.playerName = Text.of(tag.getString("playerName"));
+        this.vacuum = tag.getBoolean("vacuum");
     }
 
     public NbtCompound getNbtData() {
@@ -137,6 +140,7 @@ public class StorageBlockEntity extends BlockEntity {
         stackTag.put("fluidVariant", liquidXp.variant.toNbt());
         stackTag.putLong("amount", liquidXp.amount);
         writeIdToNbt(stackTag, ModBlocks.STORAGE_BLOCK_ENTITY);
+        stackTag.putBoolean("vacuum", this.vacuum);
         return stackTag;
     }
 

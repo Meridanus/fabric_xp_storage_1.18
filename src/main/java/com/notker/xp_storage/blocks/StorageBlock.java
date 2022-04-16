@@ -42,13 +42,15 @@ import java.util.Objects;
 @SuppressWarnings("UnstableApiUsage")
 public class StorageBlock extends BlockWithEntity implements BlockEntityProvider, Waterloggable {
     public static final BooleanProperty CHARGED = BooleanProperty.of("charged");
+    //public static final BooleanProperty VACUUM = BooleanProperty.of("vacuum");
 
     public StorageBlock(Settings settings) {
         super(settings.nonOpaque());
         setDefaultState(getStateManager().getDefaultState()
                 .with(Properties.HORIZONTAL_FACING, Direction.NORTH)
                 .with(CHARGED, false)
-                .with(Properties.WATERLOGGED, false));
+                .with(Properties.WATERLOGGED, false)
+                /*.with(VACUUM, false)*/);
     }
 
     @Override
@@ -130,6 +132,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         stateManager.add(Properties.HORIZONTAL_FACING);
         stateManager.add(CHARGED);
         stateManager.add(Properties.WATERLOGGED);
+        //stateManager.add(VACUUM);
     }
 
 
@@ -174,8 +177,14 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
                 return unlockContainer(world, pos, player, hand, isSurvival, itemCountInHand, tile);
             }
 
+
             // Only Survival Actions
             if (isSurvival) {
+
+                // Redstone Torch
+                if (player.isHolding(Items.REDSTONE_TORCH)) {
+                    return toggleVacuum(state, world, pos, tile);
+                }
 
                 // Lock
                 if (player.isHolding(ModItems.LOCK)) {
@@ -220,6 +229,15 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         }
 
         return ActionResult.CONSUME;
+    }
+
+
+    private  ActionResult toggleVacuum(BlockState state, World world, BlockPos pos, StorageBlockEntity tile) {
+        tile.vacuum = !tile.vacuum;
+        //world.setBlockState(pos, state.with(VACUUM, tile.vacuum));
+
+        world.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS, 1f, 1f);
+        return ActionResult.SUCCESS;
     }
 
     private ActionResult containerIsAlreadyLocked(World world, BlockPos pos, PlayerEntity player) {
