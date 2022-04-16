@@ -95,7 +95,7 @@ public class StorageBlockEntity extends BlockEntity {
     }
 
     public String getContainerFillPercentage() {
-        float container_progress = (100.0f / Integer.MAX_VALUE) * (this.liquidXp.amount-810);
+        float container_progress = (100.0f / Integer.MAX_VALUE) * (this.liquidXp.amount/*-810*/);
         return String.format(java.util.Locale.US,"%.7f", container_progress) + "%";
     }
 
@@ -116,8 +116,15 @@ public class StorageBlockEntity extends BlockEntity {
     @Override
     public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
-        liquidXp.variant = FluidVariant.fromNbt(tag.getCompound("fluidVariant"));
-        liquidXp.amount = tag.getLong("amount");
+        if (tag.contains("containerExperience")) {
+            this.liquidXp.amount = (long)tag.getInt("containerExperience")*810;
+            this.liquidXp.variant = FluidVariant.of(ModFluids.LIQUID_XP);
+        } else {
+            this.liquidXp.variant = FluidVariant.fromNbt(tag.getCompound("fluidVariant"));
+            this.liquidXp.amount = tag.getLong("amount");
+        }
+
+
         this.player_uuid = tag.getUuid("player_uuid");
         this.playerName = Text.of(tag.getString("playerName"));
     }
