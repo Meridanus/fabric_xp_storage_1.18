@@ -1,5 +1,6 @@
 package com.notker.xp_storage.blocks;
 
+import com.notker.xp_storage.XpStorage;
 import com.notker.xp_storage.regestry.ModBlocks;
 import com.notker.xp_storage.regestry.ModFluids;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
@@ -95,7 +96,7 @@ public class StorageBlockEntity extends BlockEntity {
     }
 
     public String getContainerFillPercentage() {
-        float container_progress = (100.0f / Integer.MAX_VALUE) * (this.liquidXp.amount/*-810*/);
+        float container_progress = (100.0f / (int)(Integer.MAX_VALUE / XpStorage.MB_PER_XP)) * (this.liquidXp.amount);
         return String.format(java.util.Locale.US,"%.7f", container_progress) + "%";
     }
 
@@ -117,7 +118,7 @@ public class StorageBlockEntity extends BlockEntity {
     public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
         if (tag.contains("containerExperience")) {
-            this.liquidXp.amount = (long)tag.getInt("containerExperience")*810;
+            this.liquidXp.amount = (long)tag.getInt("containerExperience") * XpStorage.MB_PER_XP;
             this.liquidXp.variant = FluidVariant.of(ModFluids.LIQUID_XP);
         } else {
             this.liquidXp.variant = FluidVariant.fromNbt(tag.getCompound("fluidVariant"));
@@ -133,11 +134,14 @@ public class StorageBlockEntity extends BlockEntity {
         NbtCompound stackTag = new NbtCompound();
         stackTag.putUuid("player_uuid", this.player_uuid);
         stackTag.putString("playerName", this.playerName.asString());
+        stackTag.put("fluidVariant", liquidXp.variant.toNbt());
+        stackTag.putLong("amount", liquidXp.amount);
+        writeIdToNbt(stackTag, ModBlocks.STORAGE_BLOCK_ENTITY);
         return stackTag;
     }
 
     public int getContainerExperience() {
-        return (int)(this.liquidXp.amount / 810);
+        return (int)(this.liquidXp.amount / XpStorage.MB_PER_XP);
     }
 
     @Nullable

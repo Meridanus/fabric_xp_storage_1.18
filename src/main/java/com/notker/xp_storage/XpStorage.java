@@ -15,6 +15,7 @@ import net.minecraft.util.Identifier;
 public class XpStorage implements ModInitializer {
 
     public static final  String MOD_ID = "xps";
+    public static final Integer MB_PER_XP = 810;
 
     public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(
             new Identifier(MOD_ID, "general"),
