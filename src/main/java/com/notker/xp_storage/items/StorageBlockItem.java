@@ -42,7 +42,7 @@ public class StorageBlockItem extends BlockItem {
                 String playerName = comp.getString("playerName");
                 tooltip.add(new TranslatableText("item.tooltip.owner", playerName));
             }
-            int storedXP = 0;
+            int storedXP;
 
             if (comp.contains("containerExperience")) {
                 storedXP = comp.getInt("containerExperience");
@@ -55,6 +55,11 @@ public class StorageBlockItem extends BlockItem {
             if (storedXP > 0) {
                 tooltip.add(XpFunctions.xp_to_text(storedXP));
             }
+
+            if (comp.getBoolean("vacuum")) {
+                tooltip.add(new TranslatableText("text.storageBlock.vacuum"));
+            }
+
 
         }
 

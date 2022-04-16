@@ -18,6 +18,7 @@
   "text.storageBlock.empty": "Container is Empty!",
   "text.storageBlock.data": "%d Level at %s%%",
   "text.storageBlock.level": "%d Level",
+  "text.storageBlock.vacuum": "Vacuum mode is on",
   "item.tooltip.inspector": "Use on XP Storage to inspect it.",
   "item.tooltip.xp_rod": "Use on XP Storage to receive level.",
   "item.tooltip.xp_remover": "Use on XP Storage to store level.",

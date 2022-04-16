@@ -18,13 +18,12 @@ import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3f;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBlockEntity> {
 
     public StorageBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
     }
-
-    private static ItemStack displayItem = new ItemStack(Items.ENCHANTED_BOOK, 1);
 
 
     @Override
@@ -54,6 +53,7 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
 
         try {
             //if (entity.containerExperience != 0) {
+            ItemStack displayItem;
             if (entity != null && entity.vacuum) {
 
                 displayItem = new ItemStack(Items.HOPPER, 1);
@@ -64,7 +64,6 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
 
             if (entity != null && (entity.getCachedState().get(StorageBlock.CHARGED) || entity.vacuum)) {
                 matrices.push();
-
                 long time = Objects.requireNonNull(entity.getWorld()).getTime();
 
                 double offset = Math.sin((time + tickDelta) / 20.0) / 10.0;

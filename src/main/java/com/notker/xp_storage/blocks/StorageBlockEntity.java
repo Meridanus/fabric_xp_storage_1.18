@@ -6,20 +6,30 @@ import com.notker.xp_storage.regestry.ModFluids;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.StoragePreconditions;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.ExperienceOrbEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.tag.TagKey;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @SuppressWarnings("UnstableApiUsage")
 public class StorageBlockEntity extends BlockEntity {
@@ -32,7 +42,7 @@ public class StorageBlockEntity extends BlockEntity {
         super(ModBlocks.STORAGE_BLOCK_ENTITY, pos, state);
     }
 
-    public final SingleVariantStorage<FluidVariant> liquidXp = new SingleVariantStorage<FluidVariant>() {
+    public final SingleVariantStorage<FluidVariant> liquidXp = new SingleVariantStorage<>() {
         @Override
         protected FluidVariant getBlankVariant() {
             return FluidVariant.blank();
@@ -96,8 +106,9 @@ public class StorageBlockEntity extends BlockEntity {
         this.toUpdatePacket();
     }
 
+    @SuppressWarnings("IntegerDivisionInFloatingPointContext")
     public String getContainerFillPercentage() {
-        float container_progress = (100.0f / (int)(Integer.MAX_VALUE / XpStorage.MB_PER_XP)) * (this.liquidXp.amount);
+        float container_progress = (100.0f / (Integer.MAX_VALUE / XpStorage.MB_PER_XP)) * (this.liquidXp.amount);
         return String.format(java.util.Locale.US,"%.7f", container_progress) + "%";
     }
 
@@ -163,4 +174,30 @@ public class StorageBlockEntity extends BlockEntity {
     public NbtCompound toInitialChunkDataNbt() {
         return this.createNbt();
     }
+
+
+
+
+        public static void tick(World world, BlockPos pos, BlockState state, StorageBlockEntity be) {
+            if (world != null && be.vacuum) {
+
+                Vec3d center = new Vec3d(pos.getX(), pos.getY(), pos.getZ());
+
+                List<ExperienceOrbEntity> validEntitys = world.getEntitiesByClass(ExperienceOrbEntity.class, Box.of(center, 9D, 9D , 9D), EntityPredicates.VALID_ENTITY);
+
+
+                validEntitys.forEach(experienceOrbEntity -> {
+                    int xp = experienceOrbEntity.getExperienceAmount();
+                    try (Transaction transaction = Transaction.openOuter()) {
+
+                        be.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), (long)xp * XpStorage.MB_PER_XP, transaction);
+                        transaction.commit();
+                        experienceOrbEntity.discard();
+                    }
+
+                });
+            }
+
+        }
+
 }

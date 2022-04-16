@@ -11,6 +11,8 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -39,6 +41,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
 import java.util.Objects;
+import java.util.UUID;
 
 @SuppressWarnings("UnstableApiUsage")
 public class StorageBlock extends BlockWithEntity implements BlockEntityProvider, Waterloggable {
@@ -67,6 +70,8 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         return this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getPlayerFacing().getOpposite()).with(Properties.WATERLOGGED, bl);
     }
 
+
+    @SuppressWarnings("deprecation")
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (state.get(Properties.WATERLOGGED)) {
             //world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
@@ -76,6 +81,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
+    @SuppressWarnings("deprecation")
     public FluidState getFluidState(BlockState state) {
         return state.get(Properties.WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
@@ -96,6 +102,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext ctx) {
 
         VoxelShape bottom = Block.createCuboidShape(1D, 0D, 1D, 15D, 2D, 15D);
@@ -151,6 +158,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
 
     @Override
+    @SuppressWarnings("deprecation")
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
 
@@ -184,7 +192,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
                 // Redstone Torch
                 if (player.isHolding(Items.REDSTONE_TORCH)) {
-                    return toggleVacuum(state, world, pos, tile);
+                    return toggleVacuum(world, pos, tile);
                 }
 
                 // Lock
@@ -233,7 +241,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
     }
 
 
-    private  ActionResult toggleVacuum(BlockState state, World world, BlockPos pos, StorageBlockEntity tile) {
+    private  ActionResult toggleVacuum(World world, BlockPos pos, StorageBlockEntity tile) {
         tile.toggleVacuum();
         //world.setBlockState(pos, state.with(VACUUM, tile.vacuum));
 
@@ -289,7 +297,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
     private ActionResult fillGlassBottle(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
         try (Transaction transaction = Transaction.openOuter()) {
-            tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), 11 * 810, transaction);
+            tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), 11L * XpStorage.MB_PER_XP, transaction);
             ItemStack fullBottle = new ItemStack(Items.EXPERIENCE_BOTTLE);
             fullBottle.setCount(1);
 
@@ -318,7 +326,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         }
 
         try (Transaction transaction = Transaction.openOuter()) {
-            tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), (long)xpToInsert * 810, transaction);
+            tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), (long)xpToInsert * XpStorage.MB_PER_XP, transaction);
             world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
             world.playSound(null, pos, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 1f, 1f);
 
@@ -421,20 +429,27 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
     private ActionResult displayContainerInfo(World world, BlockPos pos, PlayerEntity player, StorageBlockEntity tile) {
         int totalXp = XpFunctions.get_total_xp(player.experienceLevel, player.getNextLevelExperience(), player.experienceProgress);
+        UUID noUUid = Util.NIL_UUID;
 
-        if (!tile.player_uuid.equals(Util.NIL_UUID)) {
-            player.sendSystemMessage(new TranslatableText("item.tooltip.owner", tile.playerName.asString()), Util.NIL_UUID);
-            player.sendSystemMessage(new LiteralText("UUid: " + tile.player_uuid), Util.NIL_UUID);
+        if (!tile.player_uuid.equals(noUUid)) {
+            player.sendSystemMessage(new TranslatableText("item.tooltip.owner", tile.playerName.asString()), noUUid);
+            player.sendSystemMessage(new LiteralText("UUid: " + tile.player_uuid), noUUid);
         } else {
-            player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_no_owner"), Util.NIL_UUID);
+            player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_no_owner"), noUUid);
         }
         String xp = String.format(Locale.GERMAN, "%,d", (tile.liquidXp.amount / XpStorage.MB_PER_XP));
         String max = String.format(Locale.GERMAN, "%,d", Integer.MAX_VALUE);
         String playerXp = String.format(Locale.GERMAN,"%,d", totalXp);
 
-        player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_info", xp, max), Util.NIL_UUID);
-        player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_fill", tile.getContainerFillPercentage()), Util.NIL_UUID);
-        player.sendSystemMessage(new TranslatableText("item.debug_info.xp.player_info", playerXp), Util.NIL_UUID);
+        player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_info", xp, max), noUUid);
+        player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_fill", tile.getContainerFillPercentage()), noUUid);
+        player.sendSystemMessage(new TranslatableText("item.debug_info.xp.player_info", playerXp), noUUid);
+
+        if (tile.vacuum) {
+            player.sendSystemMessage(new TranslatableText("text.storageBlock.vacuum"), noUUid);
+        }
+
+
 
         world.playSound(null, pos, SoundEvents.ITEM_BOOK_PUT, SoundCategory.BLOCKS, 0.5f, 1f);
 
@@ -448,4 +463,8 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
     }
 
 
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, ModBlocks.STORAGE_BLOCK_ENTITY, (world1, pos, state1, be) -> StorageBlockEntity.tick(world1, pos, state1, be));
+    }
 }
