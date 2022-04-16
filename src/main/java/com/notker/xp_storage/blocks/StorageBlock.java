@@ -1,11 +1,13 @@
 package com.notker.xp_storage.blocks;
 
 import com.notker.xp_storage.XpFunctions;
-import com.notker.xp_storage.fluids.Xp_fluid;
 import com.notker.xp_storage.items.Xp_removerItem;
 import com.notker.xp_storage.regestry.ModBlocks;
 import com.notker.xp_storage.regestry.ModFluids;
 import com.notker.xp_storage.regestry.ModItems;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
@@ -37,8 +39,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Locale;
 import java.util.Objects;
 
-
-public class StorageBlock extends HorizontalFacingBlock implements BlockEntityProvider, Waterloggable {
+@SuppressWarnings("UnstableApiUsage")
+public class StorageBlock extends BlockWithEntity implements BlockEntityProvider, Waterloggable {
     public static final BooleanProperty CHARGED = BooleanProperty.of("charged");
 
     public StorageBlock(Settings settings) {
@@ -108,7 +110,7 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
 
         ItemStack drop = new ItemStack(asItem());
 
-        if (tile.containerExperience > 0 || !tile.player_uuid.equals(Util.NIL_UUID)) {
+        if (tile.liquidXp.amount > 0 || !tile.player_uuid.equals(Util.NIL_UUID)) {
             NbtCompound stackTag = new NbtCompound();
             //stackTag.put(ModBlocks.TAG_ID, tile.writeNbt(new NbtCompound()));
 
@@ -136,7 +138,7 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
         final StorageBlockEntity tile = (StorageBlockEntity) world.getBlockEntity(pos);
         if (tile == null) { return; }
 
-        if (tile.containerExperience != 0) {
+        if (tile.liquidXp.amount != 0) {
             world.setBlockState(pos, state.with(CHARGED, true));
         }
         super.onPlaced(world, pos, state, placer, itemStack);
@@ -203,7 +205,7 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
                 }
 
                 // Empty Bucket
-                if (player.isHolding(Items.BUCKET) && tile.containerExperience >= Xp_fluid.XpPerBucket) {
+                if (player.isHolding(Items.BUCKET)) {
                     return fillBucketOnContainer(state, world, pos, player, hand, tile);
                 }
 
@@ -237,48 +239,50 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
     }
 
     private ActionResult emptyBucketOnContainer(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
-        tile.addXpToContainer(Xp_fluid.XpPerBucket);
+        try (Transaction transaction = Transaction.openOuter()) {
+            tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), FluidConstants.BUCKET, transaction);
+            player.getStackInHand(hand).setCount(0);
+            player.getInventory().offerOrDrop(new ItemStack(Items.BUCKET));
 
-        player.getStackInHand(hand).setCount(0);
-        player.getInventory().offerOrDrop(new ItemStack(Items.BUCKET));
-
-        world.setBlockState(pos, state.with(CHARGED, (tile.containerExperience != 0)));
-        world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1f, 1f);
+            world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
+            world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1f, 1f);
+            transaction.commit();
+        }
 
         return ActionResult.SUCCESS;
     }
 
     private ActionResult fillBucketOnContainer(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
-        tile.containerExperience -= Xp_fluid.XpPerBucket;
-        tile.markDirty();
-        tile.toUpdatePacket();
+        try (Transaction transaction = Transaction.openOuter()) {
+            tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), FluidConstants.BUCKET, transaction);
 
-        player.getStackInHand(hand).decrement(1);
-        player.getInventory().offerOrDrop(new ItemStack(ModFluids.XP_BUCKET));
+            player.getStackInHand(hand).decrement(1);
+            player.getInventory().offerOrDrop(new ItemStack(ModFluids.XP_BUCKET));
 
-        world.setBlockState(pos, state.with(CHARGED, (tile.containerExperience != 0)));
-        world.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1f, 1f);
+            world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
+            world.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1f, 1f);
+            transaction.commit();
+        }
+
 
         return ActionResult.SUCCESS;
     }
 
     private ActionResult fillGlassBottle(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
-        if (tile.containerExperience >= 11) {
-
+        try (Transaction transaction = Transaction.openOuter()) {
+            tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), 11 * 810, transaction);
             ItemStack fullBottle = new ItemStack(Items.EXPERIENCE_BOTTLE);
             fullBottle.setCount(1);
 
-            tile.containerExperience -= 11;
-            tile.markDirty();
-            tile.toUpdatePacket();
-
             world.playSound(null, pos, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 0.125f, 1f);
-            world.setBlockState(pos, state.with(CHARGED, (tile.containerExperience != 0)));
+            world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
 
             player.getStackInHand(hand).decrement(1);
 
             player.getInventory().offerOrDrop(fullBottle);
+            transaction.commit();
         }
+
         return ActionResult.SUCCESS;
     }
 
@@ -294,43 +298,48 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
             xpToInsert += 3 + world.random.nextInt(5) + world.random.nextInt(5);
         }
 
-        tile.addXpToContainer(xpToInsert);
+        try (Transaction transaction = Transaction.openOuter()) {
+            tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), (long)xpToInsert * 810, transaction);
+            world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
+            world.playSound(null, pos, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 1f, 1f);
 
-        world.setBlockState(pos, state.with(CHARGED, (tile.containerExperience != 0)));
-        world.playSound(null, pos, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 1f, 1f);
+            player.getStackInHand(hand).setCount(0);
 
-        player.getStackInHand(hand).setCount(0);
-
-        dropStack(world, pos, player.getHorizontalFacing().getOpposite(), emptyBottles);
-        //player.getInventory().offerOrDrop(emptyBottle);
+            dropStack(world, pos, player.getHorizontalFacing().getOpposite(), emptyBottles);
+            transaction.commit();
+        }
 
         return ActionResult.SUCCESS;
     }
 
     private ActionResult containerXpToPlayer(int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, StorageBlockEntity tile) {
-        if (tile.containerExperience > 0) {
+        if (tile.liquidXp.amount > 0) {
 
             for (int i = 0; i < itemCount; i++) {
                 int xpToNextLevel = XpFunctions.exp_to_reach_next_lvl(player.getNextLevelExperience(), player.experienceProgress);
-                int storageXP = tile.containerExperience;
+                int storageXP = (int)tile.liquidXp.amount / 810;
 
                 if (storageXP == 0) {
                     break;
                 }
 
-                if (storageXP >= xpToNextLevel) {
-                    tile.containerExperience -= xpToNextLevel;
-                    player.addExperience(xpToNextLevel);
-                } else {
-                    player.addExperience(storageXP);
-                    tile.containerExperience = 0;
+                try (Transaction transaction = Transaction.openOuter()){
+                    if (storageXP >= xpToNextLevel) {
+                        tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), (long)xpToNextLevel * 810, transaction);
+                        player.addExperience(xpToNextLevel);
+                        transaction.commit();
+                    } else {
+                        tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), tile.liquidXp.amount, transaction);
+                        player.addExperience(storageXP);
+                        transaction.commit();
+                    }
                 }
                 tile.markDirty();
                 tile.toUpdatePacket();
             }
 
             world.playSound(null, pos, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, 0.125f, 1f);
-            world.setBlockState(pos, state.with(CHARGED, (tile.containerExperience != 0)));
+            world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
         }
         return ActionResult.SUCCESS;
     }
@@ -357,10 +366,13 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
                 }
             }
 
-            tile.addXpToContainer(xpToInsert);
+            try (Transaction transaction = Transaction.openOuter()) {
+                tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), (long)xpToInsert * 810, transaction);
+                transaction.commit();
+            }
 
             world.playSound(null, pos, SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 0.125f, 1f);
-            world.setBlockState(pos, state.with(CHARGED, (tile.containerExperience != 0)));
+            world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
         }
         return ActionResult.SUCCESS;
     }
@@ -398,7 +410,7 @@ public class StorageBlock extends HorizontalFacingBlock implements BlockEntityPr
         } else {
             player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_no_owner"), Util.NIL_UUID);
         }
-        String xp = String.format(Locale.GERMAN, "%,d", tile.containerExperience);
+        String xp = String.format(Locale.GERMAN, "%,d", (tile.liquidXp.amount / 810));
         String max = String.format(Locale.GERMAN, "%,d", Integer.MAX_VALUE);
         String playerXp = String.format(Locale.GERMAN,"%,d", totalXp);
 

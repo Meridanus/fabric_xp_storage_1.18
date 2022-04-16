@@ -1,12 +1,18 @@
 package com.notker.xp_storage.blocks;
 
 import com.notker.xp_storage.regestry.ModBlocks;
+import com.notker.xp_storage.regestry.ModFluids;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.StoragePreconditions;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
@@ -14,18 +20,68 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
+@SuppressWarnings("UnstableApiUsage")
 public class StorageBlockEntity extends BlockEntity {
 
-    public int containerExperience = 0;
     public UUID player_uuid = Util.NIL_UUID;
     public Text playerName = Text.of("");
 
-
-
     public StorageBlockEntity(BlockPos pos, BlockState state) {
-
         super(ModBlocks.STORAGE_BLOCK_ENTITY, pos, state);
     }
+
+    public final SingleVariantStorage<FluidVariant> liquidXp = new SingleVariantStorage<FluidVariant>() {
+        @Override
+        protected FluidVariant getBlankVariant() {
+            return FluidVariant.blank();
+        }
+
+        @Override
+        protected long getCapacity(FluidVariant variant) {
+            return Integer.MAX_VALUE;
+        }
+
+        @Override
+        public long insert(FluidVariant insertedVariant, long maxAmount, TransactionContext transaction) {
+            StoragePreconditions.notBlankNotNegative(insertedVariant, maxAmount);
+            if (canInsert(insertedVariant)) {
+                long insertedAmount = Math.min(maxAmount, getCapacity(insertedVariant) - amount);
+
+                if (insertedAmount > 0) {
+                    updateSnapshots(transaction);
+
+                    if (variant.isBlank()) {
+                        variant = FluidVariant.of(ModFluids.LIQUID_XP);
+                        amount = insertedAmount;
+                    } else {
+                        amount += insertedAmount;
+                    }
+                }
+
+                return insertedAmount;
+            }
+
+            return 0;
+        }
+
+        @Override
+        protected boolean canInsert(FluidVariant variant) {
+            var variant_name = variant.getFluid().getDefaultState().getBlockState().toString();
+            return variant_name.contains("liquid_xp") || variant_name.contains("xp_fluid");
+        }
+
+        @Override
+        protected boolean canExtract(FluidVariant variant) {
+            var variant_name = variant.getFluid().getDefaultState().getBlockState().toString();
+            return variant_name.contains("liquid_xp") || variant_name.contains("xp_fluid");
+        }
+
+        @Override
+        protected void onFinalCommit() {
+            markDirty();
+            toUpdatePacket();
+        }
+    };
 
     public void setUuidAndNameTo() {
         setUuidAndNameTo(Util.NIL_UUID, Text.of(""));
@@ -38,33 +94,16 @@ public class StorageBlockEntity extends BlockEntity {
         this.toUpdatePacket();
     }
 
-    public int getAvailableContainerSpace() {
-        return Integer.MAX_VALUE - this.containerExperience;
-    }
-
     public String getContainerFillPercentage() {
-        float container_progress = (100.0f / Integer.MAX_VALUE) * this.containerExperience;
+        float container_progress = (100.0f / Integer.MAX_VALUE) * (this.liquidXp.amount-810);
         return String.format(java.util.Locale.US,"%.7f", container_progress) + "%";
-    }
-
-    /**
-     * Prevents Integer overflow on XP insert
-     */
-    public void addXpToContainer(int xpToAdd) {
-        if (this.getAvailableContainerSpace() > xpToAdd) {
-            this.containerExperience += xpToAdd;
-        } else {
-            this.containerExperience = Integer.MAX_VALUE;
-        }
-
-        this.markDirty();
-        this.toUpdatePacket();
     }
 
     @Override
     public void writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
-        tag.putInt("containerExperience", this.containerExperience);
+        tag.put("fluidVariant", liquidXp.variant.toNbt());
+        tag.putLong("amount", liquidXp.amount);
         tag.putUuid("player_uuid", this.player_uuid);
         tag.putString("playerName", this.playerName.asString());
         writeIdToNbt(tag, ModBlocks.STORAGE_BLOCK_ENTITY);
@@ -72,29 +111,26 @@ public class StorageBlockEntity extends BlockEntity {
         if (world != null) {
             world.updateListeners(pos, getCachedState(), getCachedState(), net.minecraft.block.Block.NOTIFY_ALL);
         }
-
-
     }
-
 
     @Override
     public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
-        this.containerExperience = tag.getInt("containerExperience");
+        liquidXp.variant = FluidVariant.fromNbt(tag.getCompound("fluidVariant"));
+        liquidXp.amount = tag.getLong("amount");
         this.player_uuid = tag.getUuid("player_uuid");
         this.playerName = Text.of(tag.getString("playerName"));
     }
 
     public NbtCompound getNbtData() {
         NbtCompound stackTag = new NbtCompound();
-        stackTag.putInt("containerExperience", this.containerExperience);
         stackTag.putUuid("player_uuid", this.player_uuid);
         stackTag.putString("playerName", this.playerName.asString());
         return stackTag;
     }
 
     public int getContainerExperience() {
-        return containerExperience;
+        return (int)(this.liquidXp.amount / 810);
     }
 
     @Nullable
