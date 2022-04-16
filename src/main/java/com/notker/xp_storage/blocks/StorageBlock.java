@@ -1,6 +1,7 @@
 package com.notker.xp_storage.blocks;
 
 import com.notker.xp_storage.XpFunctions;
+import com.notker.xp_storage.XpStorage;
 import com.notker.xp_storage.items.Xp_removerItem;
 import com.notker.xp_storage.regestry.ModBlocks;
 import com.notker.xp_storage.regestry.ModFluids;
@@ -233,7 +234,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
 
     private  ActionResult toggleVacuum(BlockState state, World world, BlockPos pos, StorageBlockEntity tile) {
-        tile.vacuum = !tile.vacuum;
+        tile.toggleVacuum();
         //world.setBlockState(pos, state.with(VACUUM, tile.vacuum));
 
         world.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS, 1f, 1f);
@@ -335,7 +336,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
             for (int i = 0; i < itemCount; i++) {
                 int xpToNextLevel = XpFunctions.exp_to_reach_next_lvl(player.getNextLevelExperience(), player.experienceProgress);
-                int storageXP = (int)tile.liquidXp.amount / 810;
+                int storageXP = (int)tile.liquidXp.amount / XpStorage.MB_PER_XP;
 
                 if (storageXP == 0) {
                     break;
@@ -343,14 +344,13 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
                 try (Transaction transaction = Transaction.openOuter()){
                     if (storageXP >= xpToNextLevel) {
-                        tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), (long)xpToNextLevel * 810, transaction);
+                        tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), (long)xpToNextLevel * XpStorage.MB_PER_XP, transaction);
                         player.addExperience(xpToNextLevel);
-                        transaction.commit();
                     } else {
                         tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), tile.liquidXp.amount, transaction);
                         player.addExperience(storageXP);
-                        transaction.commit();
                     }
+                    transaction.commit();
                 }
                 tile.markDirty();
                 tile.toUpdatePacket();
@@ -385,7 +385,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
             }
 
             try (Transaction transaction = Transaction.openOuter()) {
-                tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), (long)xpToInsert * 810, transaction);
+                tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), (long)xpToInsert * XpStorage.MB_PER_XP, transaction);
                 transaction.commit();
             }
 
@@ -428,7 +428,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         } else {
             player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_no_owner"), Util.NIL_UUID);
         }
-        String xp = String.format(Locale.GERMAN, "%,d", (tile.liquidXp.amount / 810));
+        String xp = String.format(Locale.GERMAN, "%,d", (tile.liquidXp.amount / XpStorage.MB_PER_XP));
         String max = String.format(Locale.GERMAN, "%,d", Integer.MAX_VALUE);
         String playerXp = String.format(Locale.GERMAN,"%,d", totalXp);
 

@@ -144,6 +144,11 @@ public class StorageBlockEntity extends BlockEntity {
         return stackTag;
     }
 
+    public void toggleVacuum() {
+        this.vacuum = !this.vacuum;
+        this.toUpdatePacket();
+    }
+
     public int getContainerExperience() {
         return (int)(this.liquidXp.amount / XpStorage.MB_PER_XP);
     }
