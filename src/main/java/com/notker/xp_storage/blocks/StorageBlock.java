@@ -438,10 +438,9 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
             player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_no_owner"), noUUid);
         }
         String xp = String.format(Locale.GERMAN, "%,d", (tile.liquidXp.amount / XpStorage.MB_PER_XP));
-        String max = String.format(Locale.GERMAN, "%,d", Integer.MAX_VALUE);
         String playerXp = String.format(Locale.GERMAN,"%,d", totalXp);
 
-        player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_info", xp, max), noUUid);
+        player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_info", xp), noUUid);
         player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_fill", tile.getContainerFillPercentage()), noUUid);
         player.sendSystemMessage(new TranslatableText("item.debug_info.xp.player_info", playerXp), noUUid);
 
@@ -465,6 +464,6 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlocks.STORAGE_BLOCK_ENTITY, (world1, pos, state1, be) -> StorageBlockEntity.tick(world1, pos, be));
+        return checkType(type, ModBlocks.STORAGE_BLOCK_ENTITY, StorageBlockEntity::tick);
     }
 }

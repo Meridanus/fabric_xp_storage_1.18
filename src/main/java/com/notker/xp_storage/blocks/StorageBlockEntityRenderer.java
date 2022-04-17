@@ -36,6 +36,7 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
         if(entity != null && entity.getPos() != null && rtr != null && rtr.getType() == HitResult.Type.BLOCK && ((BlockHitResult)rtr).getBlockPos() != null && ((BlockHitResult)rtr).getBlockPos().equals(entity.getPos()))
         {
             TranslatableText levelsString = XpFunctions.xp_to_text(entity.getContainerExperience());
+            //TranslatableText levelsString = XpFunctions.xp_to_text(Integer.MAX_VALUE);
             float opacity = MinecraftClient.getInstance().options.getTextBackgroundOpacity(0.25f);
             int j = (int)(opacity * 255.0F) << 24;
             float halfWidth = -mc.textRenderer.getWidth(levelsString) >> 1;

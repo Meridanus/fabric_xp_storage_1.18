@@ -10,9 +10,7 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
@@ -28,8 +26,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import static com.notker.xp_storage.blocks.StorageBlock.CHARGED;
 
 @SuppressWarnings("UnstableApiUsage")
 public class StorageBlockEntity extends BlockEntity {
@@ -69,8 +67,9 @@ public class StorageBlockEntity extends BlockEntity {
                         amount += insertedAmount;
                     }
                 }
-
+                //toUpdatePacket();
                 return insertedAmount;
+
             }
 
             return 0;
@@ -106,17 +105,17 @@ public class StorageBlockEntity extends BlockEntity {
         this.toUpdatePacket();
     }
 
-    @SuppressWarnings("IntegerDivisionInFloatingPointContext")
+
     public String getContainerFillPercentage() {
-        float container_progress = (100.0f / (Integer.MAX_VALUE / XpStorage.MB_PER_XP)) * (this.liquidXp.amount);
+        float container_progress = (100.0f / Integer.MAX_VALUE) * this.liquidXp.amount;
         return String.format(java.util.Locale.US,"%.7f", container_progress) + "%";
     }
 
     @Override
     public void writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
-        tag.put("fluidVariant", liquidXp.variant.toNbt());
-        tag.putLong("amount", liquidXp.amount);
+        tag.put("fluidVariant", this.liquidXp.variant.toNbt());
+        tag.putLong("amount", this.liquidXp.amount);
         tag.putUuid("player_uuid", this.player_uuid);
         tag.putString("playerName", this.playerName.asString());
         tag.putBoolean("vacuum", this.vacuum);
@@ -148,8 +147,8 @@ public class StorageBlockEntity extends BlockEntity {
         NbtCompound stackTag = new NbtCompound();
         stackTag.putUuid("player_uuid", this.player_uuid);
         stackTag.putString("playerName", this.playerName.asString());
-        stackTag.put("fluidVariant", liquidXp.variant.toNbt());
-        stackTag.putLong("amount", liquidXp.amount);
+        stackTag.put("fluidVariant", this.liquidXp.variant.toNbt());
+        stackTag.putLong("amount", this.liquidXp.amount);
         writeIdToNbt(stackTag, ModBlocks.STORAGE_BLOCK_ENTITY);
         stackTag.putBoolean("vacuum", this.vacuum);
         return stackTag;
@@ -178,24 +177,22 @@ public class StorageBlockEntity extends BlockEntity {
 
 
 
-        public static void tick(World world, BlockPos pos, StorageBlockEntity be) {
-            if (world != null && be.vacuum) {
+        public static void tick(World world, BlockPos pos, BlockState state, StorageBlockEntity be) {
+            if (be.vacuum && world != null) {
 
-                Vec3d center = new Vec3d(pos.getX(), pos.getY(), pos.getZ());
-
-                List<ExperienceOrbEntity> validEntitys = world.getEntitiesByClass(ExperienceOrbEntity.class, Box.of(center, 9D, 9D , 9D), EntityPredicates.VALID_ENTITY);
+                Vec3d center = new Vec3d(pos.getX(), pos.getY() + 2.5D, pos.getZ());
+                List<ExperienceOrbEntity> validEntitys = world.getEntitiesByClass(ExperienceOrbEntity.class, Box.of(center, 9D, 5D , 9D), EntityPredicates.VALID_ENTITY);
 
 
                 validEntitys.forEach(experienceOrbEntity -> {
                     int xp = experienceOrbEntity.getExperienceAmount();
                     try (Transaction transaction = Transaction.openOuter()) {
-
                         be.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), (long)xp * XpStorage.MB_PER_XP, transaction);
                         transaction.commit();
-                        experienceOrbEntity.discard();
                     }
-
+                    experienceOrbEntity.discard();
                 });
+                world.setBlockState(pos, state.with(CHARGED, (be.liquidXp.amount != 0)));
             }
 
         }
