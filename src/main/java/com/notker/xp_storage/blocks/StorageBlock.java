@@ -280,35 +280,41 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
     }
 
     private ActionResult fillBucketOnContainer(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
-        try (Transaction transaction = Transaction.openOuter()) {
-            tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), FluidConstants.BUCKET, transaction);
+        if (tile.liquidXp.amount >= FluidConstants.BUCKET) {
+            try (Transaction transaction = Transaction.openOuter()) {
+                tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), FluidConstants.BUCKET, transaction);
 
-            player.getStackInHand(hand).decrement(1);
-            player.getInventory().offerOrDrop(new ItemStack(ModFluids.XP_BUCKET));
+                player.getStackInHand(hand).decrement(1);
+                player.getInventory().offerOrDrop(new ItemStack(ModFluids.XP_BUCKET));
 
-            world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
-            world.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1f, 1f);
-            transaction.commit();
+                world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
+                world.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1f, 1f);
+                transaction.commit();
+            }
         }
-
 
         return ActionResult.SUCCESS;
     }
 
     private ActionResult fillGlassBottle(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
-        try (Transaction transaction = Transaction.openOuter()) {
-            tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), 11L * XpStorage.MB_PER_XP, transaction);
-            ItemStack fullBottle = new ItemStack(Items.EXPERIENCE_BOTTLE);
-            fullBottle.setCount(1);
+        if (tile.liquidXp.amount >= 11L * XpStorage.MB_PER_XP) {
+            try (Transaction transaction = Transaction.openOuter()) {
+                tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), 11L * XpStorage.MB_PER_XP, transaction);
+                ItemStack fullBottle = new ItemStack(Items.EXPERIENCE_BOTTLE);
+                fullBottle.setCount(1);
 
-            world.playSound(null, pos, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 0.125f, 1f);
-            world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
+                world.playSound(null, pos, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 0.125f, 1f);
+                world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
 
-            player.getStackInHand(hand).decrement(1);
+                player.getStackInHand(hand).decrement(1);
 
-            player.getInventory().offerOrDrop(fullBottle);
-            transaction.commit();
+                player.getInventory().offerOrDrop(fullBottle);
+                transaction.commit();
+            }
         }
+
+
+
 
         return ActionResult.SUCCESS;
     }
@@ -326,7 +332,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         }
 
         try (Transaction transaction = Transaction.openOuter()) {
-            tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), (long)xpToInsert * XpStorage.MB_PER_XP, transaction);
+            tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), xpToInsert * XpStorage.MB_PER_XP, transaction);
             world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
             world.playSound(null, pos, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 1f, 1f);
 
@@ -344,7 +350,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
             for (int i = 0; i < itemCount; i++) {
                 int xpToNextLevel = XpFunctions.exp_to_reach_next_lvl(player.getNextLevelExperience(), player.experienceProgress);
-                int storageXP = (int)tile.liquidXp.amount / XpStorage.MB_PER_XP;
+                int storageXP = tile.getContainerIntXp();
 
                 if (storageXP == 0) {
                     break;
@@ -352,7 +358,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
                 try (Transaction transaction = Transaction.openOuter()){
                     if (storageXP >= xpToNextLevel) {
-                        tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), (long)xpToNextLevel * XpStorage.MB_PER_XP, transaction);
+                        tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), xpToNextLevel * XpStorage.MB_PER_XP, transaction);
                         player.addExperience(xpToNextLevel);
                     } else {
                         tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), tile.liquidXp.amount, transaction);
@@ -393,7 +399,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
             }
 
             try (Transaction transaction = Transaction.openOuter()) {
-                tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), (long)xpToInsert * XpStorage.MB_PER_XP, transaction);
+                tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), xpToInsert * XpStorage.MB_PER_XP, transaction);
                 transaction.commit();
             }
 
@@ -437,7 +443,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         } else {
             player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_no_owner"), noUUid);
         }
-        String xp = String.format(Locale.GERMAN, "%,d", (tile.liquidXp.amount / XpStorage.MB_PER_XP));
+        String xp = String.format(Locale.GERMAN, "%,d", tile.getContainerIntXp());
         String playerXp = String.format(Locale.GERMAN,"%,d", totalXp);
 
         player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_info", xp), noUUid);

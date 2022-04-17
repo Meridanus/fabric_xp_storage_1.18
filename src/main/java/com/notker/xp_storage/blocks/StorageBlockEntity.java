@@ -3,6 +3,7 @@ package com.notker.xp_storage.blocks;
 import com.notker.xp_storage.XpStorage;
 import com.notker.xp_storage.regestry.ModBlocks;
 import com.notker.xp_storage.regestry.ModFluids;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.StoragePreconditions;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
@@ -48,8 +49,9 @@ public class StorageBlockEntity extends BlockEntity {
 
         @Override
         protected long getCapacity(FluidVariant variant) {
-            return Integer.MAX_VALUE;
+            return FluidConstants.BUCKET * Integer.MAX_VALUE;
         }
+
 
         @Override
         public long insert(FluidVariant insertedVariant, long maxAmount, TransactionContext transaction) {
@@ -67,7 +69,6 @@ public class StorageBlockEntity extends BlockEntity {
                         amount += insertedAmount;
                     }
                 }
-                //toUpdatePacket();
                 return insertedAmount;
 
             }
@@ -105,9 +106,12 @@ public class StorageBlockEntity extends BlockEntity {
         this.toUpdatePacket();
     }
 
+    public int getContainerIntXp() {
+        return (int)(this.liquidXp.amount / XpStorage.MB_PER_XP);
+    }
 
     public String getContainerFillPercentage() {
-        float container_progress = (100.0f / Integer.MAX_VALUE) * this.liquidXp.amount;
+        float container_progress = (float) ((100.0 / this.liquidXp.getCapacity()) * this.liquidXp.amount);
         return String.format(java.util.Locale.US,"%.7f", container_progress) + "%";
     }
 

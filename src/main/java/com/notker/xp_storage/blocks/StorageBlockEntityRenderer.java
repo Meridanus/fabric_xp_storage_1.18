@@ -18,7 +18,6 @@ import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3f;
 
 import java.util.Objects;
-import java.util.Random;
 
 public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBlockEntity> {
 
@@ -75,7 +74,6 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
 
                 int lightAbove = WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up());
                 MinecraftClient.getInstance().getItemRenderer().renderItem(displayItem, ModelTransformation.Mode.GROUND, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
-
                 matrices.pop();
             }
         } catch (Exception e) {

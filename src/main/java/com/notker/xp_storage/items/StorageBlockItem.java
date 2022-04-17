@@ -47,7 +47,7 @@ public class StorageBlockItem extends BlockItem {
             if (comp.contains("containerExperience")) {
                 storedXP = comp.getInt("containerExperience");
             } else {
-                storedXP = (int)comp.getLong("amount") / XpStorage.MB_PER_XP;
+                storedXP = (int)(comp.getLong("amount") / XpStorage.MB_PER_XP);
             }
 
 
