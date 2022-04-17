@@ -350,7 +350,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
             for (int i = 0; i < itemCount; i++) {
                 int xpToNextLevel = XpFunctions.exp_to_reach_next_lvl(player.getNextLevelExperience(), player.experienceProgress);
-                int storageXP = tile.getContainerIntXp();
+                int storageXP = tile.getContainerExperience();
 
                 if (storageXP == 0) {
                     break;
@@ -443,7 +443,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         } else {
             player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_no_owner"), noUUid);
         }
-        String xp = String.format(Locale.GERMAN, "%,d", tile.getContainerIntXp());
+        String xp = String.format(Locale.GERMAN, "%,d", tile.getContainerExperience());
         String playerXp = String.format(Locale.GERMAN,"%,d", totalXp);
 
         player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_info", xp), noUUid);

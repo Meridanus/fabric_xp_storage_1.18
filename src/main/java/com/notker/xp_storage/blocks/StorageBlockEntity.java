@@ -106,9 +106,6 @@ public class StorageBlockEntity extends BlockEntity {
         this.toUpdatePacket();
     }
 
-    public int getContainerIntXp() {
-        return (int)(this.liquidXp.amount / XpStorage.MB_PER_XP);
-    }
 
     public String getContainerFillPercentage() {
         float container_progress = (float) ((100.0 / this.liquidXp.getCapacity()) * this.liquidXp.amount);
