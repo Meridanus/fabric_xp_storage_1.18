@@ -297,9 +297,10 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
     }
 
     private ActionResult fillGlassBottle(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
-        if (tile.liquidXp.amount >= 11L * XpStorage.MB_PER_XP) {
+        if (tile.liquidXp.amount >= FluidConstants.BOTTLE) {
+            //11L * XpStorage.MB_PER_XP
             try (Transaction transaction = Transaction.openOuter()) {
-                tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), 11L * XpStorage.MB_PER_XP, transaction);
+                tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), FluidConstants.BOTTLE, transaction);
                 ItemStack fullBottle = new ItemStack(Items.EXPERIENCE_BOTTLE);
                 fullBottle.setCount(1);
 
@@ -328,11 +329,12 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
         for (int i = 0; i < itemCount; i++) {
             // Minecraft EP Calculation
-            xpToInsert += 3 + world.random.nextInt(5) + world.random.nextInt(5);
+            //xpToInsert += 3 + world.random.nextInt(5) + world.random.nextInt(5);
+            xpToInsert += FluidConstants.BOTTLE;
         }
 
         try (Transaction transaction = Transaction.openOuter()) {
-            tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), xpToInsert * XpStorage.MB_PER_XP, transaction);
+            tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), xpToInsert, transaction);
             world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
             world.playSound(null, pos, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 1f, 1f);
 
@@ -446,7 +448,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         String xp = String.format(Locale.GERMAN, "%,d", tile.getContainerExperience());
         String playerXp = String.format(Locale.GERMAN,"%,d", totalXp);
 
-        player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_info", xp), noUUid);
+        player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_info", xp, Integer.MAX_VALUE), noUUid);
         player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_fill", tile.getContainerFillPercentage()), noUUid);
         player.sendSystemMessage(new TranslatableText("item.debug_info.xp.player_info", playerXp), noUUid);
 
