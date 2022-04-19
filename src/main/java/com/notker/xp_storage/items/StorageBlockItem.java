@@ -1,6 +1,7 @@
 package com.notker.xp_storage.items;
 
 import com.notker.xp_storage.XpFunctions;
+import com.notker.xp_storage.XpStorage;
 import com.notker.xp_storage.regestry.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.client.item.TooltipContext;
@@ -41,11 +42,24 @@ public class StorageBlockItem extends BlockItem {
                 String playerName = comp.getString("playerName");
                 tooltip.add(new TranslatableText("item.tooltip.owner", playerName));
             }
+            int storedXP;
 
-            int storedXP = comp.getInt("containerExperience");
+            if (comp.contains("containerExperience")) {
+                storedXP = comp.getInt("containerExperience");
+            } else {
+                storedXP = (int)(comp.getLong("amount") / XpStorage.MB_PER_XP);
+            }
+
+
+
             if (storedXP > 0) {
                 tooltip.add(XpFunctions.xp_to_text(storedXP));
             }
+
+            if (comp.getBoolean("vacuum")) {
+                tooltip.add(new TranslatableText("text.storageBlock.vacuum"));
+            }
+
 
         }
 

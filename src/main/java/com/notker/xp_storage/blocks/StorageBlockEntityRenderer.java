@@ -24,8 +24,6 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
     public StorageBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
     }
 
-    private static final ItemStack displayItem = new ItemStack(Items.ENCHANTED_BOOK, 1);
-
 
     @Override
     public void render(StorageBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
@@ -37,6 +35,7 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
         if(entity != null && entity.getPos() != null && rtr != null && rtr.getType() == HitResult.Type.BLOCK && ((BlockHitResult)rtr).getBlockPos() != null && ((BlockHitResult)rtr).getBlockPos().equals(entity.getPos()))
         {
             TranslatableText levelsString = XpFunctions.xp_to_text(entity.getContainerExperience());
+            //TranslatableText levelsString = XpFunctions.xp_to_text(Integer.MAX_VALUE);
             float opacity = MinecraftClient.getInstance().options.getTextBackgroundOpacity(0.25f);
             int j = (int)(opacity * 255.0F) << 24;
             float halfWidth = -mc.textRenderer.getWidth(levelsString) >> 1;
@@ -54,9 +53,17 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
 
         try {
             //if (entity.containerExperience != 0) {
-            if (entity != null && entity.getCachedState().get(StorageBlock.CHARGED)) {
-                matrices.push();
+            ItemStack displayItem;
+            if (entity != null && entity.vacuum) {
 
+                displayItem = new ItemStack(Items.HOPPER, 1);
+            } else {
+                displayItem = new ItemStack(Items.ENCHANTED_BOOK, 1);
+            }
+
+
+            if (entity != null && (entity.getCachedState().get(StorageBlock.CHARGED) || entity.vacuum)) {
+                matrices.push();
                 long time = Objects.requireNonNull(entity.getWorld()).getTime();
 
                 double offset = Math.sin((time + tickDelta) / 20.0) / 10.0;
@@ -67,7 +74,6 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
 
                 int lightAbove = WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up());
                 MinecraftClient.getInstance().getItemRenderer().renderItem(displayItem, ModelTransformation.Mode.GROUND, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
-
                 matrices.pop();
             }
         } catch (Exception e) {
