@@ -30,6 +30,6 @@
   "item.debug_info.xp.player_info": "Deine Xp: %s",
   "item.tooltip.stack_size": "Stapelgröße entspricht Level Menge.",
   "item.tooltip.lock": "Benutze an XP Lager um es zu Verschließen.",
-  "item.tooltip.key": "Benutze an XP Lager um es Auszuschließen.",
+  "item.tooltip.key": "Benutze an XP Lager um es Aufzuschließen.",
   "item.tooltip.owner": "Eigentümer: %s"
 }
