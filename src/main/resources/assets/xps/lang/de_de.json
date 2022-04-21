@@ -8,6 +8,9 @@
   "item.xps.xp_dust": "Erfahrungsstaub",
   "item.xps.key": "Schlüssel",
   "item.xps.xp_bucket": "Erfahrungseimer",
+
+  "item.xps.moreinfo.tooltip": "§8Drücke §6Shift §8für mehr Info",
+
   "itemGroup.xps.general": "XP Storage",
   "block.xps.xp": "Erfahrung",
   "block.xps.xp_fluid": "Flüssige Erfahrung",

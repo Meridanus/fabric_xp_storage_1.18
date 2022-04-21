@@ -8,6 +8,9 @@
   "item.xps.xp_dust": "Experience Dust",
   "item.xps.key": "Key",
   "item.xps.xp_bucket": "Experience Bucket",
+
+  "item.xps.moreinfo.tooltip": "§8Hold §6Shift §8For More Info",
+
   "block.xps.block_xp_obelisk": "Experience Storage",
   "block.xps.xp": "Experience",
   "block.xps.xp_fluid": "Liquid Experience",
