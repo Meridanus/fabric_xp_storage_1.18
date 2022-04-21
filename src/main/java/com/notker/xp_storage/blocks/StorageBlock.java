@@ -184,6 +184,9 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
                 return containerAccessDenied(world, pos, player);
             }
 
+            //set Autorisation for fluid Extract
+            tile.isAuthPlayer = true;
+
             // Key
             if (player.isHolding(ModItems.KEY) && (isTileOwner || player.isCreative())) {
                 return unlockContainer(world, pos, player, hand, isSurvival, itemCountInHand, tile);
@@ -243,7 +246,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
             }
 
-
+            tile.isAuthPlayer = false;
         }
 
         return ActionResult.CONSUME;
@@ -273,7 +276,6 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
                 transaction.commit();
             }
         }
-
         return ActionResult.SUCCESS;
     }
 
