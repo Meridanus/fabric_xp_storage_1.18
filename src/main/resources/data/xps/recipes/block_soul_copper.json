@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "III",
+        "III",
+        "III"
+    ],
+    "key": {
+        "I": {
+            "item": "xps:soul_copper_ingot"
+        }
+    },
+    "result": {
+        "item": "xps:block_soul_copper",
+        "count": 1
+    }
+}

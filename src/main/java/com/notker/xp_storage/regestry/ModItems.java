@@ -5,6 +5,7 @@ import com.notker.xp_storage.items.StorageBlockItem;
 import com.notker.xp_storage.items.StorageItem;
 import com.notker.xp_storage.items.Xp_dust;
 import com.notker.xp_storage.items.Xp_removerItem;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
@@ -25,6 +26,7 @@ public class ModItems {
 
     //Block Items
     public static final StorageBlockItem BLOCK_XP_OBELISK = new StorageBlockItem(ModBlocks.BLOCK_XP_OBELISK, new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(16).rarity(Rarity.RARE));
+public static final BlockItem BLOCK_SOUL_COPPER = new BlockItem(ModBlocks.BLOCK_SOUL_COPPER, new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(64));
 
     public static void registerItems() {
         //Items
@@ -39,5 +41,6 @@ public class ModItems {
 
         //BlockItems
         Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID, "block_xp_obelisk"), BLOCK_XP_OBELISK);
+        Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID, "block_soul_copper"), BLOCK_SOUL_COPPER);
     }
 }

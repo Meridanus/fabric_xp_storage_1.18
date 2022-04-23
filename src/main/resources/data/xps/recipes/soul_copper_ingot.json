@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "xps:block_soul_copper"
+        }
+    ],
+    "result": {
+        "item": "xps:soul_copper_ingot",
+        "count": 9
+    }
+}
