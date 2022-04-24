@@ -1,10 +1,7 @@
 package com.notker.xp_storage.regestry;
 
 import com.notker.xp_storage.XpStorage;
-import com.notker.xp_storage.items.StorageBlockItem;
-import com.notker.xp_storage.items.StorageItem;
-import com.notker.xp_storage.items.Xp_dust;
-import com.notker.xp_storage.items.Xp_removerItem;
+import com.notker.xp_storage.items.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -23,6 +20,7 @@ public class ModItems {
     public static final StorageItem LOCK = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(16).rarity(Rarity.UNCOMMON));
     public static final Xp_dust XP_DUST = new Xp_dust(new Item.Settings().group(XpStorage.ITEM_GROUP));
     public static final StorageItem KEY = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(16).rarity(Rarity.UNCOMMON));
+    public static final Item HANDBOOK = new HandBookItem(new Item.Settings().group(XpStorage.ITEM_GROUP));
 
     //Block Items
     public static final StorageBlockItem BLOCK_XP_OBELISK = new StorageBlockItem(ModBlocks.BLOCK_XP_OBELISK, new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(16).rarity(Rarity.RARE));
@@ -38,6 +36,7 @@ public static final BlockItem BLOCK_SOUL_COPPER = new BlockItem(ModBlocks.BLOCK_
         Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID, "lock"), LOCK);
         Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID, "xp_dust"), XP_DUST);
         Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID, "key"), KEY);
+        Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID, "handbook"), HANDBOOK);
 
         //BlockItems
         Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID, "block_xp_obelisk"), BLOCK_XP_OBELISK);
