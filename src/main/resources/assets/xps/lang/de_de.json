@@ -8,6 +8,8 @@
   "item.xps.xp_dust": "Erfahrungsstaub",
   "item.xps.key": "Schlüssel",
   "item.xps.xp_bucket": "Erfahrungseimer",
+  "item.xps.handbook": "Handbuch",
+  "item.xps.patchouli_book.tooltip": "Die §cPatchouli mod fehlt",
 
   "item.xps.moreinfo.tooltip": "§8Drücke §6Shift §8für mehr Info",
 
@@ -37,5 +39,5 @@
   "item.tooltip.owner": "Eigentümer: %s",
 
   "xps.advancements.xp_obelisk.title": "Lagere bis ins Unendliche",
-  "xps.advancements.xp_obelisk.description": "Stelle einen Xp Obelisken her"
+  "xps.advancements.xp_obelisk.description": "Stelle einen Erfahrungslager her"
 }

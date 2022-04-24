@@ -8,6 +8,8 @@
   "item.xps.xp_dust": "Experience Dust",
   "item.xps.key": "Key",
   "item.xps.xp_bucket": "Experience Bucket",
+  "item.xps.handbook": "Handbook",
+  "item.xps.patchouli_book.tooltip": "§cPatchouli mod is missing",
 
   "item.xps.moreinfo.tooltip": "§8Hold §6Shift §8For More Info",
 
