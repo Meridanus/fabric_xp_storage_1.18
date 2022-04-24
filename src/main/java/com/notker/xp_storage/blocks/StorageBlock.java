@@ -175,7 +175,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
             boolean isSurvival = !player.isCreative() && !player.isSpectator();
 
             // Inspector
-            if (player.isHolding(ModItems.INSPECTOR)) {
+            if (mainHand.isOf(ModItems.INSPECTOR)) {
                 return displayContainerInfo(world, pos, player, tile);
             }
 
@@ -186,7 +186,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
 
             // Key
-            if (player.isHolding(ModItems.KEY) && (isTileOwner || player.isCreative())) {
+            if (mainHand.isOf(ModItems.KEY) && (isTileOwner || player.isCreative())) {
                 return unlockContainer(world, pos, player, hand, isSurvival, itemCountInHand, tile);
             }
 
@@ -195,18 +195,18 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
             if (isSurvival) {
 
                 // Redstone Torch
-                if (player.isHolding(Items.REDSTONE_TORCH)) {
+                if (mainHand.isOf(Items.REDSTONE_TORCH)) {
                     return toggleVacuum(world, pos, tile);
                 }
 
                 // Lock
-                if (player.isHolding(ModItems.LOCK)) {
+                if (mainHand.isOf(ModItems.LOCK)) {
                     if (tileIsLocked) { return containerIsAlreadyLocked(world, pos, player); }
                     return lockContainer(world, pos, player, hand, itemCountInHand, tile);
                 }
 
                 // XP Tool
-                if (player.isHolding(ModItems.XP_REMOVER)) {
+                if (mainHand.isOf(ModItems.XP_REMOVER)) {
                     ItemStack stack = player.getStackInHand(hand);
 
                     if (stack.hasNbt() && Objects.requireNonNull(stack.getNbt()).getBoolean(Xp_removerItem.tagId)) {
@@ -217,22 +217,22 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
                 }
 
                 // GlassBottle
-                if (player.isHolding(Items.GLASS_BOTTLE)) {
+                if (mainHand.isOf(Items.GLASS_BOTTLE)) {
                     return fillGlassBottle(state, world, pos, player, hand, tile);
                 }
 
                 // EP Flask
-                if (player.isHolding(Items.EXPERIENCE_BOTTLE)) {
+                if (mainHand.isOf(Items.EXPERIENCE_BOTTLE)) {
                     return insertBottleXP(itemCountInHand, state, world, pos, player, hand, tile);
                 }
 
                 // Empty Bucket
-                if (player.isHolding(Items.BUCKET)) {
+                if (mainHand.isOf(Items.BUCKET)) {
                     return fillBucketOnContainer(state, world, pos, player, hand, tile);
                 }
 
                 // Experience Bucket
-                if (player.isHolding(ModFluids.XP_BUCKET)) {
+                if (mainHand.isOf(ModFluids.XP_BUCKET)) {
                     return emptyBucketOnContainer(state, world, pos, player, hand, tile);
                 }
 
