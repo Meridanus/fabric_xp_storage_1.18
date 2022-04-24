@@ -16,6 +16,8 @@ public class XpStorage implements ModInitializer {
     public static final  String MOD_ID = "xps";
     public static final Long MB_PER_XP = FluidConstants.BUCKET / 100;
 
+    public static final int shiftKey = 340;
+
     public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(
             new Identifier(MOD_ID, "general"),
             () -> new ItemStack(ModItems.BLOCK_XP_OBELISK)

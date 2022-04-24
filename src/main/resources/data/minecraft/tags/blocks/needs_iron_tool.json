@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "xps:block_xp_obelisk",
     "xps:block_soul_copper"
   ]
 }
-

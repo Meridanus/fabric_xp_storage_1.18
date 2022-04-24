@@ -1,6 +1,9 @@
 package com.notker.xp_storage.items;
 
+import com.notker.xp_storage.XpStorage;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -83,16 +86,23 @@ public static String tagId = "Mode";
 
     @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        NbtCompound nbt = getNbtCompound(stack);
+        super.appendTooltip(stack,world,tooltip,tooltipContext);
 
+        tooltip.add(new TranslatableText("item.xps.moreinfo.tooltip"));
+        if (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), XpStorage.shiftKey)) {
+            tooltip.remove(new TranslatableText("item.xps.moreinfo.tooltip"));
 
-        tooltip.add(new TranslatableText("item.tooltip.xp_remover_sneak").formatted(Formatting.RED));
-        if (nbt.getBoolean(tagId)) {
-            tooltip.add(new TranslatableText("item.tooltip.xp_rod").formatted(Formatting.AQUA));
-        } else {
-            tooltip.add(new TranslatableText("item.tooltip.xp_remover").formatted(Formatting.AQUA));
+            tooltip.add(new TranslatableText("item.tooltip.xp_remover_sneak").formatted(Formatting.RED));
+
+            NbtCompound nbt = getNbtCompound(stack);
+            if (nbt.getBoolean(tagId)) {
+                tooltip.add(new TranslatableText("item.tooltip.xp_rod").formatted(Formatting.AQUA));
+            } else {
+                tooltip.add(new TranslatableText("item.tooltip.xp_remover").formatted(Formatting.AQUA));
+            }
+            tooltip.add(new TranslatableText("item.tooltip.stack_size"));
         }
 
-        tooltip.add(new TranslatableText("item.tooltip.stack_size"));
+
     }
 }

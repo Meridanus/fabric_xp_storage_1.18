@@ -36,6 +36,7 @@ public class StorageBlockEntity extends BlockEntity {
     public UUID player_uuid = Util.NIL_UUID;
     public Text playerName = Text.of("");
     public boolean vacuum = false;
+    public boolean isAuthPlayer = false;
 
     public StorageBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlocks.STORAGE_BLOCK_ENTITY, pos, state);
@@ -85,11 +86,13 @@ public class StorageBlockEntity extends BlockEntity {
         @Override
         protected boolean canExtract(FluidVariant variant) {
             var variant_name = variant.getFluid().getDefaultState().getBlockState().toString();
-            return variant_name.contains("liquid_xp") || variant_name.contains("xp_fluid");
+            boolean isUnlocked = player_uuid.equals(Util.NIL_UUID) || isAuthPlayer;
+            return isUnlocked && (variant_name.contains("liquid_xp") || variant_name.contains("xp_fluid"));
         }
 
         @Override
         protected void onFinalCommit() {
+            isAuthPlayer = false;
             markDirty();
             toUpdatePacket();
         }

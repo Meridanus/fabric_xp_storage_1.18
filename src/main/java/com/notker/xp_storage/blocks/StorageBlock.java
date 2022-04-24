@@ -13,6 +13,8 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -166,6 +168,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
             if (tile == null) { return ActionResult.FAIL; }
 
+            ItemStack mainHand = player.getStackInHand(Hand.MAIN_HAND);
             int itemCountInHand = player.getStackInHand(hand).getCount();
             boolean tileIsLocked = !tile.player_uuid.equals(Util.NIL_UUID);
             boolean isTileOwner = tile.player_uuid.equals(player.getUuid());
@@ -180,6 +183,9 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
             if (tileIsLocked && !isTileOwner && !player.isCreative()) {
                 return containerAccessDenied(world, pos, player);
             }
+
+            //set Autorisation for fluid Extract
+            tile.isAuthPlayer = true;
 
             // Key
             if (player.isHolding(ModItems.KEY) && (isTileOwner || player.isCreative())) {
@@ -232,12 +238,45 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
                     return emptyBucketOnContainer(state, world, pos, player, hand, tile);
                 }
 
+                //Mending Item Repair
+                //if (mainHand.isOf(Items.BAMBOO)) {
+                if (mainHand.isDamaged() && (EnchantmentHelper.getLevel(Enchantments.MENDING, mainHand) > 0)) {
+                    return repairItem(world, pos, state, tile, mainHand);
+                }
+
             }
 
-
+            tile.isAuthPlayer = false;
         }
 
         return ActionResult.CONSUME;
+    }
+
+    private ActionResult repairItem(World world, BlockPos pos, BlockState state, StorageBlockEntity tile, ItemStack mainHand) {
+        if (tile.getContainerExperience() > 0) {
+            try (Transaction transaction = Transaction.openOuter()) {
+                int xpCostToRepair = mainHand.getDamage() / 2;
+
+                //Enough Xp to repair Item complete
+                if (tile.getContainerExperience() >= xpCostToRepair) {
+                    mainHand.setDamage(0);
+
+                    //Not enough xp, calculate new Damage level
+                } else {
+                    int maxDamageWithXp = tile.getContainerExperience() * 2;
+                    xpCostToRepair = tile.getContainerExperience();
+                    mainHand.setDamage(mainHand.getDamage() - maxDamageWithXp);
+                }
+
+                tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), xpCostToRepair * XpStorage.MB_PER_XP, transaction);
+
+                world.playSound(null, pos, SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.BLOCKS, 1f, 1f);
+                world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
+
+                transaction.commit();
+            }
+        }
+        return ActionResult.SUCCESS;
     }
 
 

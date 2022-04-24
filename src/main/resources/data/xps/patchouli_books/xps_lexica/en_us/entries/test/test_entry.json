@@ -1,0 +1,11 @@
+{
+  "name": "Storage",
+  "icon": "xps:block_xp_obelisk",
+  "category": "xps:test_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "This is a test entry, but it should show up!"
+    }
+  ]
+}
