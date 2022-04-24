@@ -1,0 +1,22 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "xps:xp_obelisk"
+    ]
+  },
+  "criteria": {
+    "got_the_reciver": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "xps:xp_remover"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

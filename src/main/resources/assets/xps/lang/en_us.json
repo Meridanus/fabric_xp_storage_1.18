@@ -34,5 +34,8 @@
   "item.tooltip.stack_size": "Stack size equal's level transfer.",
   "item.tooltip.lock": "Use on XP Storage to lock it.",
   "item.tooltip.key": "Use on XP Storage to unlock it.",
-  "item.tooltip.owner": "Owner: %s"
+  "item.tooltip.owner": "Owner: %s",
+
+  "xps.advancements.xp_obelisk.title": "Storage To Infinity",
+  "xps.advancements.xp_obelisk.description": "Craft a Xp Obelisk"
 }

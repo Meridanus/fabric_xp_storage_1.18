@@ -1,0 +1,40 @@
+{
+  "parent": "minecraft:story/enter_the_nether",
+  "display": {
+    "icon": {
+      "item": "xps:block_xp_obelisk"
+    },
+    "title": {
+      "translate": "xps.advancements.xp_obelisk.title"
+    },
+    "description": {
+      "translate": "xps.advancements.xp_obelisk.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 100
+  },
+  "criteria": {
+    "xp_storage": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "xps:block_xp_obelisk"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "xp_storage"
+    ]
+  ]
+}

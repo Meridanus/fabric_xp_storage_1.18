@@ -34,5 +34,8 @@
   "item.tooltip.stack_size": "Stapelgröße entspricht Level Menge.",
   "item.tooltip.lock": "Benutze an XP Lager um es zu Verschließen.",
   "item.tooltip.key": "Benutze an XP Lager um es Aufzuschließen.",
-  "item.tooltip.owner": "Eigentümer: %s"
+  "item.tooltip.owner": "Eigentümer: %s",
+
+  "xps.advancements.xp_obelisk.title": "Lagere bis ins Unendliche",
+  "xps.advancements.xp_obelisk.description": "Stelle einen Xp Obelisken her"
 }
