@@ -184,8 +184,6 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
                 return containerAccessDenied(world, pos, player);
             }
 
-            //set Autorisation for fluid Extract
-            tile.isAuthPlayer = true;
 
             // Key
             if (player.isHolding(ModItems.KEY) && (isTileOwner || player.isCreative())) {
@@ -246,7 +244,6 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
             }
 
-            tile.isAuthPlayer = false;
         }
 
         return ActionResult.CONSUME;
@@ -254,6 +251,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
     private ActionResult repairItem(World world, BlockPos pos, BlockState state, StorageBlockEntity tile, ItemStack mainHand) {
         if (tile.getContainerExperience() > 0) {
+            tile.isAuthPlayer = true;
             try (Transaction transaction = Transaction.openOuter()) {
                 int xpCostToRepair = mainHand.getDamage() / 2;
 
@@ -275,6 +273,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
                 transaction.commit();
             }
+            tile.isAuthPlayer = false;
         }
         return ActionResult.SUCCESS;
     }
@@ -320,6 +319,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
     private ActionResult fillBucketOnContainer(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
         if (tile.liquidXp.amount >= FluidConstants.BUCKET) {
+            tile.isAuthPlayer = true;
             try (Transaction transaction = Transaction.openOuter()) {
                 tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), FluidConstants.BUCKET, transaction);
 
@@ -330,6 +330,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
                 world.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1f, 1f);
                 transaction.commit();
             }
+            tile.isAuthPlayer = false;
         }
 
         return ActionResult.SUCCESS;
@@ -338,6 +339,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
     private ActionResult fillGlassBottle(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
         if (tile.liquidXp.amount >= FluidConstants.BOTTLE) {
             //11L * XpStorage.MB_PER_XP
+            tile.isAuthPlayer = true;
             try (Transaction transaction = Transaction.openOuter()) {
                 tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), FluidConstants.BOTTLE, transaction);
                 ItemStack fullBottle = new ItemStack(Items.EXPERIENCE_BOTTLE);
@@ -351,6 +353,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
                 player.getInventory().offerOrDrop(fullBottle);
                 transaction.commit();
             }
+            tile.isAuthPlayer = false;
         }
 
 
@@ -388,8 +391,8 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
     private ActionResult containerXpToPlayer(int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, StorageBlockEntity tile) {
         if (tile.liquidXp.amount > 0) {
-
             for (int i = 0; i < itemCount; i++) {
+                tile.isAuthPlayer = true;
                 int xpToNextLevel = XpFunctions.exp_to_reach_next_lvl(player.getNextLevelExperience(), player.experienceProgress);
                 int storageXP = tile.getContainerExperience();
 
@@ -414,6 +417,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
             world.playSound(null, pos, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, 0.125f, 1f);
             world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
         }
+        tile.isAuthPlayer = false;
         return ActionResult.SUCCESS;
     }
 
