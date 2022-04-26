@@ -1,0 +1,17 @@
+{
+  "name": "Xp Bucket",
+  "icon": "xps:xp_bucket",
+  "category": "xps:item_category",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "xps:xp_bucket",
+      "link_recipe": true,
+      "text": "Right-Click with a Empty Bucket on Xp Storage to fill it or Emptying on the Xp Storage."
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
+    }
+  ]
+}

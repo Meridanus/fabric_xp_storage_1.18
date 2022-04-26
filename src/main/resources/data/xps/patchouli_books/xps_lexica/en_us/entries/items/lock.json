@@ -1,0 +1,17 @@
+{
+  "name": "Lock",
+  "icon": "xps:lock",
+  "category": "xps:item_category",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "xps:lock",
+      "link_recipe": true,
+      "text": "The Lock is used to lock the Xp Storage. $(br2) Note: If the Xp Storage is Locked Fluid extraction is disabled"
+    },
+    {
+      "type": "crafting",
+      "recipe": "xps:lock"
+    }
+  ]
+}

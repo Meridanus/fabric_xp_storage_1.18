@@ -1,7 +1,7 @@
 {
   "name": "Inspector",
   "icon": "xps:inspector",
-  "category": "xps:info_category",
+  "category": "xps:item_category",
   "pages": [
     {
       "type": "spotlight",

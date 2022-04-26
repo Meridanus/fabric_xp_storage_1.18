@@ -3,7 +3,7 @@
     "pattern": [
         "IxI",
         "xBx",
-        "IXI"
+        "bXb"
     ],
     "key": {
         "x": {
@@ -17,6 +17,9 @@
         },
         "X": {
             "item": "xps:xp_remover"
+        },
+        "b": {
+            "item": "xps:block_soul_copper"
         }
     },
     "result": {

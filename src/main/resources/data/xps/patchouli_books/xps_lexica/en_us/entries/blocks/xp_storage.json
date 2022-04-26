@@ -1,0 +1,17 @@
+{
+  "name": "Xp Storage",
+  "icon": "xps:block_xp_obelisk",
+  "category": "xps:block_category",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "xps:block_xp_obelisk",
+      "link_recipe": true,
+      "text": "The Core Block that's stores the Experience"
+    },
+    {
+      "type": "crafting",
+      "recipe": "xps:xp_obelisk"
+    }
+  ]
+}

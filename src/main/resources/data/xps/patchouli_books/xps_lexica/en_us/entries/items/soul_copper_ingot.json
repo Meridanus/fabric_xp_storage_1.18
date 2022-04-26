@@ -1,0 +1,20 @@
+{
+  "name": "Soulcopper Ingot",
+  "icon": "xps:soul_copper_ingot",
+  "category": "xps:item_category",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "xps:soul_copper_ingot",
+      "link_recipe": true,
+      "text": "Crafting Material."
+    },
+    {
+      "type": "xps:ingot_crafting_template",
+      "heading": "Soulcopper Ingot",
+      "input1": "xps:block_soul_copper",
+      "input2": "xps:soul_copper_blend",
+      "output": "xps:soul_copper_ingot"
+    }
+  ]
+}

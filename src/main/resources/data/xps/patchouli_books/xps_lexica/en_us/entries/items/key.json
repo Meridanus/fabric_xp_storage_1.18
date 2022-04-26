@@ -1,0 +1,17 @@
+{
+  "name": "Key",
+  "icon": "xps:key",
+  "category": "xps:item_category",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "xps:key",
+      "link_recipe": true,
+      "text": "The Key is used to Unlock the Xp Storage"
+    },
+    {
+      "type": "crafting",
+      "recipe": "xps:key"
+    }
+  ]
+}

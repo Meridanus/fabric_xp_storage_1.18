@@ -8,15 +8,19 @@
   "item.xps.xp_dust": "Erfahrungsstaub",
   "item.xps.key": "Schlüssel",
   "item.xps.xp_bucket": "Erfahrungseimer",
-  "item.xps.handbook": "Handbuch",
+  "item.xps.handbook": "Xp Storage Handbuch",
   "item.xps.patchouli_book.tooltip": "Die §cPatchouli mod fehlt",
-
+  "item.xps.handbook.text": "In Arbeit",
+  "item.xps.handbook.subtext": "Erfahrung erwartet dich",
   "item.xps.moreinfo.tooltip": "§8Drücke §6Shift §8für mehr Info",
 
   "itemGroup.xps.general": "XP Storage",
+
   "block.xps.xp": "Erfahrung",
   "block.xps.xp_fluid": "Flüssige Erfahrung",
   "block.xps.block_xp_obelisk": "Erfahrungslager",
+  "block.xps.block_soul_copper": "Seelenkupfer Block",
+
   "text.storageBlock.denied": "Zugriff Verweigert!",
   "text.storageBlock.locked": "Container Verschlossen!",
   "text.storageBlock.isLocked": "Container Bereits Verschlossen!",

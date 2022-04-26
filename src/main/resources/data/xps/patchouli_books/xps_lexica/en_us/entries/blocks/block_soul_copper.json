@@ -1,0 +1,17 @@
+{
+  "name": "Block of Soulcopper",
+  "icon": "xps:block_soul_copper",
+  "category": "xps:block_category",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "xps:block_soul_copper",
+      "link_recipe": true,
+      "text": "Crafting & Decorating Block"
+    },
+    {
+      "type": "crafting",
+      "recipe": "xps:block_soul_copper"
+    }
+  ]
+}

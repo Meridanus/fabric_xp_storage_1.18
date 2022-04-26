@@ -1,5 +1,5 @@
 {
-  "name": "Xp Storage",
+  "name": "Xp Storage Info",
   "icon": "xps:block_xp_obelisk",
   "category": "xps:info_category",
   "pages": [
@@ -7,7 +7,7 @@
       "type": "spotlight",
       "item": "xps:block_xp_obelisk",
       "link_recipe": true,
-      "text": "The Xp Storage is made out of Magical Soulcopper. $(br)After you place it, you can put Experience in and out with the Transreciver $(br2) Note: If you hold more than 1 item the transfer rate act accordingly"
+      "text": "The Xp Storage is made out of Magical Soulcopper. $(br)After you place it, you can put Experience in and out with the Transreciver or Fluid Interface'S $(br2) Note: If you hold more than 1 item the transfer rate act accordingly"
     },
     {
       "type": "crafting",

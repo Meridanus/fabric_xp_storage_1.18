@@ -1,0 +1,17 @@
+{
+  "name": "Xp Rod",
+  "icon": "xps:xp_rod",
+  "category": "xps:item_category",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "xps:xp_rod",
+      "link_recipe": true,
+      "text": "It's a Crafting Material."
+    },
+    {
+      "type": "smithing",
+      "recipe": "xps:xp_rod_smithing"
+    }
+  ]
+}
