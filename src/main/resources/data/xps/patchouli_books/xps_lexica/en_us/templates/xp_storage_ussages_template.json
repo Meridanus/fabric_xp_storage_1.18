@@ -1,0 +1,44 @@
+{
+  "include":
+  [
+    {
+      "template": "xp_template",
+      "as": "incl",
+      "using":
+      {
+        "switch": "#switch1",
+        "heading": "#heading1",
+        "input": "#input1",
+        "output": "#output1",
+        "text": "#text1"
+      },
+      "y": -5
+    },
+    {
+      "template": "xp_template",
+      "as": "incl2",
+      "using":
+      {
+        "switch": "#switch2",
+        "heading": "#heading2",
+        "input": "#input2",
+        "output": "#output2",
+        "text": "#text2"
+      },
+      "y": 50
+    },
+    {
+      "template": "xp_template",
+      "as": "incl3",
+      "using":
+      {
+        "switch": "#switch3",
+        "heading": "#heading3",
+        "input": "#input3",
+        "output": "#output3",
+        "text": "#text3"
+      },
+      "y": 105
+    }
+  ]
+}
