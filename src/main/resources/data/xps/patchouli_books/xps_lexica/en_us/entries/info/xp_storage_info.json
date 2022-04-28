@@ -13,6 +13,43 @@
       "type": "crafting",
       "recipe": "xps:xp_obelisk",
       "recipe2": "xps:xp_remover"
+    },
+    {
+      "type": "xps:xp_storage_ussages_template",
+      "switch1": true,
+      "heading1": "Bottle o' Enchanting",
+      "input1": "minecraft:glass_bottle",
+      "output1": "minecraft:experience_bottle",
+      "text1": "Costs 33.3 XP to fill",
+      "switch2": true,
+      "heading2": "XP Bucket",
+      "input2": "minecraft:bucket",
+      "output2": "xps:xp_bucket",
+      "text2": "Costs 100 XPto fill",
+      "heading3": "Item Repair with XP",
+      "input3": "minecraft:netherite_pickaxe{Damage:1150, Enchantments:[{id:\"minecraft:mending\",lvl:1}]}",
+      "output3": "minecraft:netherite_pickaxe{Enchantments:[{id:\"minecraft:mending\",lvl:1}]}",
+      "text3": "Item Requires Mending Enchant"
+    },
+    {
+      "type": "xps:xp_storage_ussages_template",
+      "heading1": "XP Vacuum",
+      "input1": "minecraft:redstone_torch",
+      "text1": "Use on XP Storage to Toggle Vacuum",
+      "heading2": "XP Insertion",
+      "input2": "xps:xp_remover#8",
+      "text2": "Sends 8 Level's to the XP Storage",
+      "heading3": "XP Extraction",
+      "input3": "xps:xp_remover#5{Mode:true}",
+      "text3": "Gives the player 5 Level's"
+    },
+    {
+      "type": "text",
+      "text": "Test Test"
+    },
+    {
+      "type": "empty",
+      "draw_filler": false
     }
   ]
 }
