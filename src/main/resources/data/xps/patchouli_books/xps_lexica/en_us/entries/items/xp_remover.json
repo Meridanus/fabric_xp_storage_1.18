@@ -7,7 +7,7 @@
       "type": "spotlight",
       "item": "xps:xp_remover",
       "link_recipe": true,
-      "text": "The Lock is used to Transfer Experience to the Xp Storage. $(br2) Note: If you have x Xp Transfer Items in Hand you will Transfer xLevel's instead of 1Level.$(br2)Switch Mode's with Shift Right-Click"
+      "text": "The Lock is used to Transfer Experience to the XP Storage. $(br2) Note: If you have x Xp Transfer Items in Hand you will Transfer xLevel's instead of 1Level.$(br2)Switch Mode's with Shift Right-Click"
     },
     {
       "type": "crafting",
