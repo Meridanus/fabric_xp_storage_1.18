@@ -1,0 +1,95 @@
+{
+  "components": [
+    {
+      "type": "patchouli:header",
+      "text": "#heading",
+      "x": 56,
+      "y": 1
+    },
+    {
+      "type": "patchouli:image",
+      "guard": "#input->exists",
+      "image": "patchouli:textures/gui/crafting.png",
+      "x": 36,
+      "y": 20,
+      "width": 11,
+      "height": 11,
+      "u": 64,
+      "v": 26,
+      "texture_width": 128,
+      "texture_height": 265,
+      "scale": 1
+    },
+    {
+      "type": "patchouli:item",
+      "guard": "#input->exists",
+      "item": "#input",
+      "framed": true,
+      "x": 13,
+      "y": 17
+    },
+    {
+      "type": "patchouli:item",
+      "guard": "#input->exists",
+      "item": "xps:block_xp_obelisk",
+      "x": 50,
+      "y": 17
+    },
+    {
+      "type": "patchouli:image",
+      "guard": "#output->exists",
+      "image": "patchouli:textures/gui/crafting.png",
+      "x": 69,
+      "y": 20,
+      "width": 11,
+      "height": 11,
+      "u": 64,
+      "v": 26,
+      "texture_width": 128,
+      "texture_height": 265,
+      "scale": 1
+    },
+    {
+      "type": "patchouli:item",
+      "guard": "#output->exists",
+      "item": "#output",
+      "framed": true,
+      "x": 86,
+      "y": 17
+    },
+    {
+      "guard": "#switch",
+      "type": "patchouli:image",
+      "image": "patchouli:textures/gui/crafting.png",
+      "x": 64,
+      "y": 11,
+      "width": 12,
+      "height": 14,
+      "u": 0,
+      "v": 66,
+      "texture_width": 128,
+      "texture_height": 265,
+      "scale": 1
+    },
+    {
+      "guard": "#switch",
+      "type": "patchouli:tooltip",
+      "tooltip": [
+        "Used on XP Storage",
+        "Works also in Reverse"
+      ],
+      "x": 62,
+      "y": 8,
+      "width": 12,
+      "height": 14
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#text",
+      "x": 4,
+      "y": 37
+    }
+  ]
+}
+
+
