@@ -1,8 +1,8 @@
-# Fabric Example Mod
+# XP Obelisk
 
-## Setup
+## Curse Forge
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+https://www.curseforge.com/minecraft/mc-mods/xp-obelisk
 
 ## License
 
