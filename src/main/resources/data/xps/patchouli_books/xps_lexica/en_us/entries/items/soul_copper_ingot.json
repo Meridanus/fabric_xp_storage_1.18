@@ -14,7 +14,8 @@
       "heading": "Soulcopper Ingot",
       "input1": "xps:block_soul_copper",
       "input2": "xps:soul_copper_blend",
-      "output": "xps:soul_copper_ingot"
+      "output": "xps:soul_copper_ingot#9",
+      "output2": "xps:soul_copper_ingot"
     }
   ]
 }
