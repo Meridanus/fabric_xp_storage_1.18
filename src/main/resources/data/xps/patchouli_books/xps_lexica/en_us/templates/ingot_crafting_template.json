@@ -4,79 +4,63 @@
       "type": "patchouli:header",
       "text": "#heading",
       "x": 64,
-      "y": -8
+      "y": -6
     },
     {
       "type": "patchouli:image",
       "image": "patchouli:textures/gui/crafting.png",
-      "x": 2,
-      "y": 0,
-      "width": 120,
-      "height": 64,
+      "x": 7,
+      "y": 2,
       "u": 0,
       "v": 0,
+      "width": 100,
+      "height": 64,
       "texture_width": 128,
-      "texture_height": 265,
-      "scale": 1
+      "texture_height": 265
     },
     {
       "type": "patchouli:image",
       "image": "patchouli:textures/gui/crafting.png",
-      "x": 66,
-      "y": 4,
-      "width": 12,
-      "height": 14,
+      "x": 71,
+      "y": 6,
       "u": 0,
-      "v": 66,
+      "v": 64,
+      "width": 11,
+      "height": 13,
       "texture_width": 128,
-      "texture_height": 265,
-      "scale": 1
+      "texture_height": 265
     },
     {
       "type": "patchouli:tooltip",
       "tooltip": [
         "Shapless"
       ],
-      "x": 66,
-      "y": 4,
-      "width": 12,
-      "height": 14
+      "x": 71,
+      "y": 6,
+      "width": 11,
+      "height": 13
     },
     {
       "type": "patchouli:item",
       "item": "#input1",
       "framed": "false",
-      "x": 7,
-      "y": 5
+      "x": 12,
+      "y": 7
     },
     {
       "type": "patchouli:item",
       "item": "minecraft:crafting_table",
       "framed": "false",
-      "x": 83,
-      "y": 45
+      "x": 88,
+      "y": 48
     },
     {
       "type": "patchouli:item",
       "item": "#output",
       "framed": "false",
       "link_recipe": true,
-      "x": 83,
-      "y": 25
-    },
-    {
-      "type": "patchouli:header",
-      "text": "9",
-      "color": "000000",
-      "x": 100,
-      "y": 37
-    },
-    {
-      "type": "patchouli:header",
-      "text": "9",
-      "color": "FFFFFF",
-      "x": 99,
-      "y": 36
+      "x": 88,
+      "y": 26
     },
     {
       "type": "patchouli:image",
@@ -105,7 +89,7 @@
     },
     {
       "type": "patchouli:item",
-      "item": "#output",
+      "item": "#output2",
       "x": 80,
       "y": 77
     },
@@ -136,7 +120,7 @@
     },
     {
       "type": "patchouli:item",
-      "item": "#output",
+      "item": "#output2",
       "x": 80,
       "y": 112
     }
