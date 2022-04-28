@@ -10,9 +10,18 @@
       "text": "The XP Storage is made out of Magical Soulcopper. $(br)After you place it, you can put Experience in and out with the Transreciver or Fluid Interface'S $(br2) Note: If you hold more than 1 item the transfer rate act accordingly"
     },
     {
-      "type": "crafting",
-      "recipe": "xps:xp_obelisk",
-      "recipe2": "xps:xp_remover"
+      "type": "xps:xp_storage_ussages_template",
+      "heading1": "XP Insertion",
+      "input1": "xps:xp_remover#8",
+      "text1": "Sends 8 Level's to the XP Storage",
+      "heading2": "XP Extraction",
+      "input2": "xps:xp_remover#5{Mode:true}",
+      "text2": "Gives the player 5 Level's"
+    },
+    {
+      "type": "text",
+      "title": "XP Storage Interactions",
+      "text": "You can use Bottle's or Bucket's on the XP Storage to insert or extract Experience.$(br2)You can use Damaged Items with Mending Enchantment on the XP Storage to Repair the Item with the stored Experience. "
     },
     {
       "type": "xps:xp_storage_ussages_template",
@@ -33,23 +42,83 @@
     },
     {
       "type": "xps:xp_storage_ussages_template",
-      "heading1": "XP Vacuum",
+      "heading1": "XP Storage Vacuum",
       "input1": "minecraft:redstone_torch",
-      "text1": "Use on XP Storage to Toggle Vacuum",
-      "heading2": "XP Insertion",
-      "input2": "xps:xp_remover#8",
-      "text2": "Sends 8 Level's to the XP Storage",
-      "heading3": "XP Extraction",
-      "input3": "xps:xp_remover#5{Mode:true}",
-      "text3": "Gives the player 5 Level's"
+      "text1": "Use on XP Storage to Toggle Vacuum Mode"
     },
     {
-      "type": "text",
-      "text": "Test Test"
-    },
-    {
-      "type": "empty",
-      "draw_filler": false
+      "type": "multiblock",
+      "title": "XP Storage Vacuum",
+      "text": "The Glass Block's Represent the Vacuum Range. 9x5x9 Blocks",
+      "offset": [
+        0,
+        4,
+        0
+      ],
+      "multiblock": {
+        "pattern": [
+          [
+            "iiiiiiiii",
+            "iiiiiiiii",
+            "iiiiiiiii",
+            "iiiiiiiii",
+            "iiiiiiiii",
+            "iiiiiiiii",
+            "iiiiiiiii",
+            "iiiiiiiii",
+            "iiiiiiiii"
+          ],
+          [
+            "iiiiiiiii",
+            "i       i",
+            "i       i",
+            "i       i",
+            "i       i",
+            "i       i",
+            "i       i",
+            "i       i",
+            "iiiiiiiii"
+          ],
+          [
+            "iiiiiiiii",
+            "i       i",
+            "i       i",
+            "i       i",
+            "i       i",
+            "i       i",
+            "i       i",
+            "i       i",
+            "iiiiiiiii"
+          ],
+          [
+            "iiiiiiiii",
+            "i       i",
+            "i       i",
+            "i       i",
+            "i       i",
+            "i       i",
+            "i       i",
+            "i       i",
+            "iiiiiiiii"
+          ],
+          [
+            "iiiiiiiii",
+            "i       i",
+            "i       i",
+            "i       i",
+            "i   0   i",
+            "i       i",
+            "i       i",
+            "i       i",
+            "iiiiiiiii"
+          ]
+        ],
+        "mapping": {
+          "i": "minecraft:glass",
+          "0": "xps:block_xp_obelisk"
+        },
+        "symmetrical": true
+      }
     }
   ]
 }
