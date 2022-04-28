@@ -1,0 +1,21 @@
+{
+  "name": "Bottle o' Enchanting",
+  "icon": "minecraft:experience_bottle",
+  "category": "xps:item_category",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "minecraft:experience_bottle",
+      "link_recipe": true,
+      "text": "Use a Empty Bottle on XP Storage to fill it or Emptying on the XP Storage."
+    },
+    {
+      "type": "xps:xp_template",
+      "heading": "Bottle o' Enchanting",
+      "switch": true,
+      "input": "minecraft:glass_bottle",
+      "output": "minecraft:experience_bottle",
+      "text": "Costs 33.3 XP to fill"
+    }
+  ]
+}
