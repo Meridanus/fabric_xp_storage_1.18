@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "xps:soul_copper_ingot"
+      "xps:xp_rod_smithing"
     ]
   },
   "criteria": {
-    "has_soul_copper_block": {
+    "has_xp_dust": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "xps:block_soul_copper"
+              "xps:xp_dust"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "xps:soul_copper_ingot"
+        "recipe": "xps:xp_rod_smithing"
       }
     }
   },
   "requirements": [
     [
-      "has_soul_copper_block",
+      "has_xp_dust",
       "has_the_recipe"
     ]
   ]

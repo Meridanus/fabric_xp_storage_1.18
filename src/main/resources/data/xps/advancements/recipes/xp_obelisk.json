@@ -6,7 +6,7 @@
     ]
   },
   "criteria": {
-    "got_the_reciver": {
+    "has_xp_remover": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -17,6 +17,18 @@
           }
         ]
       }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "xps:xp_obelisk"
+      }
     }
-  }
+  },
+  "requirements": [
+    [
+      "has_xp_remover",
+      "has_the_recipe"
+    ]
+  ]
 }

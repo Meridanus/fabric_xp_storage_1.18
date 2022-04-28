@@ -2,16 +2,11 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "xps:xp_dust_smoker",
-      "xps:xp_rod_smithing",
-      "xps:xp_remover",
-      "xps:key",
-      "xps:lock",
-      "xps:inspector"
+      "xps:xp_dust_smoker"
     ]
   },
   "criteria": {
-    "got_the_book": {
+    "has_enchanted_book": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -22,6 +17,18 @@
           }
         ]
       }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "xps:xp_dust_smoker"
+      }
     }
-  }
+  },
+  "requirements": [
+    [
+      "has_enchanted_book",
+      "has_the_recipe"
+    ]
+  ]
 }

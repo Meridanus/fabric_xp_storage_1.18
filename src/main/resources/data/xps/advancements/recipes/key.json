@@ -2,17 +2,29 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "xps:soul_copper_ingot"
+      "xps:key"
     ]
   },
   "criteria": {
-    "has_soul_copper_block": {
+    "has_soul_copper_ingot": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "xps:block_soul_copper"
+              "xps:soul_copper_ingot"
+            ]
+          }
+        ]
+      }
+    },
+    "has_xp_rod": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "xps:xp_rod"
             ]
           }
         ]
@@ -21,13 +33,14 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "xps:soul_copper_ingot"
+        "recipe": "xps:key"
       }
     }
   },
   "requirements": [
     [
-      "has_soul_copper_block",
+      "has_soul_copper_ingot",
+      "has_xp_rod",
       "has_the_recipe"
     ]
   ]
