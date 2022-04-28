@@ -10,8 +10,12 @@
       "text": "Use a Empty Bucket on XP Storage to fill it or Emptying on the XP Storage."
     },
     {
-      "type": "empty",
-      "draw_filler": false
+      "type": "xps:xp_template",
+      "switch": true,
+      "heading": "XP Bucket",
+      "input": "minecraft:bucket",
+      "output": "xps:xp_bucket",
+      "text": "Costs 100 XPto fill"
     }
   ]
 }
