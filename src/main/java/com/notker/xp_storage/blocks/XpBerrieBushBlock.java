@@ -43,7 +43,7 @@ public class XpBerrieBushBlock extends CropBlock {
     }
 
     public ItemConvertible getSeedsItem() {
-        return ModItems.XP_BERRIES;
+        return ModItems.XP_BERRIES_SEEDS;
     }
 
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
