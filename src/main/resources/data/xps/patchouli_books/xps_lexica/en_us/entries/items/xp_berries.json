@@ -1,0 +1,13 @@
+{
+  "name": "XP Berrie Seeds",
+  "icon": "xps:xp_berries",
+  "category": "xps:item_category",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "xps:xp_berries",
+      "link_recipe": true,
+      "text": "XP Berries can be used on XP Storage to insert some Experience"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "XP Berrie Seeds",
+  "icon": "xps:xp_berries_seeds",
+  "category": "xps:item_category",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "xps:xp_berries_seeds",
+      "link_recipe": true,
+      "text": "XP Berrie Seeds are used to generate Peaceful Experience"
+    },
+    {
+      "type": "crafting",
+      "recipe": "xps:xp_berries_seeds"
+    }
+  ]
+}
