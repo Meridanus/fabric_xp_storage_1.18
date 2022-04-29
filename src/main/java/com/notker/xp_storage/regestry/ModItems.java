@@ -24,7 +24,7 @@ public class ModItems {
     public static final Item HANDBOOK = new HandBookItem(new Item.Settings().group(XpStorage.ITEM_GROUP));
 
     public static final Item XP_BERRIES = new Item(new Item.Settings().group(XpStorage.ITEM_GROUP));
-    public static final Item XP_BERRIES_SEEDS = new AliasedBlockItem(ModBlocks.XP_BERRIE_BUSH_BLOCK, new Item.Settings().group(XpStorage.ITEM_GROUP));
+    public static final Item XP_BERRIES_SEEDS = new AliasedBlockItem(ModBlocks.XP_BERRIE_BUSH_BLOCK, new Item.Settings().group(XpStorage.ITEM_GROUP).rarity(Rarity.UNCOMMON));
 
     //Block Items
     public static final StorageBlockItem BLOCK_XP_OBELISK = new StorageBlockItem(ModBlocks.BLOCK_XP_OBELISK, new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(16).rarity(Rarity.RARE));
