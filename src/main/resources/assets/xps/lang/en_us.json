@@ -13,7 +13,7 @@
   "item.xps.handbook.text": "XP Obelisk Mod introduces a method to store experience points inside a spiritual cage. Normally the XP points will only linger around the ground for a minute then disappear forever or get destroyed when the player die's. With XP Obelisk, players’ can store as much XP as they like.",
   "item.xps.handbook.subtext": "Experience awaits you",
   "item.xps.moreinfo.tooltip": "§8Hold §6Shift §8For More Info",
-  "item.xps.xp_berry_seeds": "XP Berries",
+  "item.xps.xp_berries": "XP Berries",
 
   "block.xps.block_xp_obelisk": "XP Storage",
   "block.xps.xp": "Experience",

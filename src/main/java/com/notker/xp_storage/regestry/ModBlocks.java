@@ -44,7 +44,7 @@ public class ModBlocks {
         Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(XpStorage.MOD_ID, "entity_xp_obelisk"), STORAGE_BLOCK_ENTITY);
         Registry.register(Registry.BLOCK, new Identifier(XpStorage.MOD_ID, "block_soul_copper"), BLOCK_SOUL_COPPER);
 
-        Registry.register(Registry.BLOCK, new Identifier(XpStorage.MOD_ID,"xp_berry_bush_block"), XP_BERRIE_BUSH_BLOCK);
+        Registry.register(Registry.BLOCK, new Identifier(XpStorage.MOD_ID,"xp_berrie_bush_block"), XP_BERRIE_BUSH_BLOCK);
 
         BlockEntityType<StorageBlockEntity> STORAGE = null;
 //        FluidStorage.SIDED.registerForBlockEntity((storage, direction) -> switch (direction) {
