@@ -84,6 +84,12 @@ public class XpBerrieBushBlock extends CropBlock {
         return new ItemStack(this.getSeedsItem());
     }
 
+    @Override
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        dropStack(world, pos, new ItemStack(ModItems.XP_BERRIES_SEEDS, 1));
+        super.onBreak(world, pos, state, player);
+    }
+
     @SuppressWarnings("deprecation")
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         int i = state.get(AGE);

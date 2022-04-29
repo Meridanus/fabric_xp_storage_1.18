@@ -1,15 +1,20 @@
 {
-    "type": "minecraft:crafting_shapeless",
-    "ingredients": [
-        {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "sss",
+        "sUs",
+        "sss"
+    ],
+    "key": {
+        "s": {
             "item": "minecraft:seeds"
         },
-        {
-            "item": "xps:xp_dust"
+        "U": {
+            "item": "xps:xp_bucket"
         }
-    ],
+    },
     "result": {
-        "item": "xps:xp_berries",
-        "count": 1
+        "item": "xps:xp_berries_seeds",
+        "count": 8
     }
 }

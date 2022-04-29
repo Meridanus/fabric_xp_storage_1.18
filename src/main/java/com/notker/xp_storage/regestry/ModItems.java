@@ -23,7 +23,8 @@ public class ModItems {
     public static final StorageItem KEY = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(16).rarity(Rarity.UNCOMMON));
     public static final Item HANDBOOK = new HandBookItem(new Item.Settings().group(XpStorage.ITEM_GROUP));
 
-    public static final Item XP_BERRIES = new AliasedBlockItem(ModBlocks.XP_BERRIE_BUSH_BLOCK, new Item.Settings().group(XpStorage.ITEM_GROUP));
+    public static final Item XP_BERRIES = new Item(new Item.Settings().group(XpStorage.ITEM_GROUP));
+    public static final Item XP_BERRIES_SEEDS = new AliasedBlockItem(ModBlocks.XP_BERRIE_BUSH_BLOCK, new Item.Settings().group(XpStorage.ITEM_GROUP));
 
     //Block Items
     public static final StorageBlockItem BLOCK_XP_OBELISK = new StorageBlockItem(ModBlocks.BLOCK_XP_OBELISK, new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(16).rarity(Rarity.RARE));
@@ -42,7 +43,7 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID, "handbook"), HANDBOOK);
 
         Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID,"xp_berries"), XP_BERRIES);
-
+        Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID,"xp_berries_seeds"), XP_BERRIES_SEEDS);
         //BlockItems
         Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID, "block_xp_obelisk"), BLOCK_XP_OBELISK);
         Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID, "block_soul_copper"), BLOCK_SOUL_COPPER);
