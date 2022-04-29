@@ -91,7 +91,7 @@ public class XpBerrieBushBlock extends CropBlock {
         if (!isFullGrown && player.getStackInHand(hand).isOf(Items.BONE_MEAL)) {
             return ActionResult.PASS;
         } else if (i > max_age - 2) {
-            int bonusDrops = 2 + world.random.nextInt(3);
+            int bonusDrops = 1 + world.random.nextInt(3);
             dropStack(world, pos, new ItemStack(ModItems.XP_BERRIES, 1 + (isFullGrown ? bonusDrops : 0)));
             world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0F, 0.8F + world.random.nextFloat() * 0.4F);
             world.setBlockState(pos, state.with(AGE, max_age - 3), 2);
