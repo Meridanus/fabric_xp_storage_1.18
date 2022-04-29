@@ -367,13 +367,13 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         ItemStack emptyBottles = new ItemStack(Items.GLASS_BOTTLE);
         emptyBottles.setCount(itemCount);
 
-        int xpToInsert = 0;
+        long xpToInsert = FluidConstants.BOTTLE * itemCount;
+        /*int xpToInsert = 0;
 
         for (int i = 0; i < itemCount; i++) {
             // Minecraft EP Calculation
             //xpToInsert += 3 + world.random.nextInt(5) + world.random.nextInt(5);
-            xpToInsert += FluidConstants.BOTTLE;
-        }
+        }*/
 
         try (Transaction transaction = Transaction.openOuter()) {
             tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), xpToInsert, transaction);
