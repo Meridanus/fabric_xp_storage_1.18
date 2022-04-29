@@ -199,6 +199,11 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
                     return toggleVacuum(world, pos, tile);
                 }
 
+                // XP Berries
+                if (mainHand.isOf(ModItems.XP_BERRIES)) {
+                    return insertXpBerries(itemCountInHand, state, world, pos, player, hand, tile);
+                }
+
                 // Lock
                 if (mainHand.isOf(ModItems.LOCK)) {
                     if (tileIsLocked) { return containerIsAlreadyLocked(world, pos, player); }
@@ -358,6 +363,21 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
 
 
+
+        return ActionResult.SUCCESS;
+    }
+
+    private ActionResult insertXpBerries(int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
+
+        try (Transaction transaction = Transaction.openOuter()) {
+            tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), itemCount * XpStorage.MB_PER_BERRIE, transaction);
+            world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
+            world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1f, 1f);
+
+            player.getStackInHand(hand).setCount(0);
+
+            transaction.commit();
+        }
 
         return ActionResult.SUCCESS;
     }
