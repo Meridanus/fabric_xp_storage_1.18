@@ -55,7 +55,7 @@ public class XpBerrieBushBlock extends CropBlock {
     }
 
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isOf(Blocks.NETHERRACK) || floor.isOf(Blocks.WARPED_NYLIUM) || floor.isOf(Blocks.CRIMSON_NYLIUM);
+        return floor.isOf(Blocks.SOUL_SOIL);
     }
 
     public boolean hasRandomTicks(BlockState state) {
