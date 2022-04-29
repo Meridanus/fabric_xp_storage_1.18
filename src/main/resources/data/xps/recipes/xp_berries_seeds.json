@@ -1,16 +1,19 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "sss",
-        "sUs",
-        "sss"
+        "sns",
+        "nUn",
+        "sns"
     ],
     "key": {
         "s": {
-            "item": "minecraft:seeds"
+            "tag": "xps:seeds_list"
         },
         "U": {
             "item": "xps:xp_bucket"
+        },
+        "n": {
+            "item": "minecraft:nether_wart"
         }
     },
     "result": {
