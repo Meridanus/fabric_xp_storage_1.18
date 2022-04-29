@@ -2,6 +2,7 @@ package com.notker.xp_storage.regestry;
 
 import com.notker.xp_storage.XpStorage;
 import com.notker.xp_storage.items.*;
+import net.minecraft.item.AliasedBlockItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -22,9 +23,11 @@ public class ModItems {
     public static final StorageItem KEY = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(16).rarity(Rarity.UNCOMMON));
     public static final Item HANDBOOK = new HandBookItem(new Item.Settings().group(XpStorage.ITEM_GROUP));
 
+    public static final Item XP_BERRIES = new AliasedBlockItem(ModBlocks.XP_BERRIE_BUSH_BLOCK, new Item.Settings().group(XpStorage.ITEM_GROUP));
+
     //Block Items
     public static final StorageBlockItem BLOCK_XP_OBELISK = new StorageBlockItem(ModBlocks.BLOCK_XP_OBELISK, new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(16).rarity(Rarity.RARE));
-public static final BlockItem BLOCK_SOUL_COPPER = new BlockItem(ModBlocks.BLOCK_SOUL_COPPER, new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(64));
+    public static final BlockItem BLOCK_SOUL_COPPER = new BlockItem(ModBlocks.BLOCK_SOUL_COPPER, new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(64));
 
     public static void registerItems() {
         //Items
@@ -37,6 +40,8 @@ public static final BlockItem BLOCK_SOUL_COPPER = new BlockItem(ModBlocks.BLOCK_
         Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID, "xp_dust"), XP_DUST);
         Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID, "key"), KEY);
         Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID, "handbook"), HANDBOOK);
+
+        Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID,"xp_berries"), XP_BERRIES);
 
         //BlockItems
         Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID, "block_xp_obelisk"), BLOCK_XP_OBELISK);
