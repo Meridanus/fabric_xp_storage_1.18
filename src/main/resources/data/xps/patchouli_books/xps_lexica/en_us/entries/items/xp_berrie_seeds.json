@@ -4,10 +4,10 @@
   "category": "xps:item_category",
   "pages": [
     {
-      "type": "spotlight",
-      "item": "xps:xp_berries_seeds",
-      "link_recipe": true,
-      "text": "XP Berrie Seeds are used to generate Peaceful Experience"
+      "type": "xps:seed_spotlight_template",
+      "input": "xps:xp_berries_seeds",
+      "text": "XP Berrie Seeds are used to generate Peaceful Experience and can be Planted on:",
+      "farmland": "minecraft:soul_soil"
     },
     {
       "type": "crafting",
