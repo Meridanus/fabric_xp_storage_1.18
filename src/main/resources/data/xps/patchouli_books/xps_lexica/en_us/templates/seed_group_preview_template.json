@@ -1,0 +1,115 @@
+{
+  "include": [
+    {
+      "template": "seed_template",
+      "as": "a",
+      "using":
+      {
+        "nr": "0"
+      },
+      "x": 8,
+      "y": 0
+    },
+    {
+      "template": "seed_template",
+      "as": "b",
+      "using":
+      {
+        "nr": "1"
+      },
+      "x": 24,
+      "y": 0
+    },
+    {
+      "template": "seed_template",
+      "as": "c",
+      "using":
+      {
+        "nr": "2"
+      },
+      "x": 40,
+      "y": 0
+    },
+    {
+      "template": "seed_template",
+      "as": "d",
+      "using":
+      {
+        "nr": "3"
+      },
+      "x": 56,
+      "y": 0
+    },
+    {
+      "template": "seed_template",
+      "as": "e",
+      "using":
+      {
+        "nr": "4"
+      },
+      "x": 72,
+      "y": 0
+    },
+    {
+      "template": "seed_template",
+      "as": "f",
+      "using":
+      {
+        "nr": "5"
+      },
+      "x": 88,
+      "y": 0
+    },
+    {
+      "template": "seed_template",
+      "as": "f",
+      "using":
+      {
+        "nr": "6"
+      },
+      "x": 139,
+      "y": 0
+    },
+    {
+      "template": "seed_template",
+      "as": "f",
+      "using":
+      {
+        "nr": "7",
+        "h": true
+      },
+      "x": 155,
+      "y": 0
+    }
+  ],
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "patchouli:textures/gui/crafting.png",
+      "x": 180,
+      "y": 16,
+      "width": 11,
+      "height": 11,
+      "u": 64,
+      "v": 26,
+      "texture_width": 128,
+      "texture_height": 265
+    },
+    {
+      "type": "patchouli:item",
+      "item": "xps:xp_berries",
+      "framed": true,
+      "link_recipe": false,
+      "x": 200,
+      "y": 16
+    },
+    {
+      "type": "patchouli:text",
+      "text": "1-5",
+      "x": 203,
+      "y": 36
+    }
+  ]
+}
+
+

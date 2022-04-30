@@ -32,33 +32,18 @@
       "text": "#text",
       "x": 4,
       "y": 37
-    },
+    }
+  ],
+  "include": [
     {
-      "type": "patchouli:header",
-      "text": "#farmland->iname",
-      "x": 58,
+      "template": "seed_group_preview_template",
+      "as": "group",
+      "using":
+      {
+
+      },
+      "x": 0,
       "y": 90
-    },
-    {
-      "type": "patchouli:image",
-      "guard": "#farmland->exists",
-      "image": "patchouli:textures/gui/crafting.png",
-      "x": 25,
-      "y": 98,
-      "width": 66,
-      "height": 27,
-      "u": 0,
-      "v": 100,
-      "texture_width": 128,
-      "texture_height": 256
-    },
-    {
-      "type": "patchouli:item",
-      "guard": "#farmland->exists",
-      "item": "#farmland",
-      "link_recipe": false,
-      "x": 50,
-      "y": 105
     }
   ]
 }

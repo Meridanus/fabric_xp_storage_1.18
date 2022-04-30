@@ -1,0 +1,62 @@
+{
+  "include": [
+    {
+      "template": "xp_template",
+      "as": "incl",
+      "using":
+      {
+        "switch": false,
+        "heading": "XP Berries",
+        "input": "xps:xp_berries",
+        "text": "gives 2xp per XP Berrie"
+      },
+      "x": 0,
+      "y": 0
+    },
+    {
+      "template": "seed_template",
+      "as": "detail1",
+      "using":
+      {
+        "nr": "6"
+      },
+      "x": 47,
+      "y": 47
+    },
+    {
+      "template": "seed_drop_template",
+      "as": "detail2",
+      "using":
+      {
+        "drop": "xps:xp_berries#1",
+        "drop_text": " 1"
+      },
+      "x": 0,
+      "y": 50
+    },
+    {
+      "template": "seed_template",
+      "as": "detail3",
+      "using":
+      {
+        "nr": "7",
+        "h": true
+      },
+      "x": 47,
+      "y": 87
+    },
+    {
+      "template": "seed_drop_template",
+      "as": "detail4",
+      "using":
+      {
+        "drop": "xps:xp_berries#5",
+        "drop_text": "2-5"
+      },
+      "x": 0,
+      "y": 90
+    }
+  ]
+}
+
+

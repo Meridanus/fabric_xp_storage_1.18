@@ -8,6 +8,9 @@
       "item": "xps:xp_berries",
       "link_recipe": true,
       "text": "page.text.xp_berries"
+    },
+    {
+      "type": "xps:berrie_preview_template"
     }
   ]
 }
