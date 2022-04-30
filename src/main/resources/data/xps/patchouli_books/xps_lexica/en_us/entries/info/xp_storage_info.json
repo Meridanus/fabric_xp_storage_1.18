@@ -13,7 +13,7 @@
       "type": "xps:xp_storage_ussages_template",
       "heading1": "XP Insertion",
       "input1": "xps:xp_remover#8",
-      "text1": "Sends 8 Level's to the XP Storage",
+      "text1": "Insert 8 Level's to XP Storage",
       "heading2": "XP Extraction",
       "input2": "xps:xp_remover#5{Mode:true}",
       "text2": "Gives the player 5 Level's"
@@ -26,19 +26,19 @@
     {
       "type": "xps:xp_storage_ussages_template",
       "switch1": true,
-      "heading1": "Bottle o' Enchanting",
-      "input1": "minecraft:glass_bottle",
-      "output1": "minecraft:experience_bottle",
-      "text1": "Costs 33.3 XP to fill",
+      "heading1": "minecraft:experience_bottle",
+      "input1": "minecraft:experience_bottle",
+      "output1": "minecraft:glass_bottle",
+      "text1": "Inserts 33.3 XP",
       "switch2": true,
-      "heading2": "XP Bucket",
-      "input2": "minecraft:bucket",
-      "output2": "xps:xp_bucket",
-      "text2": "Costs 100 XPto fill",
+      "heading2": "xps:xp_bucket",
+      "input2": "xps:xp_bucket",
+      "output2": "minecraft:bucket",
+      "text2": "Inserts 100 XP",
       "heading3": "Item Repair with XP",
       "input3": "minecraft:netherite_pickaxe{Damage:1150, Enchantments:[{id:\"minecraft:mending\",lvl:1}]}",
       "output3": "minecraft:netherite_pickaxe{Enchantments:[{id:\"minecraft:mending\",lvl:1}]}",
-      "text3": "Item Requires Mending Enchant"
+      "text3": "Item Requires Mending"
     },
     {
       "type": "xps:xp_storage_ussages_template",

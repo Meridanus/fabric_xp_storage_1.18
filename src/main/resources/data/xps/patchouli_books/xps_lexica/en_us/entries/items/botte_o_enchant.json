@@ -11,11 +11,11 @@
     },
     {
       "type": "xps:xp_template",
-      "heading": "Bottle o' Enchanting",
+      "heading": "minecraft:experience_bottle",
       "switch": true,
       "input": "minecraft:glass_bottle",
       "output": "minecraft:experience_bottle",
-      "text": "Costs 33.3 XP to fill"
+      "text": "Extract 33.3 XP to fill"
     }
   ]
 }
