@@ -2,9 +2,7 @@ package com.notker.xp_storage.regestry;
 
 import com.notker.xp_storage.XpStorage;
 import com.notker.xp_storage.items.*;
-import net.minecraft.item.AliasedBlockItem;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
+import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
@@ -23,7 +21,7 @@ public class ModItems {
     public static final StorageItem KEY = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(16).rarity(Rarity.UNCOMMON));
     public static final Item HANDBOOK = new HandBookItem(new Item.Settings().group(XpStorage.ITEM_GROUP));
 
-    public static final Item XP_BERRIES = new Item(new Item.Settings().group(XpStorage.ITEM_GROUP));
+    public static final Xp_Berries XP_BERRIES = new Xp_Berries(new Item.Settings().group(XpStorage.ITEM_GROUP).food(new FoodComponent.Builder().hunger(2).saturationModifier(1f).snack().alwaysEdible().build()));
     public static final Item XP_BERRIES_SEEDS = new AliasedBlockItem(ModBlocks.XP_BERRIE_BUSH_BLOCK, new Item.Settings().group(XpStorage.ITEM_GROUP).rarity(Rarity.UNCOMMON));
 
     //Block Items
