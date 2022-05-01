@@ -12,10 +12,10 @@
     {
       "type": "xps:xp_template",
       "switch": true,
-      "heading": "XP Bucket",
+      "heading": "xps:xp_bucket",
       "input": "minecraft:bucket",
       "output": "xps:xp_bucket",
-      "text": "Costs 100 XPto fill"
+      "text": "Extract 100 XP to fill"
     }
   ]
 }

@@ -2,7 +2,7 @@
   "components": [
     {
       "type": "patchouli:header",
-      "text": "#heading",
+      "text": "#heading->iname",
       "x": 64,
       "y": -6
     },
