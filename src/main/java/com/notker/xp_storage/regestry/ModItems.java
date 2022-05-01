@@ -2,6 +2,7 @@ package com.notker.xp_storage.regestry;
 
 import com.notker.xp_storage.XpStorage;
 import com.notker.xp_storage.items.*;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
@@ -45,5 +46,9 @@ public class ModItems {
         //BlockItems
         Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID, "block_xp_obelisk"), BLOCK_XP_OBELISK);
         Registry.register(Registry.ITEM, new Identifier(XpStorage.MOD_ID, "block_soul_copper"), BLOCK_SOUL_COPPER);
+
+
+        CompostingChanceRegistry.INSTANCE.add(XP_BERRIES, 0.75f);
+        CompostingChanceRegistry.INSTANCE.add(XP_BERRIES_SEEDS, 0.65f);
     }
 }
