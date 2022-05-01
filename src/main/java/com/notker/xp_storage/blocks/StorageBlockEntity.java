@@ -92,6 +92,9 @@ public class StorageBlockEntity extends BlockEntity {
 
         @Override
         protected void onFinalCommit() {
+            if (world != null) {
+                world.setBlockState(pos, getCachedState().with(CHARGED, liquidXp.amount != 0));
+            }
             isAuthPlayer = false;
             markDirty();
             toUpdatePacket();

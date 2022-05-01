@@ -269,7 +269,6 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
                 tile.liquidXp.extract(FluidVariant.of(ModFluids.LIQUID_XP), xpCostToRepair * XpStorage.MB_PER_XP, transaction);
 
                 world.playSound(null, pos, SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.BLOCKS, 1f, 1f);
-                world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
 
                 transaction.commit();
             }
@@ -309,7 +308,6 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
             player.getStackInHand(hand).setCount(0);
             player.getInventory().offerOrDrop(new ItemStack(Items.BUCKET));
 
-            world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
             world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1f, 1f);
             transaction.commit();
         }
@@ -326,7 +324,6 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
                 player.getStackInHand(hand).decrement(1);
                 player.getInventory().offerOrDrop(new ItemStack(ModFluids.XP_BUCKET));
 
-                world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
                 world.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1f, 1f);
                 transaction.commit();
             }
@@ -346,7 +343,6 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
                 fullBottle.setCount(1);
 
                 world.playSound(null, pos, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 0.125f, 1f);
-                world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
 
                 player.getStackInHand(hand).decrement(1);
 
@@ -377,7 +373,6 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
         try (Transaction transaction = Transaction.openOuter()) {
             tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), xpToInsert, transaction);
-            world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
             world.playSound(null, pos, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 1f, 1f);
 
             player.getStackInHand(hand).setCount(0);
@@ -415,7 +410,6 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
             }
 
             world.playSound(null, pos, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, 0.125f, 1f);
-            world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
         }
         tile.isAuthPlayer = false;
         return ActionResult.SUCCESS;
@@ -449,7 +443,6 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
             }
 
             world.playSound(null, pos, SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 0.125f, 1f);
-            world.setBlockState(pos, state.with(CHARGED, (tile.liquidXp.amount != 0)));
         }
         return ActionResult.SUCCESS;
     }
