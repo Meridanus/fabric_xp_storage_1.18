@@ -117,13 +117,13 @@ public class XpBerrieBushBlock extends CropBlock {
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         super.randomDisplayTick(state, world, pos, random);
-        if (isFullGrown(state) && random.nextInt(8) == 0) {
+        if (isFullGrown(state) && random.nextInt(20) == 0) {
 
             double targetX = pos.getX() + 0.5D;
-            double targetY = pos.getY() + 0.5D;
+            double targetY = pos.getY() + 1.1D;
             double targetZ = pos.getZ() + 0.5D;
 
-            world.addParticle(ParticleTypes.SPORE_BLOSSOM_AIR,  targetX, targetY, targetZ, 0,  -0.3, 0);
+            world.addParticle(ParticleTypes.SCRAPE,  targetX, targetY, targetZ, 0.1,  1.3, 0.1);
         }
     }
 }
