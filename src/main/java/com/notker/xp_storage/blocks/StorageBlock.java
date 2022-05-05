@@ -242,7 +242,6 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
                 }
 
                 //Mending Item Repair
-                //if (mainHand.isOf(Items.BAMBOO)) {
                 if (mainHand.isDamaged() && (EnchantmentHelper.getLevel(Enchantments.MENDING, mainHand) > 0)) {
                     return repairItem(world, pos, tile, mainHand);
                 }
