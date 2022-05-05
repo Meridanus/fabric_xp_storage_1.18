@@ -16,12 +16,14 @@
   "item.xps.xp_berries": "EP Beeren",
   "item.xps.xp_berries_seeds": "EP Beerensamen",
 
-  "itemGroup.xps.general": "EP-Lager",
+  "page.text.xp_berries": "EP Beeren können am EP-Lager benutzt werden um EP einzulagern",
 
   "block.xps.xp": "Erfahrung",
   "block.xps.xp_fluid": "Flüssige Erfahrung",
   "block.xps.block_xp_obelisk": "Erfahrungslager",
   "block.xps.block_soul_copper": "Seelenkupferblock",
+
+  "itemGroup.xps.general": "EP-Lager",
 
   "text.storageBlock.denied": "Zugriff Verweigert!",
   "text.storageBlock.locked": "Container Verschlossen!",
@@ -31,18 +33,22 @@
   "text.storageBlock.data": "%d Level mit %s%%",
   "text.storageBlock.level": "%d Level",
   "text.storageBlock.vacuum": "Vakuum-Modus ist an",
+
   "item.tooltip.inspector": "Benutze am EP-Lager für Infos.",
   "item.tooltip.xp_rod": "Benutze am EP-Lager um Level zu erhalten.",
   "item.tooltip.xp_remover": "Benutze am EP-Lager um Level zu Lagern.",
   "item.tooltip.xp_remover_sneak": "Gebückt benutzen um Modus zu wechseln.",
-  "item.debug_info.xp.container_info": "Eingelagerte EP: %s/%s",
-  "item.debug_info.xp.container_fill": "Füllgrad: %s",
-  "item.debug_info.xp.container_no_owner": "Kein Besitzer",
-  "item.debug_info.xp.player_info": "Deine EP: %s",
+  "item.tooltip.xp_berrie": "Gibt 3EP beim Essen",
+  "item.tooltip.xp_berrie_sneak": "Gebückt Essen um die EP fallen zu lassen",
   "item.tooltip.stack_size": "Stapelgröße entspricht Levelmenge.",
   "item.tooltip.lock": "Benutze an EP Lager um es zu verschließen.",
   "item.tooltip.key": "Benutze an EP Lager um es aufzuschließen.",
   "item.tooltip.owner": "Eigentümer: %s",
+
+  "item.debug_info.xp.container_info": "Eingelagerte EP: %s/%s",
+  "item.debug_info.xp.container_fill": "Füllgrad: %s",
+  "item.debug_info.xp.container_no_owner": "Kein Besitzer",
+  "item.debug_info.xp.player_info": "Deine EP: %s",
 
   "xps.advancements.xp_obelisk.title": "Lagere bis ins Unendliche",
   "xps.advancements.xp_obelisk.description": "Stelle einen Erfahrungslager her"
