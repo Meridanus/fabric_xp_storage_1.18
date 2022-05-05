@@ -54,7 +54,7 @@ public class Xp_Berries extends Item {
         if (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), XpStorage.shiftKey)) {
             tooltip.remove(new TranslatableText("item.xps.moreinfo.tooltip"));
 
-            tooltip.add(new TranslatableText("item.tooltip.xp_berrie").formatted(Formatting.WHITE));
+            tooltip.add(new TranslatableText("item.tooltip.xp_berrie", XpStorage.XP_PER_BERRIE).formatted(Formatting.WHITE));
             tooltip.add(new TranslatableText("item.tooltip.xp_berrie_sneak").formatted(Formatting.AQUA));
         }
 
