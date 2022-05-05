@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -75,6 +76,14 @@ public class XpBerrieBushBlock extends CropBlock {
         return true;
     }
 
+    public boolean isFullGrown(BlockState state) {
+        return state.get(AGE) == max_age;
+    }
+
+    public boolean isRipe(BlockState state) {
+        return state.get(AGE) > max_age - 2;
+    }
+
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
         int i = Math.min(max_age, state.get(AGE) + 1);
         world.setBlockState(pos, state.with(AGE, i), 2);
@@ -92,18 +101,29 @@ public class XpBerrieBushBlock extends CropBlock {
 
     @SuppressWarnings("deprecation")
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        int i = state.get(AGE);
-        boolean isFullGrown = i == max_age;
-        if (!isFullGrown && player.getStackInHand(hand).isOf(Items.BONE_MEAL)) {
+        if (!isFullGrown(state) && player.getStackInHand(hand).isOf(Items.BONE_MEAL)) {
             return ActionResult.PASS;
-        } else if (i > max_age - 2) {
+        } else if (isRipe(state)) {
             int bonusDrops = 1 + world.random.nextInt(4);
-            dropStack(world, pos, new ItemStack(ModItems.XP_BERRIES, 1 + (isFullGrown ? bonusDrops : 0)));
+            dropStack(world, pos, new ItemStack(ModItems.XP_BERRIES, 1 + (isFullGrown(state) ? bonusDrops : 0)));
             world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0F, 0.8F + world.random.nextFloat() * 0.4F);
             world.setBlockState(pos, state.with(AGE, max_age - 3), 2);
             return ActionResult.success(world.isClient);
         } else {
             return super.onUse(state, world, pos, player, hand, hit);
+        }
+    }
+
+    @Override
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+        super.randomDisplayTick(state, world, pos, random);
+        if (isFullGrown(state) && random.nextInt(8) == 0) {
+
+            double targetX = pos.getX() + 0.5D;
+            double targetY = pos.getY() + 0.5D;
+            double targetZ = pos.getZ() + 0.5D;
+
+            world.addParticle(ParticleTypes.SPORE_BLOSSOM_AIR,  targetX, targetY, targetZ, 0,  -0.3, 0);
         }
     }
 }
