@@ -38,7 +38,7 @@
   "item.tooltip.xp_rod": "Benutze am EP-Lager um Level zu erhalten.",
   "item.tooltip.xp_remover": "Benutze am EP-Lager um Level zu Lagern.",
   "item.tooltip.xp_remover_sneak": "Gebückt benutzen um Modus zu wechseln.",
-  "item.tooltip.xp_berrie": "Gibt 3EP beim Essen",
+  "item.tooltip.xp_berrie": "Gibt %sEP beim Essen",
   "item.tooltip.xp_berrie_sneak": "Gebückt Essen um die EP fallen zu lassen",
   "item.tooltip.stack_size": "Stapelgröße entspricht Levelmenge.",
   "item.tooltip.lock": "Benutze an EP Lager um es zu verschließen.",

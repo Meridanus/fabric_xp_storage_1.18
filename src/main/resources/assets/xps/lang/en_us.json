@@ -38,7 +38,7 @@
   "item.tooltip.xp_rod": "Use on XP Storage to receive level.",
   "item.tooltip.xp_remover": "Use on XP Storage to store level.",
   "item.tooltip.xp_remover_sneak": "Sneak use to change Mode.",
-  "item.tooltip.xp_berrie": "Gives 3xp when eaten",
+  "item.tooltip.xp_berrie": "Gives %sXP when eaten",
   "item.tooltip.xp_berrie_sneak": "Sneak eat to drop XP on ground",
   "item.tooltip.stack_size": "Stack size equal's level transfer.",
   "item.tooltip.lock": "Use on XP Storage to lock it.",
