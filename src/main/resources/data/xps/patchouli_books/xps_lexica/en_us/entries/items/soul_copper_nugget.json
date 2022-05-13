@@ -1,0 +1,17 @@
+{
+  "name": "item.xps.soul_copper_nugget",
+  "icon": "xps:soul_copper_nugget",
+  "category": "xps:item_category",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "xps:soul_copper_nugget",
+      "link_recipe": true,
+      "text": "Used to Craft certain item's."
+    },
+    {
+      "type": "crafting",
+      "recipe": "xps:soul_copper_nugget"
+    }
+  ]
+}
