@@ -1,9 +1,9 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "nIn",
-        "IBI",
-        "nIn"
+        "InI",
+        "nBn",
+        "InI"
     ],
     "key": {
         "B": {
