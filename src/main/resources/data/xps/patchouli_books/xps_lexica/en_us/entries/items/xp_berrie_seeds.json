@@ -2,6 +2,7 @@
   "name": "XP Berrie Seeds",
   "icon": "xps:xp_berries_seeds",
   "category": "xps:item_category",
+  "sortnum": 8,
   "pages": [
     {
       "type": "xps:seed_spotlight_template",

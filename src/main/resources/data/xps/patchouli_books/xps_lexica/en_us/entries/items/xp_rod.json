@@ -2,6 +2,7 @@
   "name": "Xp Rod",
   "icon": "xps:xp_rod",
   "category": "xps:item_category",
+  "sortnum": 4,
   "pages": [
     {
       "type": "spotlight",

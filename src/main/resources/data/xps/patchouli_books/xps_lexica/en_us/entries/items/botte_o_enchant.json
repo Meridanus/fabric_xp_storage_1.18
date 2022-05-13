@@ -2,6 +2,7 @@
   "name": "Bottle o' Enchanting",
   "icon": "minecraft:experience_bottle",
   "category": "xps:item_category",
+  "sortnum": 11,
   "pages": [
     {
       "type": "spotlight",

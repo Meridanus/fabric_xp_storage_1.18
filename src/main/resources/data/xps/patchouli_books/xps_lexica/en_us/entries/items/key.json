@@ -2,6 +2,7 @@
   "name": "Key",
   "icon": "xps:key",
   "category": "xps:item_category",
+  "sortnum": 6,
   "pages": [
     {
       "type": "spotlight",

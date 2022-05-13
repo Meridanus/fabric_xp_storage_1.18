@@ -2,6 +2,7 @@
   "name": "Soulcopper Ingot",
   "icon": "xps:soul_copper_ingot",
   "category": "xps:item_category",
+  "sortnum": 2,
   "pages": [
     {
       "type": "spotlight",

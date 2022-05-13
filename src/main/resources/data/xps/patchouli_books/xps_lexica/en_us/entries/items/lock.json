@@ -2,6 +2,7 @@
   "name": "Lock",
   "icon": "xps:lock",
   "category": "xps:item_category",
+  "sortnum": 7,
   "pages": [
     {
       "type": "spotlight",

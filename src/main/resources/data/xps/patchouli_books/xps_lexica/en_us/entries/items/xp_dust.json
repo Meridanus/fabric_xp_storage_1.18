@@ -2,6 +2,7 @@
   "name": "Xp Dust",
   "icon": "xps:xp_dust",
   "category": "xps:item_category",
+  "sortnum": 4,
   "pages": [
     {
       "type": "spotlight",

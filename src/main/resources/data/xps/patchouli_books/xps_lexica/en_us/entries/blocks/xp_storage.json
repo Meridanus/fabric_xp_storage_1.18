@@ -2,6 +2,7 @@
   "name": "Xp Storage",
   "icon": "xps:block_xp_obelisk",
   "category": "xps:block_category",
+  "sortnum": 0,
   "pages": [
     {
       "type": "spotlight",

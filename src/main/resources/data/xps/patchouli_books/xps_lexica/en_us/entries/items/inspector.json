@@ -2,6 +2,7 @@
   "name": "Inspector",
   "icon": "xps:inspector",
   "category": "xps:item_category",
+  "sortnum": 5,
   "pages": [
     {
       "type": "spotlight",
