@@ -3,7 +3,7 @@
     "pattern": [
         "sas",
         "nUn",
-        "sas"
+        "sNs"
     ],
     "key": {
         "a": {
@@ -17,6 +17,9 @@
         },
         "n": {
             "item": "minecraft:nether_wart"
+        },
+        "N": {
+            "item": "xps:soul_copper_nugget"
         }
     },
     "result": {

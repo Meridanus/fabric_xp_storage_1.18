@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "nnn",
+        "nnn",
+        "nnn"
+    ],
+    "key": {
+        "n": {
+            "item": "xps:soul_copper_nugget"
+        }
+    },
+    "result": {
+        "item": "xps:soul_copper_ingot",
+        "count": 1
+    }
+}

@@ -1,13 +1,13 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        " i ",
-        "iGi",
-        "/i "
+        " n ",
+        "nGn",
+        "/n "
     ],
     "key": {
-        "i": {
-            "item": "xps:soul_copper_ingot"
+        "n": {
+            "item": "xps:soul_copper_nugget"
         },
         "G": {
             "tag": "minecraft:glass_panes"
