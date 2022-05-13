@@ -12,10 +12,10 @@ import net.minecraft.util.registry.Registry;
 public class ModItems {
 
     //Items
-    public static final StorageItem XP_ROD = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP));
-    public static final StorageItem SOUL_COPPER_BLEND = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP));
-    public static final StorageItem SOUL_COPPER_INGOT = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP));
-    public static final StorageItem SOUL_COPPER_NUGGET = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP));
+    public static final Item XP_ROD = new Item(new Item.Settings().group(XpStorage.ITEM_GROUP));
+    public static final Item SOUL_COPPER_BLEND = new Item(new Item.Settings().group(XpStorage.ITEM_GROUP));
+    public static final Item SOUL_COPPER_INGOT = new Item(new Item.Settings().group(XpStorage.ITEM_GROUP));
+    public static final Item SOUL_COPPER_NUGGET = new Item(new Item.Settings().group(XpStorage.ITEM_GROUP));
     public static final Xp_removerItem XP_REMOVER = new Xp_removerItem(new Item.Settings().group(XpStorage.ITEM_GROUP));
     public static final StorageItem INSPECTOR = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(1).rarity(Rarity.EPIC));
     public static final StorageItem LOCK = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(16).rarity(Rarity.UNCOMMON));
