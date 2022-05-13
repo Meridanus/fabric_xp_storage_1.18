@@ -11,9 +11,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.BlockView;
 
 public class ModBlocks {
 
@@ -22,6 +20,7 @@ public class ModBlocks {
             .sounds(BlockSoundGroup.METAL)
             .strength(0.25f, 1000.0f)
             .requiresTool()
+            .luminance(10)
     );
 
     public static final Block BLOCK_SOUL_COPPER = new Block(FabricBlockSettings
@@ -35,19 +34,15 @@ public class ModBlocks {
     public static final String TAG_ID = "BlockEntityTag";
     public static final BlockEntityType<StorageBlockEntity> STORAGE_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(StorageBlockEntity::new, BLOCK_XP_OBELISK).build(null);
 
-    public static final CropBlock XP_BERRIE_BUSH_BLOCK = new XpBerrieBushBlock(AbstractBlock.Settings.of(Material.PLANT)
+    public static final CropBlock XP_BERRIE_BUSH_BLOCK = new XpBerrieBushBlock(FabricBlockSettings.of(Material.PLANT)
             .nonOpaque()
             .noCollision()
             .ticksRandomly()
             .breakInstantly()
             .sounds(BlockSoundGroup.CROP)
-            .emissiveLighting(new AbstractBlock.ContextPredicate() {
-                @Override
-                public boolean test(BlockState state, BlockView world, BlockPos pos) {
-                    return true;
-                }
-            }));
+            .emissiveLighting((state, world, pos) -> true));
 
+    @SuppressWarnings("UnstableApiUsage")
     public static void registerBlocks() {
         Registry.register(Registry.BLOCK, new Identifier(XpStorage.MOD_ID, "block_xp_obelisk"), BLOCK_XP_OBELISK);
 
@@ -56,7 +51,7 @@ public class ModBlocks {
 
         Registry.register(Registry.BLOCK, new Identifier(XpStorage.MOD_ID,"xp_berrie_bush_block"), XP_BERRIE_BUSH_BLOCK);
 
-        BlockEntityType<StorageBlockEntity> STORAGE = null;
+        //BlockEntityType<StorageBlockEntity> STORAGE = null;
 //        FluidStorage.SIDED.registerForBlockEntity((storage, direction) -> switch (direction) {
 //            case DOWN -> storage.liquidXp;
 //            default -> null;
