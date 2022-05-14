@@ -29,7 +29,7 @@
     {
       "type": "patchouli:tooltip",
       "tooltip": [
-        "Stage_#nr#"
+        "Age_#nr#"
       ],
       "x": 3,
       "y": 10,

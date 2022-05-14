@@ -4,14 +4,14 @@
       "type": "patchouli:header",
       "text": "#input->iname",
       "x": 58,
-      "y": 0
+      "y": -6
     },
     {
       "type": "patchouli:image",
       "guard": "#input->exists",
       "image": "patchouli:textures/gui/crafting.png",
       "x": 25,
-      "y": 8,
+      "y": 3,
       "width": 66,
       "height": 27,
       "u": 0,
@@ -25,7 +25,7 @@
       "item": "#input",
       "link_recipe": true,
       "x": 50,
-      "y": 15
+      "y": 10
     },
     {
       "type": "patchouli:text",

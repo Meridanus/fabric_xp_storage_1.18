@@ -6,9 +6,9 @@
       "using":
       {
         "switch": false,
-        "heading": "XP Berries",
+        "heading": "xps:xp_berries",
         "input": "xps:xp_berries",
-        "text": "gives 3xp per XP Berrie"
+        "text": "page.text.xp_berries.detail"
       },
       "x": 0,
       "y": 0
@@ -28,8 +28,8 @@
       "as": "detail2",
       "using":
       {
-        "drop": "xps:xp_berries#1",
-        "drop_text": " 1"
+        "drop": "xps:xp_berries#2",
+        "drop_text": "handbook.XP_Berrie.drop.text.1"
       },
       "x": 0,
       "y": 50
@@ -51,7 +51,7 @@
       "using":
       {
         "drop": "xps:xp_berries#5",
-        "drop_text": "2-5"
+        "drop_text": "handbook.XP_Berrie.drop.text.2"
       },
       "x": 0,
       "y": 90

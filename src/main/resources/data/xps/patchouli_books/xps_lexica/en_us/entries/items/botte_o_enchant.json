@@ -1,5 +1,5 @@
 {
-  "name": "Bottle o' Enchanting",
+  "name": "item.minecraft.experience_bottle",
   "icon": "minecraft:experience_bottle",
   "category": "xps:item_category",
   "sortnum": 11,

@@ -1,5 +1,5 @@
 {
-  "name": "Inspector",
+  "name": "item.xps.inspector",
   "icon": "xps:inspector",
   "category": "xps:item_category",
   "sortnum": 5,

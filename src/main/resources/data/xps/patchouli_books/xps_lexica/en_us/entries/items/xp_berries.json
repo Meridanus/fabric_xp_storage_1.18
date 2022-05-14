@@ -1,5 +1,5 @@
 {
-  "name": "XP Berries",
+  "name": "item.xps.xp_berries",
   "icon": "xps:xp_berries",
   "category": "xps:item_category",
   "sortnum": 9,

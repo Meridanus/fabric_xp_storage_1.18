@@ -1,5 +1,5 @@
 {
-  "name": "Lock",
+  "name": "item.xps.lock",
   "icon": "xps:lock",
   "category": "xps:item_category",
   "sortnum": 7,
