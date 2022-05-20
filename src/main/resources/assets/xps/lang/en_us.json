@@ -22,6 +22,7 @@
   "handbook.XP_Berrie.drop.text.2": "2-5",
   "page.text.xp_berries": "XP Berries can be used on XP Storage to insert some Experience",
   "page.text.xp_berries.detail": "gives 3XP per XP Berrie",
+  "page.text.bottle_o_enchant": "Use a Empty Bottle on XP Storage to fill it or Emptying on the XP Storage.",
 
   "block.xps.block_xp_obelisk": "XP Storage",
   "block.xps.xp": "Experience",

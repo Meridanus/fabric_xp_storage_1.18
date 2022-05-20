@@ -8,7 +8,7 @@
       "type": "spotlight",
       "item": "minecraft:experience_bottle",
       "link_recipe": true,
-      "text": "Use a Empty Bottle on XP Storage to fill it or Emptying on the XP Storage."
+      "text": "page.text.bottle_o_enchant"
     },
     {
       "type": "xps:xp_template",

@@ -22,6 +22,7 @@
   "handbook.XP_Berrie.drop.text.2": "2-5",
   "page.text.xp_berries": "EP-Beeren können am EP-Lager benutzt werden um EP einzulagern",
   "page.text.xp_berries.detail": "Gibt 3EP pro EP Beere",
+  "page.text.bottle_o_enchant": "Benutze Flasche am EP-Lager um sie zu füllen oder leeren.",
 
   "block.xps.xp": "Erfahrung",
   "block.xps.xp_fluid": "Flüssige Erfahrung",
