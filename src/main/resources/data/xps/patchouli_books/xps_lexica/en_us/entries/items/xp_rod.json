@@ -8,7 +8,7 @@
       "type": "spotlight",
       "item": "xps:xp_rod",
       "link_recipe": true,
-      "text": "It's a Crafting Material."
+      "text": "page.text.crafting_material"
     },
     {
       "type": "smithing",

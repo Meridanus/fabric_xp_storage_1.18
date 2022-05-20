@@ -16,7 +16,7 @@
       "switch": true,
       "input": "minecraft:glass_bottle",
       "output": "minecraft:experience_bottle",
-      "text": "Extract 33.3 XP to fill"
+      "text": "page.text.bottle.detail"
     }
   ]
 }

@@ -8,7 +8,7 @@
       "type": "spotlight",
       "item": "xps:lock",
       "link_recipe": true,
-      "text": "The Lock is used to lock the XP Storage. $(br2) Note: If the XP Storage is Locked Fluid extraction is disabled"
+      "text": "page.text.lock"
     },
     {
       "type": "crafting",

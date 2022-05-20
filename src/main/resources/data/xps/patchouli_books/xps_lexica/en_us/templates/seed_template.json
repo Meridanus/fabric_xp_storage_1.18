@@ -29,7 +29,7 @@
     {
       "type": "patchouli:tooltip",
       "tooltip": [
-        "Age_#nr#"
+        "handbook.tooltip.age#nr#->i18n"
       ],
       "x": 3,
       "y": 10,

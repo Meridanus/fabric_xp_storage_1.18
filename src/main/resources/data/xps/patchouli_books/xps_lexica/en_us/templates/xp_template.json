@@ -83,8 +83,8 @@
       "guard": "#switch",
       "type": "patchouli:tooltip",
       "tooltip": [
-        "Work's in §6Both",
-        "Directions §2In§8/§4Out"
+        "handbook.tooltip.direction_1->i18n",
+        "handbook.tooltip.direction_2->i18n"
       ],
       "x": 62,
       "y": 8,

@@ -8,7 +8,7 @@
       "type": "spotlight",
       "item": "xps:soul_copper_nugget",
       "link_recipe": true,
-      "text": "Used to Craft certain item's."
+      "text": "page.text.crafting_material"
     },
     {
       "type": "crafting",

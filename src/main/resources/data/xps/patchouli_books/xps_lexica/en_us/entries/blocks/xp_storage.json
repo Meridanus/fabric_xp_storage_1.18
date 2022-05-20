@@ -8,7 +8,7 @@
       "type": "spotlight",
       "item": "xps:block_xp_obelisk",
       "link_recipe": true,
-      "text": "The Core Block that's stores the Experience"
+      "text": "page.text.xp_storage"
     },
     {
       "type": "crafting",

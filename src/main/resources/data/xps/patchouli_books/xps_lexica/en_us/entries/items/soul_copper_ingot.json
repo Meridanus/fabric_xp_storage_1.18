@@ -8,7 +8,7 @@
       "type": "spotlight",
       "item": "xps:soul_copper_ingot",
       "link_recipe": true,
-      "text": "Crafting Material."
+      "text": "page.text.crafting_material"
     },
     {
       "type": "xps:ingot_crafting_template",

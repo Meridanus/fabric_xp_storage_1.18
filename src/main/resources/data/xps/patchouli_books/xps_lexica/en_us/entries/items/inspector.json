@@ -8,7 +8,7 @@
       "type": "spotlight",
       "item": "xps:inspector",
       "link_recipe": true,
-      "text": "The Inspector is used to show detailed information about the XP Storage"
+      "text": "page.text.inspector"
     },
     {
       "type": "crafting",

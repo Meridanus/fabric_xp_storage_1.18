@@ -8,7 +8,7 @@
       "type": "spotlight",
       "item": "xps:xp_dust",
       "link_recipe": true,
-      "text": "Crafting Material."
+      "text": "page.text.crafting_material"
     },
     {
       "type": "smoking",

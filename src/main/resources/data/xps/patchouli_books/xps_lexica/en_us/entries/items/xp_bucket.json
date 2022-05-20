@@ -8,7 +8,7 @@
       "type": "spotlight",
       "item": "xps:xp_bucket",
       "link_recipe": true,
-      "text": "Use a Empty Bucket on XP Storage to fill it or Emptying on the XP Storage."
+      "text": "page.text.bucket"
     },
     {
       "type": "xps:xp_template",
@@ -16,7 +16,7 @@
       "heading": "xps:xp_bucket",
       "input": "minecraft:bucket",
       "output": "xps:xp_bucket",
-      "text": "Extract 100 XP to fill"
+      "text": "page.text.bucket.detail"
     }
   ]
 }
