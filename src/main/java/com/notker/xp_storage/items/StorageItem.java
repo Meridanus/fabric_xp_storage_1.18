@@ -23,11 +23,11 @@ public class StorageItem extends Item {
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
 
-        tooltip.add(new TranslatableText("item.xps.moreinfo.tooltip"));
+        tooltip.add(new TranslatableText("item.xps.more.info.tooltip"));
         if (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), XpStorage.shiftKey)) {
 
 
-            tooltip.remove(new TranslatableText("item.xps.moreinfo.tooltip"));
+            tooltip.remove(new TranslatableText("item.xps.more.info.tooltip"));
             if (this.equals(ModItems.INSPECTOR)) {
                 tooltip.add(new TranslatableText("item.tooltip.inspector").formatted(Formatting.AQUA));
             }

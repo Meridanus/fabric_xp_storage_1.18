@@ -36,9 +36,9 @@ public class StorageBlockItem extends BlockItem {
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         if (itemStack.hasNbt() && itemStack.getNbt() != null) {
 
-            tooltip.add(new TranslatableText("item.xps.moreinfo.tooltip"));
+            tooltip.add(new TranslatableText("item.xps.more.info.tooltip"));
             if (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), XpStorage.shiftKey)) {
-                tooltip.remove(new TranslatableText("item.xps.moreinfo.tooltip"));
+                tooltip.remove(new TranslatableText("item.xps.more.info.tooltip"));
 
                 NbtCompound comp = itemStack.getNbt().getCompound(ModBlocks.TAG_ID);
                 if (comp.isEmpty()) {

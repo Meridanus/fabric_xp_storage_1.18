@@ -14,7 +14,7 @@
   "item.xps.xp_berries": "EP-Beeren",
   "item.xps.xp_berries_seeds": "EP-Beerensamen",
 
-  "item.xps.moreinfo.tooltip": "§8Drücke §6Shift §8für mehr Info",
+  "item.xps.more.info.tooltip": "§8Drücke §6Shift §8für mehr Info",
 
   "page.info.title": "EP-Lager Info",
   "handbook.main.text": "Die XP Obelisk Mod fügt eine möglichkeit hinzu Erfahrungspunkte in einem Spirituellen Käfig Sicher zu lagern. Normalerweise lunger die EP Kugeln an Boden rum und verschwinden nach kurzer Zeit für immer oder werden zerstört wenn der Spieler Stirbt. Mit dem EP-Lager können Spieler über 21.863 Level sicher Lagern.",
@@ -47,7 +47,7 @@
   "handbook.tooltip.age5": "Alter 5",
   "handbook.tooltip.age6": "Alter 6",
   "handbook.tooltip.age7": "Alter 7",
-  "handbook.tooltip.shapless": "Formlos",
+  "handbook.tooltip.shapeless": "Formlos",
 
   "page.text.info.description": "Das EP-Lager ist aus Magischen Seelenkupfer gefertigt.$(br)Nachdem du das EP-Lager plaziert hast, kannst du mit dem EP-Transverierer oder Flüssigkeitsverbindungen EP einlagern oder entnehmen.$(br2)$(l)Hinweis:$() Wenn du mehr als 1 EP-Transverierer hältst, steigt die Menge an übertragenen EP entsprechend.",
   "page.text.info.insert_heading": "EP Hinzufügen",

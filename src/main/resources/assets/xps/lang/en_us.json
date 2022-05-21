@@ -14,7 +14,7 @@
   "item.xps.xp_berries": "XP Berries",
   "item.xps.xp_berries_seeds": "XP Berrie Seeds",
 
-  "item.xps.moreinfo.tooltip": "§8Hold §6Shift §8For More Info",
+  "item.xps.more.info.tooltip": "§8Hold §6Shift §8For More Info",
 
   "page.info.title": "Xp Storage Info",
   "handbook.main.text": "XP Obelisk Mod introduces a safe method to store experience points inside a spiritual cage. Normally the XP points will only linger around the ground for a minute then disappear forever or get destroyed when the player die's. With XP Obelisk, players’ can safe store more than 21,863 level's.",
@@ -47,9 +47,9 @@
   "handbook.tooltip.age5": "Age 5",
   "handbook.tooltip.age6": "Age 6",
   "handbook.tooltip.age7": "Age 7",
-  "handbook.tooltip.shapless": "Shapless",
+  "handbook.tooltip.shapeless": "Shapeless",
 
-  "page.text.info.description": "The XP Storage is made out of Magical Soulcopper.$(br)After you place it, you can put Experience in and out with the Transreciver or Fluid Interface's.$(br2)$(l)Note:$() If you hold more than 1 item the transfer rate act accordingly.",
+  "page.text.info.description": "The XP Storage is made out of Magical Soulcopper.$(br)After you place it, you can put Experience in and out with the Transceiver or Fluid Interface's.$(br2)$(l)Note:$() If you hold more than 1 item the transfer rate act accordingly.",
   "page.text.info.insert_heading": "XP Insertion",
   "page.text.info.insert_text": "Insert $(l)8$() Level's to XP Storage",
   "page.text.info.extract_heading": "XP Extraction",
