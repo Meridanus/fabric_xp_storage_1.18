@@ -22,7 +22,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.command.CommandOutput;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -506,21 +506,19 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         UUID noUUid = Util.NIL_UUID;
 
         if (!tile.player_uuid.equals(noUUid)) {
-
-            player.sendMessage(Text.translatable("item.tooltip.owner", tile.playerName.toString()),true);
-            player.sendMessage(Text.translatable("UUid: " + tile.player_uuid), true);
+            player.sendMessage(Text.translatable("item.tooltip.owner", tile.playerName.toString()),false);
+            player.sendMessage(Text.translatable("UUid: " + tile.player_uuid), false);
         } else {
-            player.sendMessage(Text.translatable("item.debug_info.xp.container_no_owner"), true);
+            player.sendMessage(Text.translatable("item.debug_info.xp.container_no_owner"), false);
         }
         String xp = String.format(Locale.GERMAN, "%,d", tile.getContainerExperience());
         String playerXp = String.format(Locale.GERMAN,"%,d", totalXp);
-
-        player.sendMessage(Text.translatable("item.debug_info.xp.container_info", xp, Integer.MAX_VALUE), true);
-        player.sendMessage(Text.translatable("item.debug_info.xp.container_fill", tile.getContainerFillPercentage()), true);
-        player.sendMessage(Text.translatable("item.debug_info.xp.player_info", playerXp), true);
+        player.sendMessage(Text.translatable("item.debug_info.xp.container_info", xp, Integer.MAX_VALUE), false);
+        player.sendMessage(Text.translatable("item.debug_info.xp.container_fill", tile.getContainerFillPercentage()), false);
+        player.sendMessage(Text.translatable("item.debug_info.xp.player_info", playerXp), false);
 
         if (tile.vacuum) {
-            player.sendMessage(Text.translatable("text.storageBlock.vacuum"), true);
+            player.sendMessage(Text.translatable("text.storageBlock.vacuum"), false);
         }
 
 
