@@ -115,8 +115,8 @@ public class XpBerrieBushBlock extends CropBlock {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, net.minecraft.util.math.random.Random random) {
-        super.randomTick(state, world, pos, random);
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, net.minecraft.util.math.random.Random random) {
+        super.randomDisplayTick(state, world, pos, random);
         if (isFullGrown(state) && random.nextInt(20) == 0) {
 
             double targetX = pos.getX() + 0.5D;

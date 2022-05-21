@@ -35,6 +35,7 @@ import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -44,7 +45,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Random;
 import java.util.UUID;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -160,8 +160,8 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, net.minecraft.util.math.random.Random random) {
-        super.randomTick(state, world, pos, random);
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+        super.randomDisplayTick(state, world, pos, random);
         final StorageBlockEntity tile = (StorageBlockEntity) world.getBlockEntity(pos);
         if (tile != null && tile.vacuum) {
 
