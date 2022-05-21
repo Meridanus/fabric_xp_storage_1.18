@@ -1,0 +1,51 @@
+{
+  "components": [
+    {
+      "type": "patchouli:header",
+      "text": "#input->iname",
+      "x": 58,
+      "y": -6
+    },
+    {
+      "type": "patchouli:image",
+      "guard": "#input->exists",
+      "image": "patchouli:textures/gui/crafting.png",
+      "x": 25,
+      "y": 3,
+      "width": 66,
+      "height": 27,
+      "u": 0,
+      "v": 100,
+      "texture_width": 128,
+      "texture_height": 256
+    },
+    {
+      "type": "patchouli:item",
+      "guard": "#input->exists",
+      "item": "#input",
+      "link_recipe": true,
+      "x": 50,
+      "y": 10
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#text",
+      "x": 4,
+      "y": 37
+    }
+  ],
+  "include": [
+    {
+      "template": "seed_group_preview_template",
+      "as": "group",
+      "using":
+      {
+
+      },
+      "x": 0,
+      "y": 90
+    }
+  ]
+}
+
+

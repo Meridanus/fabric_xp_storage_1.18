@@ -1,13 +1,14 @@
 {
-  "name": "Bottle o' Enchanting",
+  "name": "item.minecraft.experience_bottle",
   "icon": "minecraft:experience_bottle",
   "category": "xps:item_category",
+  "sortnum": 11,
   "pages": [
     {
       "type": "spotlight",
       "item": "minecraft:experience_bottle",
       "link_recipe": true,
-      "text": "Use a Empty Bottle on XP Storage to fill it or Emptying on the XP Storage."
+      "text": "page.text.bottle_o_enchant"
     },
     {
       "type": "xps:xp_template",
@@ -15,7 +16,7 @@
       "switch": true,
       "input": "minecraft:glass_bottle",
       "output": "minecraft:experience_bottle",
-      "text": "Extract 33.3 XP to fill"
+      "text": "page.text.bottle.detail"
     }
   ]
 }

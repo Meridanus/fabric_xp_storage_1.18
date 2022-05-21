@@ -1,5 +1,5 @@
 {
-  "name": "Xp Storage Info",
+  "name": "page.info.title",
   "icon": "xps:block_xp_obelisk",
   "category": "xps:info_category",
   "pages": [
@@ -7,21 +7,21 @@
       "type": "spotlight",
       "item": "xps:block_xp_obelisk",
       "link_recipe": true,
-      "text": "The XP Storage is made out of Magical Soulcopper. $(br)After you place it, you can put Experience in and out with the Transreciver or Fluid Interface'S $(br2) Note: If you hold more than 1 item the transfer rate act accordingly"
+      "text": "page.text.info.description"
     },
     {
       "type": "xps:xp_storage_ussages_template",
-      "heading1": "XP Insertion",
+      "heading1": "page.text.info.insert_heading",
       "input1": "xps:xp_remover#8",
-      "text1": "Insert 8 Level's to XP Storage",
-      "heading2": "XP Extraction",
+      "text1": "page.text.info.insert_text",
+      "heading2": "page.text.info.extract_heading",
       "input2": "xps:xp_remover#5{Mode:true}",
-      "text2": "Gives the player 5 Level's"
+      "text2": "page.text.info.extract_text"
     },
     {
       "type": "text",
-      "title": "XP Storage Interactions",
-      "text": "You can use Bottle's or Bucket's on the XP Storage to insert or extract Experience.$(br2)You can use Damaged Items with Mending Enchantment on the XP Storage to Repair the Item with the stored Experience. "
+      "title": "page.text.info.usages.title",
+      "text": "page.text.info.usages.text"
     },
     {
       "type": "xps:xp_storage_ussages_template",
@@ -29,27 +29,26 @@
       "heading1": "minecraft:experience_bottle",
       "input1": "minecraft:experience_bottle",
       "output1": "minecraft:glass_bottle",
-      "text1": "Inserts 33.3 XP",
+      "text1": "page.text.bottle.detail",
       "switch2": true,
       "heading2": "xps:xp_bucket",
       "input2": "xps:xp_bucket",
       "output2": "minecraft:bucket",
-      "text2": "Inserts 100 XP",
-      "heading3": "Item Repair with XP",
+      "text2": "page.text.bucket.detail",
+      "heading3": "page.text.info.mending.heading",
       "input3": "minecraft:netherite_pickaxe{Damage:1150, Enchantments:[{id:\"minecraft:mending\",lvl:1}]}",
       "output3": "minecraft:netherite_pickaxe{Enchantments:[{id:\"minecraft:mending\",lvl:1}]}",
-      "text3": "Item Requires Mending"
+      "text3": "page.text.info.mending"
     },
     {
       "type": "xps:xp_storage_ussages_template",
-      "heading1": "XP Storage Vacuum",
+      "heading1": "page.text.info.vacuum.heading",
       "input1": "minecraft:redstone_torch",
-      "text1": "Use on XP Storage to Toggle Vacuum Mode"
+      "text1": "page.text.info.vacuum.text"
     },
     {
       "type": "multiblock",
-      "title": "XP Storage Vacuum",
-      "text": "The Glass Block's Represent the Vacuum Range. 9x5x9 Blocks",
+      "text": "page.text.info.vacuum.detail",
       "offset": [
         0,
         4,

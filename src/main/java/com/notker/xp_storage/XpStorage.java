@@ -15,6 +15,8 @@ public class XpStorage implements ModInitializer {
 
     public static final  String MOD_ID = "xps";
     public static final Long MB_PER_XP = FluidConstants.BUCKET / 100;
+    public static final  int XP_PER_BERRIE = 3;
+    public static final  Long MB_PER_BERRIE = XP_PER_BERRIE * MB_PER_XP;
 
     public static final int shiftKey = 340;
 

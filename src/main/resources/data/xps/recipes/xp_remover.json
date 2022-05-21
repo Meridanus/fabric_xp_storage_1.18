@@ -1,9 +1,9 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        " I ",
-        "IBI",
-        " I "
+        "InI",
+        "nBn",
+        "InI"
     ],
     "key": {
         "B": {
@@ -11,6 +11,9 @@
         },
         "I": {
             "item": "xps:soul_copper_ingot"
+        },
+        "n": {
+            "item": "xps:soul_copper_nugget"
         }
     },
     "result": {

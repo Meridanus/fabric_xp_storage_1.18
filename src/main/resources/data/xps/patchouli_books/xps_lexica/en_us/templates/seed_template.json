@@ -1,0 +1,64 @@
+{
+  "components": [
+    {
+      "type": "patchouli:image",
+      "guard": "#h->exists->inv",
+      "image": "xps:textures/blocks/xp_berrie_bush_block_stage#nr#.png",
+      "x": 3,
+      "y": 10,
+      "width": 16,
+      "height": 16,
+      "u": 0,
+      "v": 0,
+      "texture_width": 16,
+      "texture_height": 16
+    },
+    {
+      "type": "patchouli:image",
+      "guard": "#h->exists",
+      "image": "xps:textures/blocks/xp_berrie_bush_block_stage#nr#.png",
+      "x": 3,
+      "y": 10,
+      "width": 16,
+      "height": 16,
+      "u": 0,
+      "v": 0,
+      "texture_width": 16,
+      "texture_height": 64
+    },
+    {
+      "type": "patchouli:tooltip",
+      "tooltip": [
+        "handbook.tooltip.age#nr#->i18n"
+      ],
+      "x": 3,
+      "y": 10,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "type": "patchouli:image",
+      "image": "minecraft:textures/block/soul_soil.png",
+      "x": 3,
+      "y": 26,
+      "width": 16,
+      "height": 16,
+      "u": 0,
+      "v": 0,
+      "texture_width": 16,
+      "texture_height": 16
+    },
+    {
+      "type": "patchouli:tooltip",
+      "tooltip": [
+        "minecraft:soul_soil->iname"
+      ],
+      "x": 3,
+      "y": 26,
+      "width": 16,
+      "height": 16
+    }
+  ]
+}
+
+

@@ -1,0 +1,18 @@
+{
+  "name": "item.xps.soul_copper_nugget",
+  "icon": "xps:soul_copper_nugget",
+  "category": "xps:item_category",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "xps:soul_copper_nugget",
+      "link_recipe": true,
+      "text": "page.text.crafting_material"
+    },
+    {
+      "type": "crafting",
+      "recipe": "xps:soul_copper_nugget"
+    }
+  ]
+}

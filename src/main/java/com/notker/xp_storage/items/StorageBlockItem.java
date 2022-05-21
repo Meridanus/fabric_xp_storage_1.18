@@ -4,7 +4,9 @@ import com.notker.xp_storage.XpFunctions;
 import com.notker.xp_storage.XpStorage;
 import com.notker.xp_storage.regestry.ModBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -34,33 +36,38 @@ public class StorageBlockItem extends BlockItem {
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         if (itemStack.hasNbt() && itemStack.getNbt() != null) {
 
-            NbtCompound comp = itemStack.getNbt().getCompound(ModBlocks.TAG_ID);
-            if (comp.isEmpty()) { return; }
+            tooltip.add(new TranslatableText("item.xps.more.info.tooltip"));
+            if (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), XpStorage.shiftKey)) {
+                tooltip.remove(new TranslatableText("item.xps.more.info.tooltip"));
 
-            UUID id = comp.getUuid("player_uuid");
-            if (!id.equals(Util.NIL_UUID)) {
-                String playerName = comp.getString("playerName");
-                tooltip.add(new TranslatableText("item.tooltip.owner", playerName));
+                NbtCompound comp = itemStack.getNbt().getCompound(ModBlocks.TAG_ID);
+                if (comp.isEmpty()) {
+                    return;
+                }
+
+                UUID id = comp.getUuid("player_uuid");
+                if (!id.equals(Util.NIL_UUID)) {
+                    String playerName = comp.getString("playerName");
+                    tooltip.add(new TranslatableText("item.tooltip.owner", playerName));
+                }
+                int storedXP;
+
+                if (comp.contains("containerExperience")) {
+                    storedXP = comp.getInt("containerExperience");
+                } else {
+                    storedXP = (int) (comp.getLong("amount") / XpStorage.MB_PER_XP);
+                }
+
+
+                if (storedXP > 0) {
+                    tooltip.add(XpFunctions.xp_to_text(storedXP));
+                }
+
+                if (comp.getBoolean("vacuum")) {
+                    tooltip.add(new TranslatableText("text.storageBlock.vacuum"));
+                }
+
             }
-            int storedXP;
-
-            if (comp.contains("containerExperience")) {
-                storedXP = comp.getInt("containerExperience");
-            } else {
-                storedXP = (int)(comp.getLong("amount") / XpStorage.MB_PER_XP);
-            }
-
-
-
-            if (storedXP > 0) {
-                tooltip.add(XpFunctions.xp_to_text(storedXP));
-            }
-
-            if (comp.getBoolean("vacuum")) {
-                tooltip.add(new TranslatableText("text.storageBlock.vacuum"));
-            }
-
-
         }
 
     }

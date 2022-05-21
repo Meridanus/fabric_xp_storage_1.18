@@ -1,0 +1,17 @@
+{
+  "name": "item.xps.xp_berries_seeds",
+  "icon": "xps:xp_berries_seeds",
+  "category": "xps:item_category",
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "xps:seed_spotlight_template",
+      "input": "xps:xp_berries_seeds",
+      "text": "page.text.xp_berrie_seeds"
+    },
+    {
+      "type": "crafting",
+      "recipe": "xps:xp_berries_seeds"
+    }
+  ]
+}

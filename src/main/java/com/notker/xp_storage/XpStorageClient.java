@@ -46,5 +46,7 @@ public class XpStorageClient implements ClientModInitializer {
         ));
 
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), ModFluids.LIQUID_XP, ModFluids.LIQUID_XP_FLOWING);
+
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), ModBlocks.XP_BERRIE_BUSH_BLOCK);
     }
 }

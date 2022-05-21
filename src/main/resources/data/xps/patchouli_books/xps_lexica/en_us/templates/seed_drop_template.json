@@ -1,0 +1,52 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "xps:xp_berries_seeds",
+      "framed": true,
+      "link_recipe": false,
+      "x": 13,
+      "y": 16
+    },
+    {
+      "type": "patchouli:image",
+      "image": "patchouli:textures/gui/crafting.png",
+      "x": 36,
+      "y": 16,
+      "width": 11,
+      "height": 11,
+      "u": 64,
+      "v": 26,
+      "texture_width": 128,
+      "texture_height": 265
+    },
+    {
+      "type": "patchouli:image",
+      "image": "patchouli:textures/gui/crafting.png",
+      "x": 69,
+      "y": 16,
+      "width": 11,
+      "height": 11,
+      "u": 64,
+      "v": 26,
+      "texture_width": 128,
+      "texture_height": 265
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#drop",
+      "framed": true,
+      "link_recipe": false,
+      "x": 86,
+      "y": 16
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#drop_text",
+      "x": 90,
+      "y": 36
+    }
+  ]
+}
+
+

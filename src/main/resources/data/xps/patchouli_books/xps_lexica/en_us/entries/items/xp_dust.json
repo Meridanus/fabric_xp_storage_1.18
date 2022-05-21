@@ -1,13 +1,14 @@
 {
-  "name": "Xp Dust",
+  "name": "item.xps.xp_dust",
   "icon": "xps:xp_dust",
   "category": "xps:item_category",
+  "sortnum": 4,
   "pages": [
     {
       "type": "spotlight",
       "item": "xps:xp_dust",
       "link_recipe": true,
-      "text": "Crafting Material."
+      "text": "page.text.crafting_material"
     },
     {
       "type": "smoking",

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "xps:blocks/xp_berrie_bush_block_stage6"
+  }
+}

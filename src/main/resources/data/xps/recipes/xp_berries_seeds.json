@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "sas",
+        "nUn",
+        "sNs"
+    ],
+    "key": {
+        "a": {
+            "item": "minecraft:amethyst_shard"
+        },
+        "s": {
+            "tag": "xps:seeds_list"
+        },
+        "U": {
+            "item": "xps:xp_bucket"
+        },
+        "n": {
+            "item": "minecraft:nether_wart"
+        },
+        "N": {
+            "item": "xps:soul_copper_nugget"
+        }
+    },
+    "result": {
+        "item": "xps:xp_berries_seeds",
+        "count": 6
+    }
+}

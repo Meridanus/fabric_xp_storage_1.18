@@ -216,6 +216,11 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
                     return toggleVacuum(world, pos, tile);
                 }
 
+                // XP Berries
+                if (mainHand.isOf(ModItems.XP_BERRIES)) {
+                    return insertXpBerries(itemCountInHand, world, pos, player, hand, tile);
+                }
+
                 // Lock
                 if (mainHand.isOf(ModItems.LOCK)) {
                     if (tileIsLocked) { return containerIsAlreadyLocked(world, pos, player); }
@@ -227,36 +232,35 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
                     ItemStack stack = player.getStackInHand(hand);
 
                     if (stack.hasNbt() && Objects.requireNonNull(stack.getNbt()).getBoolean(Xp_removerItem.tagId)) {
-                        return containerXpToPlayer(itemCountInHand, state, world, pos, player, tile);
+                        return containerXpToPlayer(itemCountInHand, world, pos, player, tile);
                     }
 
-                    return playerXpToContainer(itemCountInHand, state, world, pos, player, tile);
+                    return playerXpToContainer(itemCountInHand, world, pos, player, tile);
                 }
 
                 // GlassBottle
                 if (mainHand.isOf(Items.GLASS_BOTTLE)) {
-                    return fillGlassBottle(state, world, pos, player, hand, tile);
+                    return fillGlassBottle(world, pos, player, hand, tile);
                 }
 
                 // EP Flask
                 if (mainHand.isOf(Items.EXPERIENCE_BOTTLE)) {
-                    return insertBottleXP(itemCountInHand, state, world, pos, player, hand, tile);
+                    return insertBottleXP(itemCountInHand, world, pos, player, hand, tile);
                 }
 
                 // Empty Bucket
                 if (mainHand.isOf(Items.BUCKET)) {
-                    return fillBucketOnContainer(state, world, pos, player, hand, tile);
+                    return fillBucketOnContainer(world, pos, player, hand, tile);
                 }
 
                 // Experience Bucket
                 if (mainHand.isOf(ModFluids.XP_BUCKET)) {
-                    return emptyBucketOnContainer(state, world, pos, player, hand, tile);
+                    return emptyBucketOnContainer(world, pos, player, hand, tile);
                 }
 
                 //Mending Item Repair
-                //if (mainHand.isOf(Items.BAMBOO)) {
                 if (mainHand.isDamaged() && (EnchantmentHelper.getLevel(Enchantments.MENDING, mainHand) > 0)) {
-                    return repairItem(world, pos, state, tile, mainHand);
+                    return repairItem(world, pos, tile, mainHand);
                 }
 
             }
@@ -266,7 +270,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         return ActionResult.CONSUME;
     }
 
-    private ActionResult repairItem(World world, BlockPos pos, BlockState state, StorageBlockEntity tile, ItemStack mainHand) {
+    private ActionResult repairItem(World world, BlockPos pos, StorageBlockEntity tile, ItemStack mainHand) {
         if (tile.getContainerExperience() > 0) {
             tile.isAuthPlayer = true;
             try (Transaction transaction = Transaction.openOuter()) {
@@ -319,7 +323,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         return ActionResult.SUCCESS;
     }
 
-    private ActionResult emptyBucketOnContainer(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
+    private ActionResult emptyBucketOnContainer(World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
         try (Transaction transaction = Transaction.openOuter()) {
             tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), FluidConstants.BUCKET, transaction);
             player.getStackInHand(hand).setCount(0);
@@ -332,7 +336,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         return ActionResult.SUCCESS;
     }
 
-    private ActionResult fillBucketOnContainer(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
+    private ActionResult fillBucketOnContainer(World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
         if (tile.liquidXp.amount >= FluidConstants.BUCKET) {
             tile.isAuthPlayer = true;
             try (Transaction transaction = Transaction.openOuter()) {
@@ -350,7 +354,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         return ActionResult.SUCCESS;
     }
 
-    private ActionResult fillGlassBottle(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
+    private ActionResult fillGlassBottle(World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
         if (tile.liquidXp.amount >= FluidConstants.BOTTLE) {
             //11L * XpStorage.MB_PER_XP
             tile.isAuthPlayer = true;
@@ -375,18 +379,26 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         return ActionResult.SUCCESS;
     }
 
+    private ActionResult insertXpBerries(int itemCount, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
 
-    private ActionResult insertBottleXP(int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
+        try (Transaction transaction = Transaction.openOuter()) {
+            tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), itemCount * XpStorage.MB_PER_BERRIE, transaction);
+            world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1f, 1f);
+
+            player.getStackInHand(hand).setCount(0);
+
+            transaction.commit();
+        }
+
+        return ActionResult.SUCCESS;
+    }
+
+
+    private ActionResult insertBottleXP(int itemCount, World world, BlockPos pos, PlayerEntity player, Hand hand, StorageBlockEntity tile) {
         ItemStack emptyBottles = new ItemStack(Items.GLASS_BOTTLE);
         emptyBottles.setCount(itemCount);
 
         long xpToInsert = FluidConstants.BOTTLE * itemCount;
-        /*int xpToInsert = 0;
-
-        for (int i = 0; i < itemCount; i++) {
-            // Minecraft EP Calculation
-            //xpToInsert += 3 + world.random.nextInt(5) + world.random.nextInt(5);
-        }*/
 
         try (Transaction transaction = Transaction.openOuter()) {
             tile.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), xpToInsert, transaction);
@@ -401,7 +413,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         return ActionResult.SUCCESS;
     }
 
-    private ActionResult containerXpToPlayer(int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, StorageBlockEntity tile) {
+    private ActionResult containerXpToPlayer(int itemCount, World world, BlockPos pos, PlayerEntity player, StorageBlockEntity tile) {
         if (tile.liquidXp.amount > 0) {
             for (int i = 0; i < itemCount; i++) {
                 tile.isAuthPlayer = true;
@@ -432,7 +444,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         return ActionResult.SUCCESS;
     }
 
-    private ActionResult playerXpToContainer(int itemCount, BlockState state, World world, BlockPos pos, PlayerEntity player, StorageBlockEntity tile) {
+    private ActionResult playerXpToContainer(int itemCount, World world, BlockPos pos, PlayerEntity player, StorageBlockEntity tile) {
         if (XpFunctions.get_total_xp(player.experienceLevel, player.getNextLevelExperience(), player.experienceProgress) > 0) {
 
             int xpToInsert = 0;

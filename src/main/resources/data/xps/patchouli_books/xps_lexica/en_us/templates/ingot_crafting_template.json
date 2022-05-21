@@ -33,7 +33,7 @@
     {
       "type": "patchouli:tooltip",
       "tooltip": [
-        "Shapless"
+        "handbook.tooltip.shapeless->i18n"
       ],
       "x": 71,
       "y": 6,

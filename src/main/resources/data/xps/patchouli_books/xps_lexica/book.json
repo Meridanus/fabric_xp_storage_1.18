@@ -1,10 +1,11 @@
 {
   "name": "item.xps.handbook",
-  "landing_text": "item.xps.handbook.text",
+  "landing_text": "handbook.main.text",
   "book_texture": "patchouli:textures/gui/book_cyan.png",
   "show_progress": false,
-  "version": 1,
+  "version": 3,
   "model": "xps:handbook",
   "dont_generate_book": true,
-  "custom_book_item": "xps:handbook"
+  "custom_book_item": "xps:handbook",
+  "i18n": true
 }
