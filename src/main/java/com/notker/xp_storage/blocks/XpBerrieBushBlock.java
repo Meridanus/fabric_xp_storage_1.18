@@ -115,8 +115,8 @@ public class XpBerrieBushBlock extends CropBlock {
     }
 
     @Override
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        super.randomDisplayTick(state, world, pos, random);
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, net.minecraft.util.math.random.Random random) {
+        super.randomTick(state, world, pos, random);
         if (isFullGrown(state) && random.nextInt(20) == 0) {
 
             double targetX = pos.getX() + 0.5D;
@@ -126,4 +126,5 @@ public class XpBerrieBushBlock extends CropBlock {
             world.addParticle(ParticleTypes.SCRAPE,  targetX, targetY, targetZ, 0.1,  1.3, 0.1);
         }
     }
+
 }

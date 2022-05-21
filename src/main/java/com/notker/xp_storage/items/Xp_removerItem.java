@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -88,19 +87,19 @@ public static String tagId = "Mode";
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(stack,world,tooltip,tooltipContext);
 
-        tooltip.add(new TranslatableText("item.xps.more.info.tooltip"));
+        tooltip.add(Text.translatable("item.xps.more.info.tooltip"));
         if (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), XpStorage.shiftKey)) {
-            tooltip.remove(new TranslatableText("item.xps.more.info.tooltip"));
+            tooltip.remove(Text.translatable("item.xps.more.info.tooltip"));
 
-            tooltip.add(new TranslatableText("item.tooltip.xp_remover_sneak").formatted(Formatting.RED));
+            tooltip.add(Text.translatable("item.tooltip.xp_remover_sneak").formatted(Formatting.RED));
 
             NbtCompound nbt = getNbtCompound(stack);
             if (nbt.getBoolean(tagId)) {
-                tooltip.add(new TranslatableText("item.tooltip.xp_rod").formatted(Formatting.AQUA));
+                tooltip.add(Text.translatable("item.tooltip.xp_rod").formatted(Formatting.AQUA));
             } else {
-                tooltip.add(new TranslatableText("item.tooltip.xp_remover").formatted(Formatting.AQUA));
+                tooltip.add(Text.translatable("item.tooltip.xp_remover").formatted(Formatting.AQUA));
             }
-            tooltip.add(new TranslatableText("item.tooltip.stack_size"));
+            tooltip.add(Text.translatable("item.tooltip.stack_size"));
         }
 
 

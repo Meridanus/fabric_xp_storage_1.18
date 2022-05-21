@@ -22,13 +22,13 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
@@ -160,8 +160,8 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
     }
 
     @Override
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        super.randomDisplayTick(state, world, pos, random);
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, net.minecraft.util.math.random.Random random) {
+        super.randomTick(state, world, pos, random);
         final StorageBlockEntity tile = (StorageBlockEntity) world.getBlockEntity(pos);
         if (tile != null && tile.vacuum) {
 
@@ -175,6 +175,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
             world.addParticle(ParticleTypes.PORTAL,  targetX, targetY, targetZ, offsetX,  0.1, offsetZ);
         }
     }
+
 
     @Override
     @SuppressWarnings("deprecation")
@@ -308,7 +309,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
     }
 
     private ActionResult containerIsAlreadyLocked(World world, BlockPos pos, PlayerEntity player) {
-        player.sendMessage(new TranslatableText("text.storageBlock.isLocked"), true);
+        player.sendMessage(Text.translatable("text.storageBlock.isLocked"), true);
 
         world.playSound(null, pos, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1f, 1f);
 
@@ -316,7 +317,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
     }
 
     private ActionResult containerAccessDenied(World world, BlockPos pos, PlayerEntity player) {
-        player.sendMessage(new TranslatableText("text.storageBlock.denied"), true);
+        player.sendMessage(Text.translatable("text.storageBlock.denied"), true);
 
         world.playSound(null, pos, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 1f, 1f);
 
@@ -480,7 +481,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
     private ActionResult unlockContainer(World world, BlockPos pos, PlayerEntity player, Hand hand, boolean isSurvival, int itemCountInHand, StorageBlockEntity tile) {
         tile.setUuidAndNameTo();
 
-        player.sendMessage(new TranslatableText("text.storageBlock.isOpen"), true);
+        player.sendMessage(Text.translatable("text.storageBlock.isOpen"), true);
         world.playSound(null, pos, SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.BLOCKS, 1f, 1f);
 
         if (isSurvival) {
@@ -492,7 +493,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
     private ActionResult lockContainer(World world, BlockPos pos, PlayerEntity player, Hand hand, int itemCountInHand, StorageBlockEntity tile) {
         tile.setUuidAndNameTo(player.getUuid(), player.getName());
 
-        player.sendMessage(new TranslatableText("text.storageBlock.locked"), true);
+        player.sendMessage(Text.translatable("text.storageBlock.locked"), true);
         world.playSound(null, pos, SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.BLOCKS, 1f, 1f);
 
         player.getStackInHand(hand).setCount(itemCountInHand > 1 ? itemCountInHand - 1 : 0);
@@ -505,20 +506,21 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
         UUID noUUid = Util.NIL_UUID;
 
         if (!tile.player_uuid.equals(noUUid)) {
-            player.sendSystemMessage(new TranslatableText("item.tooltip.owner", tile.playerName.asString()), noUUid);
-            player.sendSystemMessage(new LiteralText("UUid: " + tile.player_uuid), noUUid);
+
+            player.sendMessage(Text.translatable("item.tooltip.owner", tile.playerName.toString()),true);
+            player.sendMessage(Text.translatable("UUid: " + tile.player_uuid), true);
         } else {
-            player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_no_owner"), noUUid);
+            player.sendMessage(Text.translatable("item.debug_info.xp.container_no_owner"), true);
         }
         String xp = String.format(Locale.GERMAN, "%,d", tile.getContainerExperience());
         String playerXp = String.format(Locale.GERMAN,"%,d", totalXp);
 
-        player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_info", xp, Integer.MAX_VALUE), noUUid);
-        player.sendSystemMessage(new TranslatableText("item.debug_info.xp.container_fill", tile.getContainerFillPercentage()), noUUid);
-        player.sendSystemMessage(new TranslatableText("item.debug_info.xp.player_info", playerXp), noUUid);
+        player.sendMessage(Text.translatable("item.debug_info.xp.container_info", xp, Integer.MAX_VALUE), true);
+        player.sendMessage(Text.translatable("item.debug_info.xp.container_fill", tile.getContainerFillPercentage()), true);
+        player.sendMessage(Text.translatable("item.debug_info.xp.player_info", playerXp), true);
 
         if (tile.vacuum) {
-            player.sendSystemMessage(new TranslatableText("text.storageBlock.vacuum"), noUUid);
+            player.sendMessage(Text.translatable("text.storageBlock.vacuum"), true);
         }
 
 
