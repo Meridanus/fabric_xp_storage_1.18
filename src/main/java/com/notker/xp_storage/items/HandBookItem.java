@@ -43,7 +43,7 @@ public class HandBookItem extends Item {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(Text.of("WIP"));
+        //tooltip.add(Text.of("WIP"));
         if (!isPatchouliLoaded)
             tooltip.add(new TranslatableText("item.xps.patchouli_book.tooltip"));
     }
