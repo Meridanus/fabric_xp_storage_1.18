@@ -1,0 +1,48 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "xps:xp_rod_smithing"
+    ]
+  },
+  "criteria": {
+    "has_nether_wart": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:nether_wart"
+            ]
+          }
+        ]
+      }
+    },
+    "has_amethyst_shard": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:amethyst_shard"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "xps:soul_copper_nugget"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_soul_copper_nugget",
+      "has_nether_wart",
+      "has_amethyst_shard",
+      "has_the_recipe"
+    ]
+  ]
+}
