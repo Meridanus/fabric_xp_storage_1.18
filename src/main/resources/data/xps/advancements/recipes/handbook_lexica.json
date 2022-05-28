@@ -2,33 +2,26 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "xps:soul_copper_ingot"
+      "xps:handbook"
     ]
   },
   "criteria": {
-    "has_soul_copper_blend": {
+    "has_xp_dust": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "xps:soul_copper_blend"
+              "xps:xp_dust"
             ]
           }
         ]
-      }
-    },
-    "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
-      "conditions": {
-        "recipe": "xps:soul_copper_ingot_furnace"
       }
     }
   },
   "requirements": [
     [
-      "has_soul_copper_blend",
-      "has_the_recipe"
+      "has_xp_dust"
     ]
   ]
 }
