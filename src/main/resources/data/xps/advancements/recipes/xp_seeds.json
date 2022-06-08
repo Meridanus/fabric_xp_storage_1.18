@@ -39,7 +39,6 @@
   },
   "requirements": [
     [
-      "has_soul_copper_nugget",
       "has_nether_wart",
       "has_amethyst_shard",
       "has_the_recipe"
