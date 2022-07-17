@@ -2,14 +2,7 @@
   "components": [
     {
       "type": "patchouli:header",
-      "guard": "#heading->iexists",
-      "text": "#heading->iname",
-      "x": 56,
-      "y": 1
-    },
-    {
-      "type": "patchouli:header",
-      "guard": "#heading->iexists->inv",
+      "guard": "#input->exists",
       "text": "#heading",
       "x": 56,
       "y": 1
