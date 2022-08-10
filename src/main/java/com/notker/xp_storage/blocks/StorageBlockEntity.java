@@ -184,8 +184,8 @@ public class StorageBlockEntity extends BlockEntity {
 
 
 
-        public static void tick(World world, BlockPos pos, BlockState state, StorageBlockEntity be) {
-            if (be.vacuum && world != null) {
+        public static void tick(World world, BlockPos pos, BlockState state, StorageBlockEntity sbe) {
+            if (sbe.vacuum && world != null) {
 
                 Vec3d center = new Vec3d(pos.getX(), pos.getY() + 2.5D, pos.getZ());
                 List<ExperienceOrbEntity> validEntitys = world.getEntitiesByClass(ExperienceOrbEntity.class, Box.of(center, 9D, 5D , 9D), EntityPredicates.VALID_ENTITY);
@@ -193,13 +193,15 @@ public class StorageBlockEntity extends BlockEntity {
 
                 validEntitys.forEach(experienceOrbEntity -> {
                     int xp = experienceOrbEntity.getExperienceAmount();
-                    try (Transaction transaction = Transaction.openOuter()) {
-                        be.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), (long)xp * XpStorage.MB_PER_XP, transaction);
-                        transaction.commit();
+                    if (xp > 0) {
+                        try (Transaction transaction = Transaction.openOuter()) {
+                            sbe.liquidXp.insert(FluidVariant.of(ModFluids.LIQUID_XP), (long) xp * XpStorage.MB_PER_XP, transaction);
+                            transaction.commit();
+                        }
                     }
                     experienceOrbEntity.discard();
                 });
-                world.setBlockState(pos, state.with(CHARGED, (be.liquidXp.amount != 0)));
+                world.setBlockState(pos, state.with(CHARGED, (sbe.liquidXp.amount != 0)));
             }
 
         }
