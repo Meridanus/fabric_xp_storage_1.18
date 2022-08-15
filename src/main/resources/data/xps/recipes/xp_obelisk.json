@@ -7,7 +7,7 @@
     ],
     "key": {
         "x": {
-            "item": "minecraft:iron_bars"
+            "tag": "xps:xp_obelisk_alt"
         },
         "I": {
             "item": "xps:soul_copper_ingot"
