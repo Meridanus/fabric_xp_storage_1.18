@@ -124,7 +124,7 @@ public class StorageBlockEntity extends BlockEntity {
         tag.put("fluidVariant", this.liquidXp.variant.toNbt());
         tag.putLong("amount", this.liquidXp.amount);
         tag.putUuid("player_uuid", this.player_uuid);
-        tag.putString("playerName", this.playerName.asString());
+        tag.putString("playerName", this.playerName.toString());
         tag.putBoolean("vacuum", this.vacuum);
         writeIdToNbt(tag, ModBlocks.STORAGE_BLOCK_ENTITY);
 
@@ -153,7 +153,7 @@ public class StorageBlockEntity extends BlockEntity {
     public NbtCompound getNbtData() {
         NbtCompound stackTag = new NbtCompound();
         stackTag.putUuid("player_uuid", this.player_uuid);
-        stackTag.putString("playerName", this.playerName.asString());
+        stackTag.putString("playerName", this.playerName.toString());
         stackTag.put("fluidVariant", this.liquidXp.variant.toNbt());
         stackTag.putLong("amount", this.liquidXp.amount);
         writeIdToNbt(stackTag, ModBlocks.STORAGE_BLOCK_ENTITY);

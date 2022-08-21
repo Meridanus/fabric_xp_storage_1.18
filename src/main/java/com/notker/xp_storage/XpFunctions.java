@@ -3,7 +3,7 @@ package com.notker.xp_storage;
 import com.google.common.math.BigIntegerMath;
 import com.google.common.math.LongMath;
 import com.notker.xp_storage.blocks.StorageBlockEntity;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -73,11 +73,11 @@ public final class XpFunctions {
         return 0;
     }
 
-    public static TranslatableText xp_to_text(StorageBlockEntity tile) {
+    public static Text xp_to_text(StorageBlockEntity tile) {
         return xp_to_text((int)tile.liquidXp.amount / 810);
     }
 
-    public static TranslatableText xp_to_text(int value) {
+    public static Text xp_to_text(int value) {
         int containerLevel = XpFunctions.getLevelFromExp(value);
         int container_excess_xp = value - XpFunctions.get_total_xp_value_from_level(containerLevel);
         int container_next_level_xp = XpFunctions.getToNextExperienceLevel(containerLevel);
@@ -87,14 +87,14 @@ public final class XpFunctions {
 
 
         if (value == 0) {
-            return new TranslatableText("text.storageBlock.empty");
+            return Text.translatable("text.storageBlock.empty");
         }
 
         if (container_excess_xp == 0) {
-            return new TranslatableText("text.storageBlock.level", containerLevel);
+            return Text.translatable("text.storageBlock.level", containerLevel);
         }
 
-        return new TranslatableText("text.storageBlock.data", containerLevel, percentage);
+        return Text.translatable("text.storageBlock.data", containerLevel, percentage);
     }
 
 

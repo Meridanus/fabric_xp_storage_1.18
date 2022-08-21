@@ -1,7 +1,6 @@
 package com.notker.xp_storage.items;
 
 import com.notker.xp_storage.XpStorage;
-import com.notker.xp_storage.regestry.ModItems;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
@@ -9,8 +8,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
@@ -45,7 +42,7 @@ public class HandBookItem extends Item {
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         //tooltip.add(Text.of("WIP"));
         if (!isPatchouliLoaded)
-            tooltip.add(new TranslatableText("item.xps.patchouli_book.tooltip"));
+            tooltip.add(Text.translatable("item.xps.patchouli_book.tooltip"));
     }
 }
 

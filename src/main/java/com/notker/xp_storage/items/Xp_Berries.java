@@ -9,10 +9,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 
@@ -50,12 +48,12 @@ public class Xp_Berries extends Item {
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         super.appendTooltip(stack,world,tooltip,tooltipContext);
 
-        tooltip.add(new TranslatableText("item.xps.more.info.tooltip"));
+        tooltip.add(Text.translatable("item.xps.more.info.tooltip"));
         if (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), XpStorage.shiftKey)) {
-            tooltip.remove(new TranslatableText("item.xps.more.info.tooltip"));
+            tooltip.remove(Text.translatable("item.xps.more.info.tooltip"));
 
-            tooltip.add(new TranslatableText("item.tooltip.xp_berrie", XpStorage.XP_PER_BERRIE).formatted(Formatting.WHITE));
-            tooltip.add(new TranslatableText("item.tooltip.xp_berrie_sneak").formatted(Formatting.AQUA));
+            tooltip.add(Text.translatable("item.tooltip.xp_berrie", XpStorage.XP_PER_BERRIE).formatted(Formatting.WHITE));
+            tooltip.add(Text.translatable("item.tooltip.xp_berrie_sneak").formatted(Formatting.AQUA));
         }
 
 

@@ -11,7 +11,7 @@ import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Matrix4f;
@@ -34,7 +34,7 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
         //System.out.println(entity);
         if(entity != null && entity.getPos() != null && rtr != null && rtr.getType() == HitResult.Type.BLOCK && ((BlockHitResult)rtr).getBlockPos() != null && ((BlockHitResult)rtr).getBlockPos().equals(entity.getPos()))
         {
-            TranslatableText levelsString = XpFunctions.xp_to_text(entity.getContainerExperience());
+            Text levelsString = XpFunctions.xp_to_text(entity.getContainerExperience());
             //TranslatableText levelsString = XpFunctions.xp_to_text(Integer.MAX_VALUE);
             float opacity = MinecraftClient.getInstance().options.getTextBackgroundOpacity(0.25f);
             int j = (int)(opacity * 255.0F) << 24;

@@ -11,7 +11,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Util;
 import net.minecraft.world.World;
 
@@ -36,9 +35,9 @@ public class StorageBlockItem extends BlockItem {
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         if (itemStack.hasNbt() && itemStack.getNbt() != null) {
 
-            tooltip.add(new TranslatableText("item.xps.more.info.tooltip"));
+            tooltip.add(Text.translatable("item.xps.more.info.tooltip"));
             if (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), XpStorage.shiftKey)) {
-                tooltip.remove(new TranslatableText("item.xps.more.info.tooltip"));
+                tooltip.remove(Text.translatable("item.xps.more.info.tooltip"));
 
                 NbtCompound comp = itemStack.getNbt().getCompound(ModBlocks.TAG_ID);
                 if (comp.isEmpty()) {
@@ -48,7 +47,7 @@ public class StorageBlockItem extends BlockItem {
                 UUID id = comp.getUuid("player_uuid");
                 if (!id.equals(Util.NIL_UUID)) {
                     String playerName = comp.getString("playerName");
-                    tooltip.add(new TranslatableText("item.tooltip.owner", playerName));
+                    tooltip.add(Text.translatable("item.tooltip.owner", playerName));
                 }
                 int storedXP;
 
@@ -64,7 +63,7 @@ public class StorageBlockItem extends BlockItem {
                 }
 
                 if (comp.getBoolean("vacuum")) {
-                    tooltip.add(new TranslatableText("text.storageBlock.vacuum"));
+                    tooltip.add(Text.translatable("text.storageBlock.vacuum"));
                 }
 
             }

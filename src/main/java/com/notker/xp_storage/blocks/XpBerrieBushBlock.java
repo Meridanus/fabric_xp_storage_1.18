@@ -18,8 +18,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-import java.util.Random;
-
 public class XpBerrieBushBlock extends CropBlock {
     private static final VoxelShape[] AGE_TO_SHAPE = new VoxelShape[]{
             Block.createCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 5.0D, 12.0D),
@@ -63,16 +61,19 @@ public class XpBerrieBushBlock extends CropBlock {
         return state.get(AGE) < max_age;
     }
 
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+
+    @Override
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, net.minecraft.util.math.random.Random random) {
+        //super.randomTick(state, world, pos, random);
         int i = state.get(AGE);
         if (i < max_age && random.nextInt(10) == 0) {
             state = state.with(AGE, i + 1);
             world.setBlockState(pos, state, 2);
         }
-
     }
 
-    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
+    @Override
+    public boolean canGrow(World world, net.minecraft.util.math.random.Random random, BlockPos pos, BlockState state) {
         return true;
     }
 
@@ -84,10 +85,12 @@ public class XpBerrieBushBlock extends CropBlock {
         return state.get(AGE) > max_age - 2;
     }
 
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
+    @Override
+    public void grow(ServerWorld world, net.minecraft.util.math.random.Random random, BlockPos pos, BlockState state) {
         int i = Math.min(max_age, state.get(AGE) + 1);
         world.setBlockState(pos, state.with(AGE, i), 2);
     }
+
 
     public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
         return new ItemStack(this.getSeedsItem());
@@ -115,7 +118,7 @@ public class XpBerrieBushBlock extends CropBlock {
     }
 
     @Override
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, net.minecraft.util.math.random.Random random) {
         super.randomDisplayTick(state, world, pos, random);
         if (isFullGrown(state) && random.nextInt(20) == 0) {
 
@@ -126,4 +129,5 @@ public class XpBerrieBushBlock extends CropBlock {
             world.addParticle(ParticleTypes.SCRAPE,  targetX, targetY, targetZ, 0.1,  1.3, 0.1);
         }
     }
+
 }
