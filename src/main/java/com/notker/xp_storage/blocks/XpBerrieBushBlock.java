@@ -95,7 +95,7 @@ public class XpBerrieBushBlock extends CropBlock {
 
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        dropStack(world, pos, new ItemStack(ModItems.XP_BERRIES_SEEDS, 1));
+        //dropStack(world, pos, new ItemStack(ModItems.XP_BERRIES_SEEDS, 1));
         super.onBreak(world, pos, state, player);
     }
 

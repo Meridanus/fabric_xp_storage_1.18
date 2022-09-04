@@ -209,7 +209,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
 
             // Only Survival Actions
-            if (isSurvival) {
+            //if (isSurvival) {
 
                 // Redstone Torch
                 if (mainHand.isOf(Items.REDSTONE_TORCH)) {
@@ -263,7 +263,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
                     return repairItem(world, pos, tile, mainHand);
                 }
 
-            }
+           // }
 
         }
 
