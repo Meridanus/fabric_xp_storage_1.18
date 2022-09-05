@@ -1,0 +1,24 @@
+{
+  "fabric:load_conditions": [
+
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "create"
+      ]
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "create:experience_nugget"
+    }
+  ],
+  "results": [
+    {
+      "fluid": "xps:xp_fluid",
+      "amount": 2430
+    }
+  ],
+  "heatRequirement": "heated"
+}
