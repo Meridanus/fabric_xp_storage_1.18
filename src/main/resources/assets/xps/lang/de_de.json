@@ -63,9 +63,11 @@
   "page.text.info.vacuum.detail": "Die Glassblöcke zeigen den Vakuumradius. 9x5x9 Blöcke",
 
   "block.xps.xp": "Erfahrung",
-  "fluid.xps.xp_fluid": "Flüssige Erfahrung",
+  "block.xps.xp_fluid": "Flüssige Erfahrung",
   "block.xps.block_xp_obelisk": "EP-Lager",
   "block.xps.block_soul_copper": "Seelenkupferblock",
+
+  "fluid.xps.xp_fluid": "Flüssige Erfahrung",
 
   "itemGroup.xps.general": "EP-Lager",
 
