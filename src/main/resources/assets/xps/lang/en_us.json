@@ -64,7 +64,7 @@
 
   "block.xps.block_xp_obelisk": "XP Storage",
   "block.xps.xp": "Experience",
-  "block.xps.xp_fluid": "Liquid Experience",
+  "fluid.xps.xp_fluid": "Liquid Experience",
   "block.xps.block_soul_copper": "Block of Soulcopper",
 
   "itemGroup.xps.general": "XP Storage",
