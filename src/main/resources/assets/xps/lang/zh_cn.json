@@ -47,7 +47,7 @@
   "handbook.tooltip.age5": "生长程度5",
   "handbook.tooltip.age6": "生长程度6",
   "handbook.tooltip.age7": "生长程度7",
-  "handbook.tooltip.shapeless": "不成形的",
+  "handbook.tooltip.shapeless": "无序合成",
 
   "page.text.info.description": "经验存储由神奇的魂铜制成。$(br)将其放置后，便可以用经验转换器或流体运输的方式存入/取出经验值$(br2)$(l)注意：$()手持的经验转换器数量决定了存入/取出经验的效率。",
   "page.text.info.insert_heading": "存入经验",
