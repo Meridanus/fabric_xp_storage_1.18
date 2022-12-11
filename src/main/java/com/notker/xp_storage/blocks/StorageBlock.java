@@ -78,7 +78,8 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (state.get(Properties.WATERLOGGED)) {
             //world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
-            world.createAndScheduleFluidTick(pos, Fluids.WATER,Fluids.WATER.getTickRate(world));
+            //world.createAndScheduleFluidTick(pos, Fluids.WATER,Fluids.WATER.getTickRate(world));
+            world.getFluidTickScheduler().isTicking(pos, Fluids.WATER);
         }
 
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
@@ -97,7 +98,8 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
 
 
             //world.getFluidTickScheduler().schedule(pos, fluidState.getFluid(), fluidState.getFluid().getTickRate(world));
-            world.createAndScheduleFluidTick(pos, fluidState.getFluid(), fluidState.getFluid().getTickRate(world));
+            //world.createAndScheduleFluidTick(pos, fluidState.getFluid(), fluidState.getFluid().getTickRate(world));
+            world.getFluidTickScheduler().isTicking(pos, Fluids.WATER);
             return true;
         } else {
             return false;
@@ -457,7 +459,8 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
                 tile.toUpdatePacket();
             }
 
-            world.playSound(null, pos, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, 0.125f, 1f);
+            //world.playSound(null, pos, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, 0.125f, 1f);
+            world.playSound(null, pos, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE.value(), SoundCategory.BLOCKS, 0.125f, 1f);
         }
         tile.isAuthPlayer = false;
         return ActionResult.SUCCESS;

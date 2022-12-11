@@ -7,12 +7,18 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
+import net.minecraft.world.World;
 
 public class LiquidXP extends LiquidXPAbstract {
 
     @Override
     public Fluid getStill() {
         return ModFluids.LIQUID_XP;
+    }
+
+    @Override
+    protected boolean isInfinite(World world) {
+        return false;
     }
 
     @Override

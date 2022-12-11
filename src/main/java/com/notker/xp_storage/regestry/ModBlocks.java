@@ -9,9 +9,10 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class ModBlocks {
 
@@ -44,12 +45,12 @@ public class ModBlocks {
 
     @SuppressWarnings("UnstableApiUsage")
     public static void registerBlocks() {
-        Registry.register(Registry.BLOCK, new Identifier(XpStorage.MOD_ID, "block_xp_obelisk"), BLOCK_XP_OBELISK);
+        Registry.register(Registries.BLOCK, new Identifier(XpStorage.MOD_ID, "block_xp_obelisk"), BLOCK_XP_OBELISK);
 
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(XpStorage.MOD_ID, "entity_xp_obelisk"), STORAGE_BLOCK_ENTITY);
-        Registry.register(Registry.BLOCK, new Identifier(XpStorage.MOD_ID, "block_soul_copper"), BLOCK_SOUL_COPPER);
+        Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(XpStorage.MOD_ID, "entity_xp_obelisk"), STORAGE_BLOCK_ENTITY);
+        Registry.register(Registries.BLOCK, new Identifier(XpStorage.MOD_ID, "block_soul_copper"), BLOCK_SOUL_COPPER);
 
-        Registry.register(Registry.BLOCK, new Identifier(XpStorage.MOD_ID,"xp_berrie_bush_block"), XP_BERRIE_BUSH_BLOCK);
+        Registry.register(Registries.BLOCK, new Identifier(XpStorage.MOD_ID,"xp_berrie_bush_block"), XP_BERRIE_BUSH_BLOCK);
 
         //BlockEntityType<StorageBlockEntity> STORAGE = null;
 //        FluidStorage.SIDED.registerForBlockEntity((storage, direction) -> switch (direction) {

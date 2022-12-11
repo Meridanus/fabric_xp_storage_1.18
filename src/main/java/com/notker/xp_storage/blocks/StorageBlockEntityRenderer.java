@@ -14,8 +14,8 @@ import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Vec3f;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 import java.util.Objects;
 
