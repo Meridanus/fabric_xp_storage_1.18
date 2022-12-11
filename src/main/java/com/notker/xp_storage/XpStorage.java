@@ -10,6 +10,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("UnstableApiUsage")
 public class XpStorage implements ModInitializer {
@@ -20,6 +22,8 @@ public class XpStorage implements ModInitializer {
     public static final  Long MB_PER_BERRIE = XP_PER_BERRIE * MB_PER_XP;
 
     public static final int shiftKey = 340;
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     public static final ItemGroup ITEM_GROUP = FabricItemGroup.builder(new Identifier(MOD_ID, "general"))
             .displayName(Text.literal("Test Group Name"))
