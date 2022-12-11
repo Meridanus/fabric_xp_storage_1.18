@@ -38,8 +38,8 @@ public class XpStorageClient implements ClientModInitializer {
         //});
 
         FluidRenderHandlerRegistry.INSTANCE.register(ModFluids.LIQUID_XP, ModFluids.LIQUID_XP_FLOWING, new SimpleFluidRenderHandler(
-                new Identifier("xps:blocks/xp_still"),
-                new Identifier("xps:blocks/xp_flow"),
+                new Identifier("xps:block/xp_still"),
+                new Identifier("xps:block/xp_flow"),
                 0xCCFF00
         ));
 
