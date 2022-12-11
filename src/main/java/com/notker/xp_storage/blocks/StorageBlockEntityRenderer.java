@@ -14,6 +14,7 @@ import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.RotationAxis;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -70,8 +71,10 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
                 double offset = Math.sin((time + tickDelta) / 20.0) / 10.0;
                 matrices.translate(0.5, 0.40 + offset, 0.5);
 
-                Quaternionf quaternionf = (new Quaternionf()).rotateY((time + tickDelta) * 3);
-                matrices.multiply(quaternionf);
+                //Quaternionf quaternionf = (new Quaternionf()).rotateY((time + tickDelta) * 3);
+                //matrices.multiply(quaternionf);
+
+                matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((time + tickDelta) * 3));
 
                 int lightAbove = WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up());
                 MinecraftClient.getInstance().getItemRenderer().renderItem(displayItem, ModelTransformation.Mode.GROUND, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
