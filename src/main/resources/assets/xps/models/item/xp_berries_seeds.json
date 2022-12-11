@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "xps:items/xp_berries_seeds"
+    "layer0": "xps:item/xp_berries_seeds"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "xps:items/key"
+    "layer0": "xps:item/key"
   }
 }

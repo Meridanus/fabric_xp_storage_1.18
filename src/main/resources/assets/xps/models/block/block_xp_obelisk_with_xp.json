@@ -1,13 +1,13 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "block/block",
+	"parent": "minecraft:block/block",
 	"textures": {
-		"0": "xps:blocks/grid",
-		"2": "xps:blocks/block_xp_obelisk_side",
-		"3": "xps:blocks/block_xp_obelisk_plate_animation",
-		"4": "xps:blocks/block_xp_obelisk_skull",
-		"5": "xps:blocks/skull_animation",
-		"particle": "xps:blocks/block_xp_obelisk_side"
+		"0": "xps:block/grid",
+		"2": "xps:block/block_xp_obelisk_side",
+		"3": "xps:block/block_xp_obelisk_plate_animation",
+		"4": "xps:block/block_xp_obelisk_skull",
+		"5": "xps:block/skull_animation",
+		"particle": "xps:block/block_xp_obelisk_side"
 	},
 	"elements": [
 		{

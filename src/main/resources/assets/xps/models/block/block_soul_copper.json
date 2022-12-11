@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "xps:blocks/block_soul_copper"
+    "all": "xps:block/block_soul_copper"
   }
 }
