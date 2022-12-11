@@ -25,7 +25,7 @@ public class ModFluids {
         LIQUID_XP = Registry.register(Registries.FLUID, new Identifier(XpStorage.MOD_ID, "xp_fluid"), new LiquidXP.Still());
         LIQUID_XP_FLOWING = Registry.register(Registries.FLUID, new Identifier(XpStorage.MOD_ID, "flowing_xp"), new LiquidXP.Flowing());
         XP_BUCKET = Registry.register(Registries.ITEM, new Identifier(XpStorage.MOD_ID, "xp_bucket"),
-                new BucketItem(LIQUID_XP, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(XpStorage.ITEM_GROUP)));
+                new BucketItem(LIQUID_XP, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1)));
         XP_FLUID = Registry.register(Registries.BLOCK, new Identifier(XpStorage.MOD_ID, "xp_fluid"), new FluidBlock(LIQUID_XP, FabricBlockSettings
                 .of(Material.LAVA)
                 .noCollision()

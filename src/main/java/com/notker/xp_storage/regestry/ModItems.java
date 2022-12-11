@@ -13,23 +13,23 @@ import net.minecraft.util.Rarity;
 public class ModItems {
 
     //Items
-    public static final Item XP_ROD = new Item(new Item.Settings().group(XpStorage.ITEM_GROUP));
-    public static final Item SOUL_COPPER_BLEND = new Item(new Item.Settings().group(XpStorage.ITEM_GROUP));
-    public static final Item SOUL_COPPER_INGOT = new Item(new Item.Settings().group(XpStorage.ITEM_GROUP));
-    public static final Item SOUL_COPPER_NUGGET = new Item(new Item.Settings().group(XpStorage.ITEM_GROUP));
-    public static final Xp_removerItem XP_REMOVER = new Xp_removerItem(new Item.Settings().group(XpStorage.ITEM_GROUP));
-    public static final StorageItem INSPECTOR = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(1).rarity(Rarity.EPIC));
-    public static final StorageItem LOCK = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(16).rarity(Rarity.UNCOMMON));
-    public static final Xp_dust XP_DUST = new Xp_dust(new Item.Settings().group(XpStorage.ITEM_GROUP));
-    public static final StorageItem KEY = new StorageItem(new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(16).rarity(Rarity.UNCOMMON));
-    public static final Item HANDBOOK = new HandBookItem(new Item.Settings().group(XpStorage.ITEM_GROUP));
+    public static final Item XP_ROD = new Item(new Item.Settings());
+    public static final Item SOUL_COPPER_BLEND = new Item(new Item.Settings());
+    public static final Item SOUL_COPPER_INGOT = new Item(new Item.Settings());
+    public static final Item SOUL_COPPER_NUGGET = new Item(new Item.Settings());
+    public static final Xp_removerItem XP_REMOVER = new Xp_removerItem(new Item.Settings());
+    public static final StorageItem INSPECTOR = new StorageItem(new Item.Settings().maxCount(1).rarity(Rarity.EPIC));
+    public static final StorageItem LOCK = new StorageItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON));
+    public static final Xp_dust XP_DUST = new Xp_dust(new Item.Settings());
+    public static final StorageItem KEY = new StorageItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON));
+    public static final Item HANDBOOK = new HandBookItem(new Item.Settings());
 
-    public static final Xp_Berries XP_BERRIES = new Xp_Berries(new Item.Settings().group(XpStorage.ITEM_GROUP).food(new FoodComponent.Builder().hunger(2).saturationModifier(1f).snack().alwaysEdible().build()));
-    public static final Item XP_BERRIES_SEEDS = new AliasedBlockItem(ModBlocks.XP_BERRIE_BUSH_BLOCK, new Item.Settings().group(XpStorage.ITEM_GROUP).rarity(Rarity.UNCOMMON));
+    public static final Xp_Berries XP_BERRIES = new Xp_Berries(new Item.Settings().food(new FoodComponent.Builder().hunger(2).saturationModifier(1f).snack().alwaysEdible().build()));
+    public static final Item XP_BERRIES_SEEDS = new AliasedBlockItem(ModBlocks.XP_BERRIE_BUSH_BLOCK, new Item.Settings().rarity(Rarity.UNCOMMON));
 
     //Block Items
-    public static final StorageBlockItem BLOCK_XP_OBELISK = new StorageBlockItem(ModBlocks.BLOCK_XP_OBELISK, new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(16).rarity(Rarity.RARE));
-    public static final BlockItem BLOCK_SOUL_COPPER = new BlockItem(ModBlocks.BLOCK_SOUL_COPPER, new Item.Settings().group(XpStorage.ITEM_GROUP).maxCount(64));
+    public static final StorageBlockItem BLOCK_XP_OBELISK = new StorageBlockItem(ModBlocks.BLOCK_XP_OBELISK, new Item.Settings().maxCount(16).rarity(Rarity.RARE));
+    public static final BlockItem BLOCK_SOUL_COPPER = new BlockItem(ModBlocks.BLOCK_SOUL_COPPER, new Item.Settings().maxCount(64));
 
     public static void registerItems() {
         //Items
