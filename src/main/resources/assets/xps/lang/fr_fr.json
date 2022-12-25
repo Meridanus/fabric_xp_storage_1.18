@@ -87,12 +87,12 @@
   "item.tooltip.stack_size": "La quantité de mitigeur d'expérience stackée est égale à la quantité de niveau d'expérience échangée.",
   "item.tooltip.lock": "Utilisez le cadenas sur une cage à expérience pour la verrouiller.",
   "item.tooltip.key": "Utilisez la clé sur une cage verrouillée pour la débloquer.",
-  "item.tooltip.owner": "Propriétaire: %s",
+  "item.tooltip.owner": "§9Propriétaire:§r %s",
 
-  "item.debug_info.xp.container_info": "Expérience stockée: %s/%s",
-  "item.debug_info.xp.container_fill": "Remplie à: %s",
-  "item.debug_info.xp.container_no_owner": "Sans propriétaire",
-  "item.debug_info.xp.player_info": "Votre expérience: %s",
+  "item.debug_info.xp.container_info": "§eExpérience stockée:§r %s/%s",
+  "item.debug_info.xp.container_fill": "§eRemplie à:§r %s",
+  "item.debug_info.xp.container_no_owner": "§cSans propriétaire",
+  "item.debug_info.xp.player_info": "§eVotre expérience:§r %s",
 
   "xps.advancements.xp_obelisk.title": "Stockage à l'infini",
   "xps.advancements.xp_obelisk.description": "Fabriquez une cage à expérience"
