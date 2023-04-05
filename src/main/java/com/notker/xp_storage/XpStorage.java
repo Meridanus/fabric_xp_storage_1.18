@@ -28,7 +28,7 @@ public class XpStorage implements ModInitializer {
     public static final ItemGroup ITEM_GROUP = FabricItemGroup.builder(new Identifier(MOD_ID, "general"))
             .displayName(Text.translatable("block.xps.block_xp_obelisk"))
             .icon(() -> new ItemStack(ModItems.BLOCK_XP_OBELISK))
-            .entries((enabledFeatures, entries, operatorEnabled) -> {
+            .entries((enabledFeatures, entries) -> {
                 entries.add(ModItems.BLOCK_XP_OBELISK);
                 entries.add(ModItems.XP_BERRIES);
                 entries.add(ModItems.XP_ROD);
