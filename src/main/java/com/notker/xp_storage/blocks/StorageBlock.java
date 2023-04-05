@@ -70,6 +70,11 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
         boolean bl = fluidState.getFluid() == Fluids.WATER;
+        // When player is sneaking place the block in Facing direction
+        if (Objects.requireNonNull(ctx.getPlayer()).isSneaking()) {
+            return this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getPlayerFacing()).with(Properties.WATERLOGGED, bl);
+        }
+        // If not place it the opposite way
         return this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getPlayerFacing().getOpposite()).with(Properties.WATERLOGGED, bl);
     }
 
