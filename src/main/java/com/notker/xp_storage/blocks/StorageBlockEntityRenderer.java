@@ -1,13 +1,14 @@
 package com.notker.xp_storage.blocks;
 
 import com.notker.xp_storage.XpFunctions;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -16,8 +17,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.RotationAxis;
 import org.joml.Matrix4f;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
 
 import java.util.Objects;
 
@@ -48,8 +47,9 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
             matrices.multiply(MinecraftClient.getInstance().getEntityRenderDispatcher().camera.getRotation());
             matrices.scale(-0.0125F, -0.0125F, 0.0125F);
             positionMatrix = matrices.peek().getPositionMatrix();
-            mc.textRenderer.draw(levelsString, halfWidth, 0, 553648127, false, positionMatrix, vertexConsumers, true, j, light); //Shadow
-            mc.textRenderer.draw(levelsString, halfWidth, 0, -1, false, positionMatrix, vertexConsumers, false, 0, light); //String
+
+            mc.textRenderer.draw(levelsString, halfWidth, 0, 553648127, false, positionMatrix, vertexConsumers, TextRenderer.TextLayerType.SEE_THROUGH, j, light); //Shadow
+            mc.textRenderer.draw(levelsString, halfWidth, 0, -1, false, positionMatrix, vertexConsumers, TextRenderer.TextLayerType.NORMAL , 0, light); //String
             matrices.pop();
         }
 
@@ -77,7 +77,7 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<StorageBl
                 matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((time + tickDelta) * 3));
 
                 int lightAbove = WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up());
-                MinecraftClient.getInstance().getItemRenderer().renderItem(displayItem, ModelTransformation.Mode.GROUND, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
+                MinecraftClient.getInstance().getItemRenderer().renderItem(displayItem, ModelTransformationMode.GROUND, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, entity.getWorld(), 0);
                 matrices.pop();
             }
         } catch (Exception e) {

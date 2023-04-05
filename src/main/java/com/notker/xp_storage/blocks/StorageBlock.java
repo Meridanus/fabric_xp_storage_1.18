@@ -70,7 +70,7 @@ public class StorageBlock extends BlockWithEntity implements BlockEntityProvider
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
         boolean bl = fluidState.getFluid() == Fluids.WATER;
-        return this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getPlayerFacing().getOpposite()).with(Properties.WATERLOGGED, bl);
+        return this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getPlayerLookDirection().getOpposite()).with(Properties.WATERLOGGED, bl);
     }
 
 
