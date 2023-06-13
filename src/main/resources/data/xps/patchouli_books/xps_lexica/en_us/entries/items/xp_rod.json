@@ -11,8 +11,8 @@
       "text": "page.text.crafting_material"
     },
     {
-      "type": "smithing",
-      "recipe": "xps:xp_rod_smithing"
+      "type": "crafting",
+      "recipe": "xps:xp_rod"
     }
   ]
 }
