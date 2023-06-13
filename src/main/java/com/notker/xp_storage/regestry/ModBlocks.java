@@ -17,25 +17,28 @@ import net.minecraft.util.Identifier;
 public class ModBlocks {
 
     public static final StorageBlock BLOCK_XP_OBELISK = new StorageBlock(FabricBlockSettings
-            .of(Material.METAL)
+            .create()
             .sounds(BlockSoundGroup.METAL)
             .strength(0.25f, 1000.0f)
             .requiresTool()
             .luminance(10)
+
     );
 
     public static final Block BLOCK_SOUL_COPPER = new Block(FabricBlockSettings
-            .of(Material.METAL)
+            .create()
             .sounds(BlockSoundGroup.METAL)
             .strength(0.25f, 1000f)
             .requiresTool()
+
+
     );
 
 
     public static final String TAG_ID = "BlockEntityTag";
     public static final BlockEntityType<StorageBlockEntity> STORAGE_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(StorageBlockEntity::new, BLOCK_XP_OBELISK).build(null);
 
-    public static final CropBlock XP_BERRIE_BUSH_BLOCK = new XpBerrieBushBlock(FabricBlockSettings.of(Material.PLANT)
+    public static final CropBlock XP_BERRIE_BUSH_BLOCK = new XpBerrieBushBlock(FabricBlockSettings.create()
             .nonOpaque()
             .noCollision()
             .ticksRandomly()
