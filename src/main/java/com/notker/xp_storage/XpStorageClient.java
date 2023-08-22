@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.util.Identifier;
@@ -20,7 +21,7 @@ public class XpStorageClient implements ClientModInitializer {
         //BlockEntityRendererRegistry.register(ModBlocks.STORAGE_BLOCK_ENTITY, StorageBlockEntityRenderer::new); old
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BLOCK_XP_OBELISK, RenderLayer.getCutout());
 
-        FabricModelPredicateProviderRegistry.register(ModItems.XP_REMOVER, new Identifier("active"), (itemStack, clientWorld, livingEntity, count) -> {
+        ModelPredicateProviderRegistry.register(ModItems.XP_REMOVER, new Identifier("active"), (itemStack, clientWorld, livingEntity, count) -> {
             if (livingEntity == null) {
                 return 0.0F;
             }
